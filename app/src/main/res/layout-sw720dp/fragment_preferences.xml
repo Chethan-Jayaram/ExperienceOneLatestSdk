@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <TextView
+       android:fontFamily="sans-serif-medium"
+       android:textStyle="italic"
+       android:id="@+id/tv_text"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="@string/set_your_prefrences"
+       android:textSize="24sp"
+       android:textColor="@color/black"
+       android:layout_margin="30dp"/>
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/pref_recycler_view"
+       android:layout_below="@+id/tv_text"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:paddingBottom="20dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+
+
+   <com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id="@+id/fab_pref_add"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/tv_add_pref"
+       android:layout_centerHorizontal="true"
+       android:src="@drawable/ic_add_circle"
+       app:backgroundTint="@color/gray" />
+
+   <TextView
+       android:fontFamily="sans-serif"
+       android:id="@+id/tv_add_pref"
+       android:layout_alignParentBottom="true"
+       android:layout_marginTop="5dp"
+       android:layout_marginBottom="15dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="Add Prefrence"
+       android:textAlignment="center"
+       android:textColor="@color/black"
+       android:textSize="20sp"/>
+   <ProgressBar
+       android:visibility="gone"
+       android:id="@+id/loading"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_centerVertical="true"/>
+</RelativeLayout>

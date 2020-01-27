@@ -1,0 +1,30 @@
+.md-header{
+    background-color: #1f2d38 !important;
+    border-bottom: 5px solid #00a0d0;
+
+}
+.md-nav__link {
+    color: #00a0d0 !important;
+}
+
+.md-nav__link--active {
+    color: #000000 !important;
+    text-indent: 5px;
+}
+
+.md-tabs{
+    background-color: #00a0d0 !important;
+}
+.md-footer{
+    background-color: #00a0d0 !important;
+}
+.md-footer-copyright{
+    visibility: hidden;
+}
+.md-footer-nav{
+    border-top: 5px solid #00a0d0;
+    background-color: #1f2d38 !important;
+}
+.md-footer-meta {
+    background-color: #1f2d38 !important;
+}

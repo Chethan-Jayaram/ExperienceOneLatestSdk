@@ -1,0 +1,862 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Developer documentation">
+      
+      
+        <link rel="canonical" href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/errors/sdk-errors/index.html">
+      
+      
+        <meta name="author" content="ASSA ABLOY Mobile Services">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.verifyOtp.none" content="No matching documents">
+      
+        <meta name="lang:search.verifyOtp.one" content="1 matching document">
+      
+        <meta name="lang:search.verifyOtp.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+    
+    
+      
+        <title>SDK errors - Seos Mobile SDK for Android</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.78aab2dc.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+      <link rel="stylesheet" href="../../assets/css/extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#background" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/" title="Seos Mobile SDK for Android" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">android</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Seos Mobile SDK for Android
+              </span>
+              <span class="md-header-nav__topic">
+                SDK errors
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-verifyOtp" data-md-component="verifyOtp">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../index.html" title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../getting-started/getting-started/index.html" title="Getting started" class="md-tabs__link">
+          Getting started
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../api-changes/migrating-3-4/index.html" title="API Changes" class="md-tabs__link">
+          API Changes
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="index.html" title="Error codes" class="md-tabs__link md-tabs__link--active">
+          Error codes
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../samples/remote-session/index.html" title="Samples" class="md-tabs__link">
+          Samples
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../seos-access-api-samples/read-adf-metadata/index.html" title="Seos Access API samples" class="md-tabs__link">
+          Seos Access API samples
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon">android</i>
+      
+    </span>
+    Seos Mobile SDK for Android
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../index.html" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/getting-started/index.html" title="Getting started with the SDK" class="md-nav__link">
+      Getting started with the SDK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/logging/index.html" title="Logging" class="md-nav__link">
+      Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/proguard/index.html" title="ProGuard" class="md-nav__link">
+      ProGuard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/permissions/index.html" title="Removing permissions" class="md-nav__link">
+      Removing permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/custom-tsm/index.html" title="Custom TSM" class="md-nav__link">
+      Custom TSM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      API Changes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API Changes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-3-4/index.html" title="3.x to 4.0" class="md-nav__link">
+      3.x to 4.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-4-5/index.html" title="4.x to 5.0" class="md-nav__link">
+      4.x to 5.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-5-6/index.html" title="5.x to 6.0" class="md-nav__link">
+      5.x to 6.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-6_6-6_7/index.html" title="6.6.x to 6.7.0" class="md-nav__link">
+      6.6.x to 6.7.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-6_7-7_0/index.html" title="6.7+ to 7.0" class="md-nav__link">
+      6.7+ to 7.0
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Error codes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Error codes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        SDK errors
+      </label>
+    
+    <a href="index.html" title="SDK errors" class="md-nav__link md-nav__link--active">
+      SDK errors
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" title="Background" class="md-nav__link">
+    Background
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-error-code" title="Public error code" class="md-nav__link">
+    Public error code
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../status-words/index.html" title="Seos status words" class="md-nav__link">
+      Seos status words
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gatt-errors/index.html" title="GATT errors" class="md-nav__link">
+      GATT errors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Samples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Samples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../samples/remote-session/index.html" title="Remote session" class="md-nav__link">
+      Remote session
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Seos Access API samples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Seos Access API samples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/read-adf-metadata/index.html" title="Read ADF metadata" class="md-nav__link">
+      Read ADF metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/read-write-tags-on-adf/index.html" title="Read/Write tag on ADF" class="md-nav__link">
+      Read/Write tag on ADF
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/accessing-remote-seos/index.html" title="Accessing a Seos over HTTP" class="md-nav__link">
+      Accessing a Seos over HTTP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/credential-for-test/index.html" title="Credential for test" class="md-nav__link">
+      Credential for test
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/ake-session-setup/index.html" title="AKE session setup" class="md-nav__link">
+      AKE session setup
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" title="Background" class="md-nav__link">
+    Background
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-error-code" title="Public error code" class="md-nav__link">
+    Public error code
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>SDK errors</h1>
+                
+                <h3 id="background">Background</h3>
+<p>These are the error codes that is returned by the SDK</p>
+<h3 id="public-error-code">Public error code</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Recommended action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INTERNAL_ERROR</code></td>
+<td>An internal error occurred</td>
+<td>Retry or contact the key administrator if problem persists.</td>
+</tr>
+<tr>
+<td><code>INVALID_INVITATION_CODE</code></td>
+<td>The TSM reported that the invitation code was invalid.</td>
+<td>Retype or contact the key administrator.</td>
+</tr>
+<tr>
+<td><code>DEVICE_SETUP_FAILED</code></td>
+<td>The TSM failed to install the endpoint with a fatal error (FATAL, the invitation code is consumed and can not be reused).</td>
+<td>Contact the key administrator and request a new invitation code.</td>
+</tr>
+<tr>
+<td><code>SERVER_UNREACHABLE</code></td>
+<td>The server communication failed. This is normally because of a network problem.</td>
+<td>Check internet connectivity or try again later.</td>
+</tr>
+<tr>
+<td><code>SDK_INCOMPATIBLE</code></td>
+<td>Server replied API INCOMPATIBLE. The TSM reported that the current version of the SDK is too old.</td>
+<td>upgrade the application.</td>
+</tr>
+<tr>
+<td><code>SDK_BUSY</code></td>
+<td>One asynchronous method of the API is already running.</td>
+<td>Retry previous action.</td>
+</tr>
+<tr>
+<td><code>DEVICE_NOT_ELIGIBLE</code></td>
+<td>The TSM replied NOT ELIGIBLE (FATAL during Setup, the invitation code is consumed and can not be reused).</td>
+<td>Contact the key administrator.</td>
+</tr>
+<tr>
+<td><code>ENDPOINT_NOT_SETUP</code></td>
+<td>Attempt to invoke a method which requires an endpoint that is setup.</td>
+<td>Contact the key administrator and request an invitation code.</td>
+</tr>
+<tr>
+<td><code>VAULT_CORRUPT</code></td>
+<td>The local Seos vault was corrupted and has been reset.</td>
+<td>Retry or contact the key administrator if problem persists.</td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../api-changes/migrating-6_7-7_0/index.html" title="6.7+ to 7.0" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                6.7+ to 7.0
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../status-words/index.html" title="Seos status words" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Seos status words
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/" class="md-footer-social__link fa fa-website"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.02434462.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

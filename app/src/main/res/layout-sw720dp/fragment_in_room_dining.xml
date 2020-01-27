@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="italic"
+            android:id="@+id/tv_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/in_room_dinning"
+            android:textColor="@color/black"
+            android:textSize="22sp"/>
+        <TextView
+            android:fontFamily="sans-serif"
+            android:id="@+id/dining_header_desc"
+            android:layout_below="@+id/tv_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/dining_header_desc"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+        <TextView
+            android:fontFamily="sans-serif"
+            android:id="@+id/dining_desc"
+            android:layout_below="@+id/dining_header_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/dinning_desc"
+            android:textSize="16sp"/>
+        <GridView
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/dining_desc"
+            android:id="@+id/dinning_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="150dp"
+            android:gravity="center"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform"
+            android:verticalSpacing="8dp"/>
+    </RelativeLayout>
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

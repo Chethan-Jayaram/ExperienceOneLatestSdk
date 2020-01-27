@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-medium"
+        android:id="@+id/tv_hotel_directory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/guest_service_directory"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="22sp"
+        android:textColor="@color/black" />
+    <TextView
+        android:fontFamily="sans-serif"
+        android:id="@+id/tv_hotel_directory_desc"
+        android:layout_below="@+id/tv_hotel_directory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/guest_service_desc"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/tv_hotel_directory_desc"
+        android:nestedScrollingEnabled="false"
+        android:id="@+id/recycler_hotel_directory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

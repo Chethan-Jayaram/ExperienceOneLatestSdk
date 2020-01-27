@@ -1,0 +1,1137 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Developer documentation">
+      
+      
+        <link rel="canonical" href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/getting-started/getting-started/index.html">
+      
+      
+        <meta name="author" content="ASSA ABLOY Mobile Services">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.verifyOtp.none" content="No matching documents">
+      
+        <meta name="lang:search.verifyOtp.one" content="1 matching document">
+      
+        <meta name="lang:search.verifyOtp.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+    
+    
+      
+        <title>Getting started with the SDK - Seos Mobile SDK for Android</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.78aab2dc.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+      <link rel="stylesheet" href="../../assets/css/extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#android-library" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/" title="Seos Mobile SDK for Android" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">android</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Seos Mobile SDK for Android
+              </span>
+              <span class="md-header-nav__topic">
+                Getting started with the SDK
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-verifyOtp" data-md-component="verifyOtp">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../index.html" title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="index.html" title="Getting started" class="md-tabs__link md-tabs__link--active">
+          Getting started
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../api-changes/migrating-3-4/index.html" title="API Changes" class="md-tabs__link">
+          API Changes
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../errors/sdk-errors/index.html" title="Error codes" class="md-tabs__link">
+          Error codes
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../samples/remote-session/index.html" title="Samples" class="md-tabs__link">
+          Samples
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../seos-access-api-samples/read-adf-metadata/index.html" title="Seos Access API samples" class="md-tabs__link">
+          Seos Access API samples
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon">android</i>
+      
+    </span>
+    Seos Mobile SDK for Android
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../index.html" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="index.html" title="Getting started with the SDK" class="md-nav__link md-nav__link--active">
+      Getting started with the SDK
+    </a>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../logging/index.html" title="Logging" class="md-nav__link">
+      Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proguard/index.html" title="ProGuard" class="md-nav__link">
+      ProGuard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../permissions/index.html" title="Removing permissions" class="md-nav__link">
+      Removing permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../custom-tsm/index.html" title="Custom TSM" class="md-nav__link">
+      Custom TSM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      API Changes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API Changes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-3-4/index.html" title="3.x to 4.0" class="md-nav__link">
+      3.x to 4.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-4-5/index.html" title="4.x to 5.0" class="md-nav__link">
+      4.x to 5.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-5-6/index.html" title="5.x to 6.0" class="md-nav__link">
+      5.x to 6.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-6_6-6_7/index.html" title="6.6.x to 6.7.0" class="md-nav__link">
+      6.6.x to 6.7.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-changes/migrating-6_7-7_0/index.html" title="6.7+ to 7.0" class="md-nav__link">
+      6.7+ to 7.0
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Error codes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Error codes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../errors/sdk-errors/index.html" title="SDK errors" class="md-nav__link">
+      SDK errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../errors/status-words/index.html" title="Seos status words" class="md-nav__link">
+      Seos status words
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../errors/gatt-errors/index.html" title="GATT errors" class="md-nav__link">
+      GATT errors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Samples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Samples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../samples/remote-session/index.html" title="Remote session" class="md-nav__link">
+      Remote session
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Seos Access API samples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Seos Access API samples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/read-adf-metadata/index.html" title="Read ADF metadata" class="md-nav__link">
+      Read ADF metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/read-write-tags-on-adf/index.html" title="Read/Write tag on ADF" class="md-nav__link">
+      Read/Write tag on ADF
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/accessing-remote-seos/index.html" title="Accessing a Seos over HTTP" class="md-nav__link">
+      Accessing a Seos over HTTP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/credential-for-test/index.html" title="Credential for test" class="md-nav__link">
+      Credential for test
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../seos-access-api-samples/ake-session-setup/index.html" title="AKE session setup" class="md-nav__link">
+      AKE session setup
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h2 id="android-library">Android library</h2>
+<p>The SDK is provided as a single Android library (.aar) file. The SDK file comes in two variants. The one with the <em>-debug</em> suffix is intended to be used during development.
+The production version of the .aar, with the <em>-release</em> suffix, contains anti-tampering guards, one of them crashes the application if a debugger is connected. To be able to debug applications during development a <em>-debug</em> version is therefore provided.
+Make sure to switch implementation before publishing your application!</p>
+<p>In your apps <code>build.gradle</code> file:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">flatDir</span> <span class="o">{</span>
+        <span class="n">dirs</span> <span class="s1">&#39;libs&#39;</span>
+    <span class="o">}</span>
+<span class="c1">//...</span>
+<span class="o">}</span>
+<span class="c1">//...</span>
+<span class="n">dependencies</span> <span class="o">{</span>
+  <span class="c1">//aar file from libs dir. Name and version is from the filename.</span>
+  <span class="n">debugImplementation</span> <span class="nl">name:</span> <span class="s1">&#39;mobilekeys-android-sdk-debug&#39;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">&#39;x.x.x&#39;</span><span class="o">,</span> <span class="nl">ext:</span> <span class="s1">&#39;aar&#39;</span>
+  <span class="n">releaseImplementation</span> <span class="nl">name:</span> <span class="s1">&#39;mobilekeys-android-sdk-release&#39;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">&#39;x.x.x&#39;</span><span class="o">,</span> <span class="nl">ext:</span> <span class="s1">&#39;aar&#39;</span>
+  <span class="c1">// Seos Mobile SDK transistive dependencies</span>
+  <span class="n">implementation</span> <span class="s1">&#39;org.bouncycastle:bcprov-jdk15on:1.58&#39;</span>
+  <span class="n">implementation</span> <span class="s1">&#39;com.google.code.gson:gson:2.2.2&#39;</span>
+  <span class="n">implementation</span> <span class="s1">&#39;org.slf4j:slf4j-api:1.7.7&#39;</span>
+  <span class="n">implementation</span> <span class="s1">&#39;com.squareup.okhttp3:okhttp:3.9.1&#39;</span>
+  <span class="n">implementation</span> <span class="s2">&quot;com.mixpanel.android:mixpanel-android:4.8.7@aar&quot;</span>
+  <span class="c1">//Enable logging from Seos Mobile SDK</span>
+  <span class="n">implementation</span> <span class="s1">&#39;org.slf4j:slf4j-android:1.7.7&#39;</span>
+  <span class="c1">//...</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="back-up-user-dataauto-backup">Back Up User Data/Auto Backup</h2>
+<p>The Seos Mobile Android SDK is storing encrypted, non-transferable data on the device. Using the Auto Backup functionality
+provided by default in Android 6.0 (API level 23) and later is therefore not supported. The easiest way to disable it is 
+by putting the following in your AndroidManifest.xml </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">&lt;manifest</span> <span class="err">...</span> <span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;application</span> <span class="na">android:allowBackup=</span><span class="s">&quot;false&quot;</span> <span class="err">...</span> <span class="nt">&gt;</span>
+        ...
+    <span class="nt">&lt;/application&gt;</span>
+<span class="nt">&lt;/manifest&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<p>If your application targets Android 6.0 (API level 23) <code>android:allowBackup</code> will default to <code>true</code>, so you will need to 
+set the above explicitly.</p>
+<h3 id="enabling-auto-backup">Enabling Auto Backup</h3>
+<p>If you need to enable Auto Backup for your application you need to make certain adjustments to your app configuration. 
+As of Seos Mobile SDK 6.5.1 this is done automatically by the SDK, but if you are using an earlier version, or if 
+you need to exclude other files from being backed up, you need to manually specify all of them.</p>
+<p>This is done by following the instructions on <a href="https://developer.android.com/guide/topics/data/autobackup.html#IncludingFiles">https://developer.android.com/guide/topics/data/autobackup.html#IncludingFiles</a></p>
+<p>Your fullBackupContent resource <em>must</em> exclude the following files:  </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;full-backup-content&gt;</span>
+    <span class="nt">&lt;exclude</span> <span class="na">domain=</span><span class="s">&quot;sharedpref&quot;</span> <span class="na">path=</span><span class="s">&quot;soft-se.xml&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;exclude</span> <span class="na">domain=</span><span class="s">&quot;sharedpref&quot;</span> <span class="na">path=</span><span class="s">&quot;mobileKeysProperties.xml&quot;</span><span class="nt">/&gt;</span>
+    <span class="c">&lt;!--&lt;exclude domain=&quot;sharedpref&quot; path=&quot;YOUR_OWN_FILE.xml&quot;/&gt;--&gt;</span>
+
+<span class="nt">&lt;/full-backup-content&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<p>This will exclude the non-transferable data created by the SDK from the backup, while still backing up other data created by the app.</p>
+<h2 id="a-note-on-different-phone-models">A note on different phone models</h2>
+<p>The measured RSSI Values could differ between different phone model, BLE chipsets, phone antennas, and phone firmwares.</p>
+<p>On certain phones, NFC is configured to use the SIM card only. One example is certain Samsung phones after upgrading them to Android 5.x. On these phones, the NFC processing method needs to be changed to "Android" instead of SIM for HCE to work.</p>
+<h1 id="mobile-keys-api">Mobile keys API</h1>
+<p>The main class in the SDK is the <code>com.assaabloy.mobilekeys.api.MobileKeysApi</code>. It provides a centralized entry point for the seos mobile integration. </p>
+<p>The <code>MobileKeysApi</code> contains three parts:</p>
+<ul>
+<li><code>com.assaabloy.mobilekeys.api.MobileKeys</code> facade is responsible for both Seos TSM communication and Seos secure element functionality.</li>
+<li><code>com.assaabloy.mobilekeys.api.ReaderConnectionController</code> is used for controlling the Bluetooth and NFC reader communication.</li>
+<li><code>com.assaabloy.mobilekeys.api.DeviceEligibility</code> contains device specific configurations and information about working/non working features.</li>
+</ul>
+<h2 id="initializing-the-api">Initializing the API</h2>
+<p>The <code>MobileKeysApi</code> interface is obtained via the <code>.getInstance()</code> method but in order to access <code>MobileKeys</code> and <code>ReaderConnectionController</code> interface the API needs to be initialized.</p>
+<p>The API is initialized via the <code>.initialize(Context context, ApiConfiguration apiConfig, ScanConfiguration scanConfig)</code> method.
+Make sure that the API isn't already initialized by calling <code>.isInitialized()</code>.</p>
+<h1 id="seos-tsm-integration">Seos TSM integration</h1>
+<p>There are five methods in the API to handle Seos TSM integration located in the <code>com.assaabloy.mobilekeys.api.MobileKeys</code> interface.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MobileKeys</span>
+    <span class="o">{</span>
+        <span class="kt">void</span> <span class="nf">applicationStartup</span><span class="o">(</span><span class="n">MobileKeysCallback</span> <span class="n">mobileKeysCallback</span><span class="o">,</span> <span class="n">ApplicationProperty</span><span class="o">...</span> <span class="n">applicationProperties</span><span class="o">);</span>
+
+        <span class="kt">void</span> <span class="nf">endpointSetup</span><span class="o">(</span><span class="n">MobileKeysCallback</span> <span class="n">mobileKeysCallback</span><span class="o">,</span> <span class="n">String</span> <span class="n">activationCode</span><span class="o">,</span> <span class="n">ApplicationProperty</span><span class="o">...</span> <span class="n">applicationProperties</span><span class="o">);</span>
+
+        <span class="kt">void</span> <span class="nf">endpointUpdate</span><span class="o">(</span><span class="n">MobileKeysCallback</span> <span class="n">mobileKeysCallback</span><span class="o">);</span>
+
+        <span class="kt">boolean</span> <span class="nf">isEndpointSetupComplete</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">MobileKeysException</span><span class="o">;</span>
+
+        <span class="kt">void</span> <span class="nf">unregisterEndpoint</span><span class="o">(</span><span class="n">MobileKeysCallback</span> <span class="n">mobileKeysCallback</span><span class="o">);</span>
+
+        <span class="c1">//...</span>
+    <span class="o">}</span>
+</pre></div>
+</td></tr></table>
+
+<p><code>applicationStartup(...)</code>, <code>endpointUpdate(...)</code>, <code>endpointSetup(...)</code>are time consuming operations. 
+They will be executed asynchronously on a background thread and the verifyOtp will be delivered to the calling application via the
+<code>com.assaabloy.mobilekeys.api.MobileKeysCallback</code> instance given as the first parameter. There is a subclass of the callback interface,
+<code>com.assaabloy.mobilekeys.api.MobileKeysProgressCallback</code>, which has an additional method sending progress events during a setup or update.
+There is no way of telling how many events will come before the setup/update is finished, so this information can't
+be used for filling a progress bar, but it could be used for giving the user some other form of feedback.
+The call that takes the most time is the endpoint setup. This process could take between a few seconds up to
+about a minute. For that reason it's important to give the user feedback during the process and set the user's
+expectations before the process is started, otherwise the user might think the application is not responding.</p>
+<h2 id="application-startup">Application startup</h2>
+<p>The application startup method should, as the name implies, be called during the startup phase of your application.
+This method will make sure that the phone is in sync with the Seos TSM server. It will:</p>
+<ul>
+<li>Send properties about the installation to the Seos TSM, e.g. version of the Mobile SDK or Android OS. The SDK
+will detect when a property has changed and only perform update if necessary.</li>
+<li>Detect interrupted communication with the Seos TSM and try to resume. </li>
+</ul>
+<p>Normally server communication should not
+be interrupted but in case of an application crash or memory issues on the phone, shutting down the application,
+the SDK persists outgoing messages to the Seos TSM. In case there is a message pending during application
+startup it will be sent to the Seos TSM. This process might take a bit of time, since the message might
+trigger a response from the server requiring more actions on the phone side and so on.</p>
+<p>This is generally a fast operation, since it will require no communication with the Seos TSM, but might sometimes
+take a bit more time if Seos TSM interaction is needed. The calling application needs to handle the fact that
+this call might take some time before it's finished.</p>
+<h2 id="endpoint-setup">Endpoint setup</h2>
+<p>An endpoint, a Seos instance in a secure element, has to be installed and personalized before it can be used to open
+locks.
+The first thing a application has to do is to check if the endpoint setup on this device is completed (using
+the <code>com.assaabloy.mobilekeys.api.MobileKeys.isEndpointSetupComplete()</code> method).
+If not, the application needs to call <code>com.assaabloy.mobilekeys.api.MobileKeys.endpointSetup(MobileKeysCallback, String, ApplicationProperty...)</code> and wait for the process to finish.</p>
+<p>As part of the user sign-up process the end user will be given an activation code. This code will be used to
+identify the endpoint in the Seos TSM, and will also be used to secure the setup process. The code is four times
+four alphanumerical characters separated by a dash, i.e. <em><em>XXXX-XXXX-XXXX-XXXX</em></em>. This code (given as a string in the
+format described above) is a required parameter to the endpoint setup method.</p>
+<p>If the user is already authenticated eg. using a backend server outside the TSM environment there is no need to send
+the code to the user. Instead, the application can retrieve the invitation code from the backend server and feed it
+directly to the setup method in the SDK. Thus the user would be transparently enrolled.</p>
+<p>Note that the endpoint setup includes multiple roundtrips between the SDK and the Seos TSM. This might fail on
+a mobile data network. The application can re-try calling endpoint setup at a later time, when the phone has a
+stable network connection, with the same activation code. The only exception is if the SDK report an error with
+error code <code>com.assaabloy.mobilekeys.api.MobileKeysApiErrorCode.DEVICE_SETUP_FAILED</code>. This means that the setup failed in a critical phase
+of the setup and, for security reasons, the application has to start over with a new activation code.</p>
+<h2 id="content-updates">Content updates</h2>
+<p>New keys, revocation of keys, etc. will be delivered to the phone from the Seos TSM. In order to download and
+process those updates, the application needs to call <code>com.assaabloy.mobilekeys.api.MobileKeys.endpointUpdate(MobileKeysCallback)</code>.
+The application could do this update every time it is launched, or the application backend could use some kind of push
+mechanism to tell the application when an update is available.</p>
+<h1 id="talking-to-seos-in-the-secure-element">Talking to Seos in the secure element</h1>
+<p>The <code>com.assaabloy.mobilekeys.api.MobileKeys</code> interface contains functionality to talk to Seos that will cover the most
+common use cases. For the more advanced use cases you can use the Seos Access API.
+The Seos Access API provides a high level Java API for integrating with the Seos Card Technology.
+Please refer to it's documentation about how to use it.
+Due to the single threaded nature of most secure elements the MobileKeys implementation will make sure
+that only one task is performed at a time, i.e. one current request to list keys or one time consuming Seos TSM request.
+If there is already a request processing or a Seos TSM task running, a
+<code>com.assaabloy.mobilekeys.api.MobileKeysException</code> with the error code <code>API_IS_BUSY</code> will be thrown.</p>
+<h2 id="listing-issued-keys">Listing issued keys</h2>
+<p>Retrieve a list of MobileKey objects representing all keys issued to this secure element using the <code>listMobileKeys()</code>
+method. 
+Each mobile key holds metadata about the key, like label, valid from/to dates, etc. If an application needs
+more information about the key, the metadata field "configuration URL" could be used to fetch more information from
+a remote server. E.g. in our reference application we point this URL to a XML document describing key card layout,
+background image, font size and color etc.</p>
+<h2 id="reading-metadata-about-seos">Reading metadata about Seos</h2>
+<p>The <code>getEndpointInfo()</code> method provides metadata about the Seos installation. See <code>com.assaabloy.mobilekeys.api.EndpointInfo</code> for more
+details about available data. This data is typically not useful for an end user but could be helpful for a support
+technician. 
+We therefore encourage integrators to make this information available in some kind of help, support or
+about screen.</p>
+<h2 id="observing-changes">Observing changes</h2>
+<p>It is possible to listen to keys and endpoint changes in the SDK by adding listeners to the <code>com.assaabloy.mobilekeys.api.MobileKeys</code> interface.</p>
+<h1 id="bluetooth-reader-integration">Bluetooth reader integration</h1>
+<p>The phone communicates to Bluetooth readers using Bluetooth Low Energy (also known as Bluetooth LE, BLE or Bluetooth
+Smart).</p>
+<p>Bluetooth LE was released as part of the Bluetooth 4.0 Core Specification, and Android support was first
+released as part of Android 4.3. The Android 5.0 release significantly improved the Bluetooth LE support in Android,
+with e.g. less power consumption and support for scanning with screen off. With the increased user integrity and privacy of
+Android 6.0 Bluetooth LE scanning now requires location permissions.</p>
+<p>The Bluetooth implementation is hidden behind the <code>com.assaabloy.mobilekeys.api.ReaderConnectionController</code> interface.
+As an integrator you need to verify that the application supports Bluetooth before scanning. For this purpose you can use the 
+<code>BluetoothSupportHelper</code> class in the in the SDK that helps you check if a device has the features required to be used with Bluetooth readers.</p>
+<p>The Bluetooth service will handle discovering readers and start an opening sequence when appropriate.
+To start scanning the service needs the configuration parameters described below.
+Due to battery consumption issues in Android 4.3 and 4.4, on these devices scanning is only performed when the phone screen is on. The service will automatically detect
+screen on/off events and stop/start scanning accordingly.
+On Android 5.0+ devices scanning will continue even when the phone screen is off.
+The user might experience a performance drop for proximity and seamless modes, as the Android OS automatically slows down scanning to save power when the screen is off.</p>
+<h2 id="ble-configuration">BLE configuration</h2>
+<p>When starting scanning in the BLE service you need to provide a <code>ScanConfiguration</code> instance. The scan configuration
+contains the following parameters.</p>
+<table>
+<thead>
+<tr>
+<th><em>Parameter</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lock service code(s)</td>
+<td>Bluetooth readers advertise a UUID (universally unique identifier) identifying this BLE device as a reader.</td>
+</tr>
+<tr>
+<td></td>
+<td>The lock service code is part of that UUID. The UUID might differ between different types of readers.</td>
+</tr>
+<tr>
+<td></td>
+<td>Consult with your lock provider to receive the service code used by the reader you want to integrate to.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RSSI sensitivity</td>
+<td>RSSI values are used to calculate distance to a reader. These values differ between different phone</td>
+</tr>
+<tr>
+<td></td>
+<td>manufacturers, models and even individual phones. On a device where e.g. the proximity mode works poorly and</td>
+</tr>
+<tr>
+<td></td>
+<td>the user would have to almost touch the reader with his phone, the signal can be boosted by specifying</td>
+</tr>
+<tr>
+<td></td>
+<td>RssiSensitivity.HIGH, and if the device opens a lock at too long range, you would use RssiSensitivity.LOW.</td>
+</tr>
+<tr>
+<td></td>
+<td>To use the RSSI values received from the lock, without modifications, specify RssiSensitivity.NORMAL.</td>
+</tr>
+<tr>
+<td></td>
+<td>This could be presented as a setting for the user, or tuned as part of some kind of automatic process.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Scan mode (optional)</td>
+<td>Mode to indicate to the SDK if the application wants to prioritize power consumption or performance</td>
+</tr>
+<tr>
+<td></td>
+<td>when scanning for BLE readers. The scan mode setting only works in Android 5.0, and will be ignored</td>
+</tr>
+<tr>
+<td></td>
+<td>on 4.3 and 4.4 devices. The default setting is to prioritize the power consumption.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BLE opening triggers</td>
+<td>List of opening trigger implementations that the application wants to enable. The SDK provides three</td>
+</tr>
+<tr>
+<td></td>
+<td>implementations: Twist and Go, Proximity and Seamless. Use the utility method</td>
+</tr>
+<tr>
+<td></td>
+<td><code>ScanConfiguration.providedOpeningMethods(...)</code> if you are only interested in using implementations</td>
+</tr>
+<tr>
+<td></td>
+<td>provided by the SDK.</td>
+</tr>
+</tbody>
+</table>
+<p>To change configuration parameters once the scanning is started all you need to do is update the <code>ScanConfiguration</code> instance with new configuration parameters.</p>
+<h2 id="opening-modes">Opening modes</h2>
+<p>There are several types of opening modes supported by a Bluetooth reader. A reader can be configured to support one
+or more of these opening modes. Support for more opening modes are planned for future releases of the SDK. The modes
+currently supported are:</p>
+<ul>
+<li><em>Proximity</em>. The phone behaves like an access card or tag, e.g. you have to hold the phone within close proximity
+to the reader.</li>
+<li><em>Seamless</em>. Opens the lock as the user approaches. This obviously works best with Android 5.0 as the user
+is not required to power on the screen, but could be used with older models as well with the restriction that
+the user has to power on his screen. Seamless is not suitable for all readers and environments, consult with
+your reader provider for more details.</li>
+<li><em>Twist and Go</em>. The user turns the phone 90 degrees in one direction and then back again. This will open
+the closest reader within range.</li>
+</ul>
+<p>To implement custom opening mode look at the documentation on (<code>com.assaabloy.mobilekeys.api.ble.OpeningTrigger</code>).
+The <code>ReaderConnectionController</code> also supports manual opening but the underlying mechanism still relies on opening triggers.</p>
+<h2 id="reader-connection-callbacks">Reader connection callbacks</h2>
+<p>Callbacks are delivered to the implementing application via the <code>com.assaabloy.mobilekeys.api.ble.ReaderConnectionCallback</code> interface.
+The Bluetooth LE service will notify the connection listener when a reader connection is opened, closed or has failed. These methods are
+typically used to give the user feedback, using sound, vibration or UI.
+Please not that in some failure cases the Reader parameter in the callback might be null, e.g. when the user
+performed an open motion with no readers within range.
+See the javadoc for the <code>com.assaabloy.mobilekeys.api.ble.ReaderConnectionCallback</code> and related classes for more details on how to register for and handle callbacks.</p>
+<h2 id="limitations">Limitations</h2>
+<p>A Bluetooth LE reader can only make one connection at a time. So when two apps simultaneously try to open using bluetooth; opening will be very slow.</p>
+<h1 id="host-based-card-emulation-nfc">Host-based Card Emulation (NFC)</h1>
+<p>Android 4.4 introduced a way for an Android device to emulate a contactless card using NFC. This feature is referred
+to as Host-based Card Emulation (HCE). Full documentation of this feature can be found in the Android API guides.</p>
+<p>The SDK contains a service implementing HCE. The service is disabled by default but can be enabled and disabled using the 
+<code>com.assaabloy.mobilekeys.api.ReaderConnectionController</code>.</p>
+<p>To configure the HCE service you need to be assigned an AID by ASSA ABLOY.
+When you have received an AID you have to create an <code>seos_hce_service.xml</code> file, add your HCE AID, and provide it as a resource.</p>
+<p>HCE configuration file <code>res/xml/seos_hce_service.xml</code>:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;host-apdu-service</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+      <span class="na">android:description=</span><span class="s">&quot;@string/seos_hce_description&quot;</span>
+      <span class="na">android:requireDeviceUnlock=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;aid-group</span> <span class="na">android:description=</span><span class="s">&quot;@string/seos_hce_aid_description&quot;</span> <span class="na">android:category=</span><span class="s">&quot;other&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Specify your AID here, will be assigned to you by ASSA ABLOY! --&gt;</span>
+        <span class="nt">&lt;aid-filter</span> <span class="na">android:name=</span><span class="s">&quot;...&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/aid-group&gt;</span>
+<span class="nt">&lt;/host-apdu-service&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="reader-connection-callbacks_1">Reader connection callbacks</h2>
+<p>Callbacks are delivered to the implementing application via the <code>com.assaabloy.mobilekeys.api.hce.HceConnectionCallback</code> interface.
+The HCE service will notify the connection listener when a reader connection is opened, closed or has failed. These methods are
+typically used to give the user feedback, using sound, vibration or UI.
+See the javadoc for the <code>com.assaabloy.mobilekeys.api.hce.HceConnectionCallback</code> and related classes for more details on how to register for and handle callbacks.</p>
+<h2 id="limitations_1">Limitations</h2>
+<p>The OS selects the HCE service is based on AID. If the device have several applications implementing the same AID, the user
+will either be prompted to select the application to use or the system will choose the default application. To avoid the prompt:
+make sure to register com.assaabloy.mobilekeys.api.hce.HceService` as preferred service.</p>
+<p>To make the <code>HceService</code> work in background you have to make sure that the <code>MobileKeysApi</code> is initialized. 
+This can be achieved by extending the the Android application and initialize the <code>MobileKeysApi</code> in the <code>onCreate()</code> callback.</p>
+<h2 id="device-eligibility">Device eligibility</h2>
+<p>Version 5.2 of the SDK introduced a way to check eligibility of the device the SDK is running on.
+The <code>com.assaabloy.mobilekeys.api.DeviceEligibility</code> contains information about working/non working features for the device.
+It also contains recommended RSSI settings for the device. This feature should be used before initializing the API and could
+be used to customize the user experience, e.g. turning off NFC on devices where NFC is known to fail.</p>
+<h3 id="device-status">Device Status</h3>
+<p>The class <code>com.assaabloy.mobilekeys.api.util.DeviceStatus</code> contains information about the Device's current status in regards to BLE and NFC.
+It can be asked about permissions, system supported features, and other things.</p>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../index.html" title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../logging/index.html" title="Logging" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Logging
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/" class="md-footer-social__link fa fa-website"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.02434462.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

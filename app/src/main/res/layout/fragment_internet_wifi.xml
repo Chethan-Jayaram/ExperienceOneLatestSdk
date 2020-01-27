@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+        <TextView
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="italic"
+            android:id="@+id/tv_wifi_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/connect_to_hotel_wifi_network"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/tv_wifi_header"
+            android:id="@+id/wifiRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20sp"/>
+
+
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"/>
+
+
+</RelativeLayout>

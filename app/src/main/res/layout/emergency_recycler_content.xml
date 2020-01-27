@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioButton
+        android:id="@+id/radio_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_margin="5dp"
+        android:id="@+id/emergency_img"
+        android:layout_below="@+id/radio_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_width="65dp"
+        android:layout_height="65dp"/>
+    <TextView
+        android:layout_margin="5dp"
+        android:layout_below="@+id/emergency_img"
+        android:id="@+id/tv_emergency"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

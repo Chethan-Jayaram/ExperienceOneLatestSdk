@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="networkreaderscheme">seosnetworkreader</string>
+    <string name="seos_hce_aid_description">Access Control</string>
+    <string name="seos_hce_description" translateable="false">Seos</string>
+</resources>

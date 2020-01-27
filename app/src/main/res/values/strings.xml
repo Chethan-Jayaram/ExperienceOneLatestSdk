@@ -1,0 +1,147 @@
+<resources>
+    <string name="app_name">ExperienceOne</string>
+    <string name="NETWORK_ISSUE">"Please check your internet connection and try again."</string>
+    <string name="SOCKET_ISSUE">"The request timed out."</string>
+    <string name="ERROR">"Unable to retrieve details. Please try later."</string>
+    <string name="enter_verification_code">Enter Verification Code</string>
+    <string name="please_type_the_6_digit_verification_code_sent">Please type the 6 digit verification code sent</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="didn_t_receive_the_verification_code">Didn\'t receive the verification code?</string>
+    <string name="set_your_mpin">Set Your Mpin</string>
+    <string name="please_set_your_4_digit_mpin">Please set your 4 digit Mpin</string>
+    <string name="forgot_your_pin">Forgot your MPIN?</string>
+    <string name="do_you_have_an_account_register_now">Don\'t have an account? Register Now</string>
+    <string name="connect_to_hotel_wifi_network">Connect to hotel WIFI network</string>
+    <string name="guest_service_directory">Guest Service Directory</string>
+    <string name="guest_service_desc">At your service - your direct service connection our team is delighted to assist you and to answer your questions.if you need directions,room service  or assistance, simple press the <font color="#00000">\"At your Service\" </font>button on your phone or dial<font color="00000"> \"0\"</font></string>
+    <string name="submit_request">Submit Request</string>
+    <string name="ordered_list_of_services">Ordered List of Services</string>
+    <string name="quantity">Quantity</string>
+    <string name="services">Services</string>
+    <string name="confirm_request">Confirm Request</string>
+    <string name="serice">Service</string>
+    <string name="price">Price</string>
+    <string name="quantiy">Quantiy</string>
+    <string name="booking_details">Booking Details</string>
+    <string name="guest_name">Guest Name</string>
+    <string name="room_no">Room No</string>
+    <string name="ticket_details">Ticket Details</string>
+    <string name="activity_on">Activity On</string>
+    <string name="safety_in_the_hotel">Safety in the hotel</string>
+    <string name="inform_us">Inform Us</string>
+    <string name="in_room_dinning">In Room Dining</string>
+    <string name="dining_header_desc">Exceptional Service,Culinary Precision,Fresh Ingredients</string>
+    <string name="dinning_desc">Our in Room Service endeavour o provide you with a personal gastronomic experience equivalent to dinning at our award winning restaurants</string>
+    <string name="view_order">View Order</string>
+    <string name="special_instructions">Any special Instructions?</string>
+    <string name="request_cab">Request a cab</string>
+    <string name="hotel_cabs_tariff">Hotel Cabs-Tariff</string>
+    <string name="no_of_cab">No of cab</string>
+    <string name="book_now">Book Now</string>
+    <string name="started_on">Started On</string>
+    <string name="currency_converter">Currency Converter</string>
+    <string name="amount">Amount</string>
+    <string name="from_currnecy">From Currnecy</string>
+    <string name="request_exchange">Request Exchange</string>
+    <string name="to_currency">To Currency</string>
+    <string name="get_value">Get Value</string>
+    <string name="set_your_prefrences">Set Your Preferences</string>
+    <string name="save">Save</string>
+    <string name="sunday">Sun</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="check_in">Check-in:</string>
+    <string name="check_out">Check-out:</string>
+    <string name="room_no1">Room No. :</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
+    <string name="contact_no">Conatct No:</string>
+    <string name="title">Title</string>
+    <string name="places_to_visit">Places To Visit</string>
+    <string name="request_a_cab">Request a cab</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="profile_email">Email</string>
+    <string name="edit_profile">Update Profile</string>
+    <string name="gender">Gender</string>
+    <string name="marital_status">Marital Status</string>
+    <string name="sos_string">Enable SOS in case of emergency,we our concern about your saftey at our stay</string>
+    <string name="swipe">Swipe</string>
+    <string name="register">Register</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="about_app"> An About Us page helps your company make a good first impression, and is critical for building customer
+                trust and loyalty. An About Us page should make sure to cover basic information about the store and its
+                founders, explain the company\'s purpose and how it differs from the competition, and encourage
+                discussion and interaction. Here are some free templates, samples, and example About Us pages to help your ecommerce store stand out from the crowd.\n\n
+                When it comes to personalizing your online store, nothing is more effective than an About Us page. This
+                is a quick summary of your company\'s history and purpose, and should provide a clear overview of the
+                company\'s brand story. A great About Us page can help tell your brand story, establish customer loyalty,
+                and turn your bland ecommerce store into an well-loved brand icon. Most importantly, it will give your
+                customers a reason to shop from your brand.\n\n  In this post, we\'ll give you three different ways to create a professional about us page for your online
+                store, blog, or other website - use our about us page generator, use the fill-in-the-blank about us
+                template below, or create your own custom page using the about us examples within this article.</string>
+
+    <string name="dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="special_inst">Special instructions :</string>
+    <string-array name="Gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="Marital_Status">
+        <item>Single</item>
+        <item>Married</item>
+    </string-array>
+
+    <string name="agree_terms_privacy">I agree with the &lt;a href="https://www.lemontreehotels.com/term-condition.aspx">Terms and conditions&lt;/a> and &lt;a href="https://www.lemontreehotels.com/privacy-policy.aspx">Privacy Policy&lt;/a></string>
+    <string name="six_digit_">Please type the 6 digit verification code</string>
+    <string name="opt_send">CONFIRM &amp; SEND OTP</string>
+    <string name="edittext_hint"><font size="15">Enter Email/Mobile Number</font></string>
+    <string name="login_msg">Log in to an \n Unforgettable stay</string>
+    <string name="enter_btn">Enter</string>
+
+
+    <!-- Error messages -->
+    <string name="error_generic_error">An error occurred</string>
+    <string name="error_api_is_busy">API is busy</string>
+    <string name="error_endpoint_not_personalize">Endpoint is not personalized</string>
+    <string name="error_server_communication_failed">Server communication failed. Check internet connectivity or try again later.</string>
+    <string name="error_device_not_eligible">Device not eligible for this service. Contact key administrator.</string>
+    <string name="error_device_api_incompatible">Mobile Access SDK incompatible. Upgrade your application in the Play Store</string>
+    <string name="error_setup_failed_retry">Invalid registration code. Retype or contact key administrator.</string>
+    <string name="error_internal_error">Internal error. Retry or contact key administrator if the problem persists.</string>
+    <string name="error_device_setup_failed">Device setup failed. Contact key administrator.</string>
+    <string name="warning_location_permission_not_granted">Warning BLE requires location permission</string>
+    <string name="location_services_request">Location access is required to open locks over bluetooth</string>
+    <string name="no_lock_in_range">No lock in range</string>
+    <string name="lock_in_range">Lock in range</string>
+
+    <string name="unlock_notification_title">Mobile Access is running</string>
+    <string name="notification_channel_name_informative">Running foreground scan service</string>
+
+
+    <!--Snackbar action titles-->
+    <string name="action_retry">Retry</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_enable">allow</string>
+
+
+<!--    android:fontFamily="sans-serif"           // roboto regular
+    android:fontFamily="sans-serif-light"     // roboto light
+    android:fontFamily="sans-serif-condensed" // roboto condensed
+    android:fontFamily="sans-serif-black"     // roboto black
+    android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)
+    android:fontFamily="sans-serif-medium"      // roboto medium (android 5.0)
+
+               android:textStyle="italic"-->
+   <!-- android:fontFamily="sans-serif-medium"
+    android:textStyle="italic"-->
+
+
+
+</resources>

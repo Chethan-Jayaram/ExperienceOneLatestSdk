@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/pref_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:background="@drawable/et_border_black"
+            android:hint="@string/title"
+            android:paddingStart="5dp"
+            android:singleLine="true"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif"
+            tools:ignore="RtlSymmetry" />
+
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pref_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:accessibilityHeading="false"
+            android:headerBackground="@color/gray"
+            android:numbersSelectorColor="@color/blue"
+            android:timePickerMode="clock"
+            tools:targetApi="lollipop" />
+
+
+        <LinearLayout
+            android:id="@+id/day_lyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/timePicker"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sun"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/sunday"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/mon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/monday"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="@string/tuesday"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/wed"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/wednesday"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/thu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="@string/thursday"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/fri"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="@string/friday"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/sat"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="@string/saturday"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/day_lyt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/save"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif"
+            android:textAllCaps="false" />
+
+    </RelativeLayout>
+
+</ScrollView>
