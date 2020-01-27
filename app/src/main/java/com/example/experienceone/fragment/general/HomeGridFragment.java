@@ -361,7 +361,7 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
                                 GlobalClass.mPreviousRouteName="";
                                 dismissDialog();
                                 CustomMessageHelper showDialog = new CustomMessageHelper((Activity) context);
-                                showDialog.showCustomMessage((Activity) context, "Alert!!", mobilekeys.getError(), false, false);
+                                showDialog.showCustomMessage((Activity) context, "Alert!!", mobilekeys.getResult().getAutoKey().getResult().getDeveloperMessage(), false, false);
                             }
                         } else {
                             errorHandler( getString(R.string.ERROR));
