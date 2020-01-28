@@ -238,8 +238,7 @@ public class CreateMpinFragment extends Fragment implements ApiListener{
                                           int after) {
             }
 
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before,int count) {
             }
         });
 
@@ -318,6 +317,7 @@ public class CreateMpinFragment extends Fragment implements ApiListener{
         GlobalClass.sharedPreferences = context.getSharedPreferences(GlobalClass.shredPrefName, 0);
         GlobalClass.edit = GlobalClass.sharedPreferences.edit();
         GlobalClass.edit.putBoolean("isMpinSetupComplete", true);
+        GlobalClass.edit.putBoolean("hasInvitationCode",false);
         GlobalClass.edit.apply();
     }
 }

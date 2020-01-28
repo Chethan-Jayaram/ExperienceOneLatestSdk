@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.assaabloy.mobilekeys.api" >
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="26" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- required since android 9 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application android:fullBackupContent="@xml/seos_mobile_sdk_backup_rules" >
+
+        <!-- NFC service, disable if not needed -->
+        <service
+            android:name="com.assaabloy.mobilekeys.api.hce.HceService"
+            android:enabled="false"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE" >
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/seos_hce_service" />
+        </service>
+
+        <!-- Bluetooth service, disable if not needed -->
+        <service android:name="com.assaabloy.mobilekeys.api.ble.BleScanService" />
+
+        <activity
+            android:name="com.assaabloy.mobilekeys.api.network.NfcTagNetworkReaderActivity"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="@string/networkreaderscheme" />
+            </intent-filter>
+        </activity>
+
+        <!-- Disable Mixpanel features -->
+        <meta-data
+            android:name="com.mixpanel.android.MPConfig.DisableDecideChecker"
+            android:value="true" />
+        <meta-data
+            android:name="com.mixpanel.android.MPConfig.DisableViewCrawler"
+            android:value="true" />
+    </application>
+
+</manifest>

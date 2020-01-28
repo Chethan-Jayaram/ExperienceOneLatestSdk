@@ -84,7 +84,7 @@
                 <TextView
                     android:fontFamily="sans-serif"
                     android:id="@+id/item_count"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -92,14 +92,14 @@
                     android:fontFamily="sans-serif"
                     android:id="@+id/tv_symbol"
                     android:text=" | "
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:fontFamily="sans-serif"
                     android:id="@+id/tv_item_price"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -112,7 +112,7 @@
 
                 android:textAlignment="center"
                 android:layout_centerVertical="true"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/white"
                 android:text="Including all taxes"
                 android:layout_width="match_parent"

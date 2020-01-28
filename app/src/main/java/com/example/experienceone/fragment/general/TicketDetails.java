@@ -127,11 +127,8 @@ public class TicketDetails extends Fragment implements ApiListener {
             lyt_tkt_dtls.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
             if (apiCallName.equalsIgnoreCase("ticketDetails")) {
-
                 TicketDetailsPojo ticketDetails = (TicketDetailsPojo) response.body();
-
                 if (ticketDetails.getStatus().equalsIgnoreCase("Success")) {
-
                     setUiComponents(ticketDetails);
                 } else {
                     GlobalClass.showErrorMsg(context, ticketDetails.getError());

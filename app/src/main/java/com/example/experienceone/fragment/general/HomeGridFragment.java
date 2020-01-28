@@ -71,6 +71,7 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
     private SnackbarFactory snackbarFactory;
     private ExpandableListView expandableListView;
     private DrawerLayout drawer;
+    private static String mPreviousRouteName="";
 
 
     @Override
@@ -96,6 +97,7 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
             drawer = getActivity().findViewById(R.id.drawer_layout);
             expandableListView.setDividerHeight(0);
             TextView toolBarText = getActivity().findViewById(R.id.toolbar_title);
+
             getNavMenuItems();
             loading=view.findViewById(R.id.loading);
             snackbarFactory = new SnackbarFactory(container);
@@ -234,8 +236,6 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
             mobileKeysApiFacade.onEndpointSetUpComplete();
         }
     }
-
-
 
 
     public void getInvitationCode() {
@@ -425,19 +425,21 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
 
 
         expandableListView.setOnGroupClickListener((parent, v, groupPosition, ID) -> {
-            if (!headerList.get(groupPosition).getSelected()) {
-                headerList.get(groupPosition).setSelected(true);
-                for(int i=0;i<headerList.size();i++){
-                    if(groupPosition!=i) {
-                        headerList.get(i).setSelected(false);
+            if(headerList.get(groupPosition).getRoutesSubcategory().size()<=0) {
+                if(!headerList.get(groupPosition).getSelected()){
+                    headerList.get(groupPosition).setSelected(true);
+                    for (int i = 0; i < headerList.size(); i++) {
+                        if (groupPosition != i) {
+                            headerList.get(i).setSelected(false);
+                        }
                     }
-                }
-                ChangeFragment(headerList.get(groupPosition).getMobileRoute().getRouteName());
-                if(groupPosition!=2){
+                    ChangeFragment(headerList.get(groupPosition).getMobileRoute().getRouteName());
+                    if (headerList.get(groupPosition).getRoutesSubcategory().size() <= 0) {
+                        handelNavDrawer();
+                    }
+                } else if (headerList.get(groupPosition).getRoutesSubcategory().size() <= 0) {
                     handelNavDrawer();
                 }
-            }else if(groupPosition!=2) {
-                handelNavDrawer();
             }
 
             return false;
@@ -471,36 +473,40 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
 
     private void ChangeFragment(String className) {
         try {
-            try {
+          /*  try {
                 if (GlobalClass.hasActiveBooking) {
                     GlobalClass.edit.putBoolean("hasInvitationCode", false);
                     GlobalClass.edit.apply();
-                 /*   if (!mobileKeysApiFacade.getMobileKeys().listMobileKeys().isEmpty()) {
+                  *//*  if (!mobileKeysApiFacade.getMobileKeys().listMobileKeys().isEmpty()) {
                         mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
                         mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
-                    }*/
+                    }*//*
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }*/
             className = GlobalClass.getClassName(className);
-            if (className.contains("Logout")) {
+            if (className.equalsIgnoreCase("general.Logout")) {
                 Intent intent = new Intent(context, UseAuthenticationActivity.class);
                 intent.putExtra("logout", true);
                 startActivity(intent);
                 getActivity().finish();
-            } else if (!className.isEmpty()) {
+            } else if (className.contains("HomeGridFragment")) {
+                String fullPathOfTheClass = "com.example.experienceone.fragment." + className;
+                Class<?> cls = Class.forName(fullPathOfTheClass);
+                Fragment fragment = (Fragment) cls.newInstance();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).commit();
+            }else if(!className.isEmpty()){
                 String fullPathOfTheClass = "com.example.experienceone.fragment." + className;
                 Class<?> cls = Class.forName(fullPathOfTheClass);
                 Fragment fragment = (Fragment) cls.newInstance();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
-
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void   handelNavDrawer() {
+    private void handelNavDrawer() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }

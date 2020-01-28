@@ -92,27 +92,30 @@ public class ExpandableNavListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String headerTitle = getGroup(groupPosition).getTitle();
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_group_header, null);
+        try {
+            String headerTitle = getGroup(groupPosition).getTitle();
+            if (convertView == null) {
+                LayoutInflater infalInflater = (LayoutInflater) this.context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = infalInflater.inflate(R.layout.list_group_header, null);
+            }
+            ImageView ig_view = convertView.findViewById(R.id.img_menu_services);
+            ig_view.setVisibility(View.GONE);
+            if (listDataHeader.get(groupPosition).getRoutesSubcategory().size()>0) {
+                ig_view.setVisibility(View.VISIBLE);
+                ig_view.setImageResource(R.drawable.ic_expand_more);
+            }
+            if (isExpanded) {
+                ig_view.setImageResource(R.drawable.ic_expand_less);
+            } else {
+                ig_view.setImageResource(R.drawable.ic_expand_more);
+            }
+            TextView lblListHeader = convertView.findViewById(R.id.lblListHeader);
+            lblListHeader.setTypeface(null, Typeface.BOLD);
+            lblListHeader.setText(headerTitle);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        ImageView ig_view=convertView.findViewById(R.id.img_menu_services);
-        ig_view.setVisibility(View.GONE);
-        if(listDataHeader.get(groupPosition).getMobileRoute().getRouteName().equalsIgnoreCase("services")){
-            ig_view.setVisibility(View.VISIBLE);
-            ig_view.setImageResource(R.drawable.ic_expand_more);
-        }
-        if (isExpanded) {
-            ig_view.setImageResource(R.drawable.ic_expand_less);
-        } else {
-            ig_view.setImageResource(R.drawable.ic_expand_more);
-        }
-        TextView lblListHeader = convertView.findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
-
         return convertView;
     }
 

@@ -61,6 +61,7 @@ public class ForeignExchange extends Fragment implements ApiListener {
     private ForeignExchangemodel exchangemodel;
     private CurrencyExchange currencyExchange;
     private Boolean isCurrencyConverted;
+    private Integer mFromId,mToID;
     private ProgressBar loading;
 
     @Nullable
@@ -98,10 +99,10 @@ public class ForeignExchange extends Fragment implements ApiListener {
                 }
             });
             et_to_currency.setOnClickListener(v -> {
-                showCustomDialog(mToList,false);
+                showCustomDialog(mToList, false);
             });
             et_from_currency.setOnClickListener(v -> {
-                showCustomDialog(mFromList,true);
+                showCustomDialog(mFromList, true);
             });
             btn_exchange.setOnClickListener(v -> {
                 if (isCurrencyConverted) {
@@ -131,11 +132,25 @@ public class ForeignExchange extends Fragment implements ApiListener {
             });
             img_swap_category.setOnClickListener(v -> {
                 restForeignExchnage();
-                et_to_currency.setText(mFromresult.getName());
-                et_from_currency.setText(mToResult.getName());
-                Result temp=mFromresult;
-                mFromresult=mToResult;
-                mToResult=temp;
+              /*  et_to_currency.setText(mFromresult.getName());*/
+
+                mFromId=mToResult.getId();
+                mToID=mFromresult.getId();
+                for(int i=0;i<mFromList.size();i++){
+                    if(mFromId.equals(mFromList.get(i).getId())){
+                        mFromresult=mFromList.get(i);
+                        et_from_currency.setText(mFromresult.getName());
+                        getExcahngeItemsbyId(mFromresult.getId());
+                    }
+                }
+
+
+
+               /* Result temp = mFromresult;
+                mFromresult = mToResult;
+                mToResult = temp;
+             */
+
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,13 +168,12 @@ public class ForeignExchange extends Fragment implements ApiListener {
         tv_to_standard.setText("");
     }
 
-
     private void getExcahngeItemsbyId(Integer id) {
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
         Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Authorization", "bearer " + GlobalClass.token);
         Call<ForeignExchangePojo> curencyExchange = api.getexchangeById(headerMap, id);
-        APIResponse.callBackgroundRetrofit(curencyExchange, "currencyExchangeById", context, this);
+        APIResponse.postCallRetrofit(curencyExchange, "currencyExchangeById", context, this);
     }
 
     private void getExcahngeItems() {
@@ -211,9 +225,18 @@ public class ForeignExchange extends Fragment implements ApiListener {
                 if (foreignExchangePojo.getStatus().equalsIgnoreCase("Success")) {
                     mToList = new ArrayList<>();
                     mToList = foreignExchangePojo.getResult();
-                    mToResult = mToList.get(0);
+                    if(mToID==null){
+                        mToResult = mToList.get(0);
+                    }else{
+                        for(int i=0;i<mToList.size();i++){
+                            if(mToID!=null && mToID.equals(mToList.get(i).getId())){
+                                mToID=null;
+                                mToResult=mToList.get(i);
+                                break;
+                            }
+                        }
+                    }
                     et_to_currency.setText(mToResult.getName());
-
                 } else {
                     GlobalClass.showErrorMsg(context, foreignExchangePojo.getError());
                 }
@@ -293,7 +316,7 @@ public class ForeignExchange extends Fragment implements ApiListener {
     }
 
 
-    private void showCustomDialog(List<Result> result,Boolean flag) {
+    private void showCustomDialog(List<Result> result, Boolean flag) {
         //before inflating the custom alert dialog layout, we will get the current activity viewgroup
         ViewGroup viewGroup = getActivity().findViewById(android.R.id.content);
 
@@ -309,11 +332,11 @@ public class ForeignExchange extends Fragment implements ApiListener {
         AlertDialog alertDialog = builder.create();
         ForeignExchangeAdapter adapter = new ForeignExchangeAdapter(result, position -> {
             et_amount.setText("");
-            if(flag){
+            if (flag) {
                 et_from_currency.setText(result.get(position).getName());
                 mFromresult = result.get(position);
                 getExcahngeItemsbyId(mFromresult.getId());
-            }else {
+            } else {
                 et_to_currency.setText(result.get(position).getName());
                 mToResult = result.get(position);
             }

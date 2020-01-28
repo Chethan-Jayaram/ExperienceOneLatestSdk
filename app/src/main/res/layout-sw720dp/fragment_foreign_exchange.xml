@@ -92,6 +92,7 @@
         </RelativeLayout>
 
         <ImageView
+            android:id="@+id/img_swap_category"
             android:padding="4dp"
             android:layout_weight="0.2"
             android:layout_gravity="center_vertical"

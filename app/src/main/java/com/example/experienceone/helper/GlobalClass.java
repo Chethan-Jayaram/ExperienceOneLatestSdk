@@ -77,45 +77,45 @@ public class GlobalClass {
 
     public static String getClassName(String className) {
         String name = null;
-        if (className.contains("internet")) {
+        if (className.equalsIgnoreCase("internet-wifi")) {
             name = "InternetWifi";
-        } else if (className.contains("directory")) {
+        } else if (className.equalsIgnoreCase("hotel-directory")) {
             name = "HotelDirectory";
-        } else if (className.contains("house")) {
+        } else if (className.equalsIgnoreCase("house-keeping")) {
             name = "HouseKeeping";
-        } else if (className.contains("laundry")) {
+        } else if (className.equalsIgnoreCase("laundry")) {
             name = "Laundry";
-        } else if (className.contains("dining")) {
+        } else if (className.equalsIgnoreCase("in-room-dining")) {
             name = "dining.InRoomDining";
-        } else if (className.contains("foreign")) {
+        } else if (className.equalsIgnoreCase("foreign-exchange")) {
             name = "ForeignExchange";
-        } else if (className.contains("emergency")) {
+        } else if (className.equalsIgnoreCase("emergency")) {
             name = "EmergencyServices";
-        } else if (className.contains("preference")) {
+        } else if (className.equalsIgnoreCase("preference")) {
             name = "preferences.Preferences";
-        } else if (className.contains("tavel")) {
+        } else if (className.equalsIgnoreCase("tavel")) {
             name = "travel.Travel";
-        } else if(className.contains("tour")){
+        } else if(className.equalsIgnoreCase("tour-package")){
             name = "LocalTourGuide";
-        } else if(className.contains("main-screen")){
+        } else if(className.equalsIgnoreCase("main-screen")){
             name = "general.HomeGridFragment";
-        }else if(className.contains("information")){
+        }else if(className.equalsIgnoreCase("hotel-information")){
             name = "general.HotelInformation";
-        }else if(className.contains("services")){
+        }else if(className.equalsIgnoreCase("services")){
             name = "";
-        }else if(className.contains("my-stay")){
+        }else if(className.equalsIgnoreCase("my-stay")){
             name = "mystay.MyStayFragment";
-        }else if(className.contains("tickets")){
+        }else if(className.equalsIgnoreCase("tickets")){
             name = "general.TicketsList";
-        }else if(className.contains("notification")){
+        }else if(className.equalsIgnoreCase("notification")){
             name = "general.Notification";
-        } else if(className.contains("about")){
+        } else if(className.equalsIgnoreCase("about")){
             name = "general.About";
-        }else if(className.contains("report-a-bug")){
+        }else if(className.equalsIgnoreCase("report-a-bug")){
             name = "general.ReportABug";
-        }else if(className.contains("logout")){
+        }else if(className.equalsIgnoreCase("logout")){
             name = "general.Logout";
-        }else if(className.contains("door-unlock")){
+        }else if(className.equalsIgnoreCase("assa-abloy-door-unlock")){
             name = "DoorUnlockingFragment";
         }
         return name;
@@ -264,7 +264,7 @@ public class GlobalClass {
                 Class<?> cls = Class.forName(fullPathOfTheClass);
                 Fragment fragment = (Fragment) cls.newInstance();
 
-                if (!GlobalClass.sharedPreferences.getBoolean("hasInvitationCode",false)&&className.contains("DoorUnlockingFragment")) {
+                if (!GlobalClass.sharedPreferences.getBoolean("hasInvitationCode",false)&&className.equalsIgnoreCase("DoorUnlockingFragment")) {
                     return  true; //getInvitationCode();
                 } else {
                     context.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();

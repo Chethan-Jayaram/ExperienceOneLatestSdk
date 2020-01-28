@@ -2,6 +2,8 @@ package com.example.experienceone.fragment.modules.dining;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,6 @@ import com.example.experienceone.adapter.moduleadapters.dinningadapters.DinningM
 import com.example.experienceone.fragment.general.TicketDetails;
 import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.GlobalClass;
-
 import com.example.experienceone.model.dinningmodel.DinningSegmentModel;
 import com.example.experienceone.pojo.dinning.CategoryItem;
 import com.example.experienceone.pojo.posttickets.TicketID;
@@ -38,14 +39,14 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class DiningModuleSegment extends Fragment implements ApiListener {
+public class DiningModuleSegment extends Fragment implements ApiListener, Parcelable {
 
     private ArrayList<CategoryItem> menuItems = new ArrayList<>();
     private Context context;
     private DinningSegmentModel dinningSegmentModel;
-    private FragmentCallback fragmentCallback;
-    private Double price;
-    private int count;
+    private FragmentCallback fragmentCallback,mInRoomCallBack;
+    private Double price=0.0;
+    private Integer count=0;
 
 
 
@@ -78,8 +79,8 @@ public class DiningModuleSegment extends Fragment implements ApiListener {
             menuItems.addAll(dinningSegmentModel.getDetails());
 
             tv_item_price.setText(data.getString("item_price"));
-            this.price = Double.parseDouble(data.getString("item_price").replace(" Rs", ""));
-            this.count = Integer.parseInt(data.getString("item_count").replace(" items", ""));
+            this.price = Double.valueOf(data.getString("item_price").replace(" Rs", ""));
+            this.count = Integer.valueOf(data.getString("item_count").replace(" items", ""));
 /*
         DinningModuleSegmentAdapter adapter=new DinningModuleSegmentAdapter(details);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
@@ -141,6 +142,10 @@ public class DiningModuleSegment extends Fragment implements ApiListener {
         this.fragmentCallback = callback;
     }
 
+
+    void setmInRoomCallBack (FragmentCallback callBack){
+        this.mInRoomCallBack=callBack;
+    }
     private void postHosueKeepingList(DinningSegmentModel dinningModuleSegment) {
 
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
@@ -188,8 +193,21 @@ public class DiningModuleSegment extends Fragment implements ApiListener {
 
     public void onDestroy() {
         if (fragmentCallback != null) {
-            fragmentCallback.onDataSent(this.price + "", this.count + "", dinningSegmentModel);
+            fragmentCallback.onDataSent(this.price , this.count , dinningSegmentModel);
+        }
+        if(mInRoomCallBack!=null){
+            mInRoomCallBack.onDataSent(this.price , this.count , dinningSegmentModel);
         }
         super.onDestroy();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

@@ -78,7 +78,8 @@ public class TicketsList extends Fragment implements ApiListener {
             bundle.putString("lyt", ticketList.getResult().get(position).getLayout());
             bundle.putString("type", ticketList.getResult().get(position).getTitle());
             fragment.setArguments(bundle);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).commit();
+            getActivity().getSupportFragmentManager().popBackStack();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
         });
 
        LinearLayoutManager  linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);

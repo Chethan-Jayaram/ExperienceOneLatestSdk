@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.experienceone.R;
 import com.example.experienceone.adapter.moduleadapters.dinningadapters.DinningMenuItemAdapter;
 import com.example.experienceone.helper.GlobalClass;
@@ -29,14 +31,14 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
     private ArrayList<CategoryItem> menuItems=new ArrayList<>();
     private TextView item_count,tv_item_price;
     private DinningSegmentModel dinningSegmentModel;
-    private String prices="0.0";
-    private String count="0";
+    private Double prices=0.0;
+    private Integer count=0;
     private DiningModuleSegment moduleSegment;
     private Boolean isForward=false;
     private List<CategoryItem> detail;
     private RecyclerView dinning_menu_recycler;
     private Context context;
-
+    private FragmentCallback fragmentCallback;
 
 
     @Nullable
@@ -53,17 +55,17 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
             tv_item_price = view.findViewById(R.id.tv_item_price);
             TextView tv_view_order = view.findViewById(R.id.tv_view_order);
             Bundle data = getArguments();
-             detail = data.getParcelableArrayList("OutletMenus");
+            detail = data.getParcelableArrayList("OutletMenus");
             String menuName = data.getString("SubMenuName");
+            dinningSegmentModel=data.getParcelable("subcategory");
+            moduleSegment=data.getParcelable("diningModuleSegment");
+            moduleSegment.setFragmentCallback(this);
             if(!isForward){
-                dinningSegmentModel=new DinningSegmentModel();
-                moduleSegment=new DiningModuleSegment();
-                moduleSegment.setFragmentCallback(this);
-
-                for(int i=0;i<detail.size();i++){
-                    detail.get(i).setQuantity(0);
-                }
+                this.prices = Double.valueOf(data.getString("item_price").replace(" Rs", ""));
+                this.count = Integer.valueOf(data.getString("item_count").replace(" items", ""));
             }
+
+
             dinningSegmentModel.setTitle("In-Room-Dinning");
             dinningSegmentModel.setBooking(GlobalClass.Booking_id);
             setAdapter();
@@ -75,13 +77,9 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
             menu_timing.setText(Html.fromHtml(sourceString));
             menu_desc.setText("All " + menuName + " sets are served with the way you liked it cooked");
 
-            item_count.setText(count + " items");
-            tv_item_price.setText(prices + " Rs");
-
 
 
             tv_view_order.setOnClickListener(v -> {
-
                 if (dinningSegmentModel.getDetails() != null && dinningSegmentModel.getDetails().size() > 0) {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("subcategory", dinningSegmentModel);
@@ -95,11 +93,16 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
                     GlobalClass.ShowAlet(context, "Alert", "please select at least one item");
                 }
             });
+            item_count.setText(count + " items");
+            tv_item_price.setText(prices + " Rs");
+
         }catch (Exception e){
             e.printStackTrace();
         }
         return view;
     }
+
+
 
     @Override
     public void onResume() {
@@ -112,13 +115,20 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
         }
     }
 
+
+    void setFragmentCallback(FragmentCallback callback) {
+        this.fragmentCallback = callback;
+    }
+
     private void setAdapter() {
-        DinningMenuItemAdapter adapter = new DinningMenuItemAdapter(detail, Integer.parseInt(count), Double.parseDouble(prices), (categoryItem, price, pos) -> {
+        DinningMenuItemAdapter adapter = new DinningMenuItemAdapter(detail, count,prices, (categoryItem, price, pos) -> {
             try {
                 menuItems.add(categoryItem);
                 dinningSegmentModel.setDetails(GlobalClass.removeDuplicateItems(menuItems));
                 item_count.setText(dinningSegmentModel.getDetails().size() + " items");
                 tv_item_price.setText(GlobalClass.decimalFormat.format(Math.abs(price)) + " Rs");
+                this.prices = price;
+                this.count = dinningSegmentModel.getDetails().size();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,19 +141,22 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
     }
 
     @Override
-    public void onDataSent(String price,String count,DinningSegmentModel dinningSegmentModel) {
-        if(!prices.isEmpty()){
-          /*  prices="0";
-            this.count="0";
-            this.dinningSegmentModel=new DinningSegmentModel();
-            this.dinningSegmentModel.setTitle("In-Room-Dinning");
-            this.dinningSegmentModel.setBooking(GlobalClass.Booking_id);
-        }else{*/
+    public void onDataSent(Double price, Integer count, DinningSegmentModel dinningSegmentModel) {
             prices=price;
             this.count=count;
             this.dinningSegmentModel=new DinningSegmentModel();
             this.dinningSegmentModel.setDetails(dinningSegmentModel.getDetails());
-        }
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    public void onDestroy() {
+        if (fragmentCallback != null) {
+            fragmentCallback.onDataSent(this.prices , this.count , dinningSegmentModel);
+        }
+        super.onDestroy();
     }
 }
