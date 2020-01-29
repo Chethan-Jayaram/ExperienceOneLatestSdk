@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="no-js">
   <head>
     
@@ -29,16 +29,16 @@
       
         <meta name="lang:search.pipeline.trimmer" content="True">
       
-        <meta name="lang:search.verifyOtp.none" content="No matching documents">
+        <meta name="lang:search.result.none" content="No matching documents">
       
-        <meta name="lang:search.verifyOtp.one" content="1 matching document">
+        <meta name="lang:search.result.one" content="1 matching document">
       
-        <meta name="lang:search.verifyOtp.other" content="# matching documents">
+        <meta name="lang:search.result.other" content="# matching documents">
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="./assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+      <link rel="shortcut icon" href="assets/images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -46,24 +46,33 @@
       
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application.78aab2dc.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.30686662.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#2196f3">
       
     
     
-      <script src="./assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="assets/javascripts/modernizr.74668098.js"></script>
     
     
-      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
     
     
-      <link rel="stylesheet" href="./assets/css/extra.css">
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    
+      
     
     
   </head>
@@ -78,9 +87,9 @@
         
       </defs>
     </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
-    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
       <a href="#seos-mobile-sdk-for-android-overview" tabindex="1" class="md-skip">
         Skip to content
@@ -98,40 +107,39 @@
         </a>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Seos Mobile SDK for Android
-              </span>
-              <span class="md-header-nav__topic">
+            <span class="md-header-nav__topic">
+              Seos Mobile SDK for Android
+            </span>
+            <span class="md-header-nav__topic">
+              
                 Home
-              </span>
-            
+              
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="search"></label>
+  <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="search"></label>
+      <label class="md-icon md-search__icon" for="__search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
         &#xE5CD;
       </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-verifyOtp" data-md-component="verifyOtp">
+        <div class="md-search-result" data-md-component="result">
           <div class="md-search-result__meta">
             Type to start searching
           </div>
@@ -141,7 +149,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -163,7 +170,7 @@
         
   <li class="md-tabs__item">
     
-      <a href="index.html" title="Home" class="md-tabs__link md-tabs__link--active">
+      <a href="index.html" class="md-tabs__link md-tabs__link--active">
         Home
       </a>
     
@@ -175,7 +182,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="getting-started/getting-started/index.html" title="Getting started" class="md-tabs__link">
+        <a href="getting-started/getting-started.html" class="md-tabs__link">
           Getting started
         </a>
       
@@ -188,7 +195,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="api-changes/migrating-3-4/index.html" title="API Changes" class="md-tabs__link">
+        <a href="api-changes/migrating-3-4.html" class="md-tabs__link">
           API Changes
         </a>
       
@@ -201,7 +208,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="errors/sdk-errors/index.html" title="Error codes" class="md-tabs__link">
+        <a href="errors/sdk-errors.html" class="md-tabs__link">
           Error codes
         </a>
       
@@ -214,7 +221,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="samples/remote-session/index.html" title="Samples" class="md-tabs__link">
+        <a href="samples/remote-session.html" class="md-tabs__link">
           Samples
         </a>
       
@@ -227,7 +234,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="seos-access-api-samples/read-adf-metadata/index.html" title="Seos Access API samples" class="md-tabs__link">
+        <a href="seos-access-api-samples/read-adf-metadata.html" class="md-tabs__link">
           Seos Access API samples
         </a>
       
@@ -239,7 +246,7 @@
   </div>
 </nav>
       
-      <main class="md-main">
+      <main class="md-main" role="main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
             
@@ -247,12 +254,12 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="drawer">
-    <span class="md-nav__button md-logo">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/" title="Seos Mobile SDK for Android" class="md-nav__button md-logo">
       
         <i class="md-icon">android</i>
       
-    </span>
+    </a>
     Seos Mobile SDK for Android
   </label>
   
@@ -267,7 +274,7 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
       
     
@@ -304,7 +311,7 @@
 
 
   <li class="md-nav__item">
-    <a href="getting-started/getting-started/index.html" title="Getting started with the SDK" class="md-nav__link">
+    <a href="getting-started/getting-started.html" title="Getting started with the SDK" class="md-nav__link">
       Getting started with the SDK
     </a>
   </li>
@@ -316,7 +323,7 @@
 
 
   <li class="md-nav__item">
-    <a href="getting-started/logging/index.html" title="Logging" class="md-nav__link">
+    <a href="getting-started/logging.html" title="Logging" class="md-nav__link">
       Logging
     </a>
   </li>
@@ -328,7 +335,7 @@
 
 
   <li class="md-nav__item">
-    <a href="getting-started/proguard/index.html" title="ProGuard" class="md-nav__link">
+    <a href="getting-started/proguard.html" title="ProGuard" class="md-nav__link">
       ProGuard
     </a>
   </li>
@@ -340,7 +347,7 @@
 
 
   <li class="md-nav__item">
-    <a href="getting-started/permissions/index.html" title="Removing permissions" class="md-nav__link">
+    <a href="getting-started/permissions.html" title="Removing permissions" class="md-nav__link">
       Removing permissions
     </a>
   </li>
@@ -352,7 +359,7 @@
 
 
   <li class="md-nav__item">
-    <a href="getting-started/custom-tsm/index.html" title="Custom TSM" class="md-nav__link">
+    <a href="getting-started/custom-tsm.html" title="Custom TSM" class="md-nav__link">
       Custom TSM
     </a>
   </li>
@@ -388,7 +395,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api-changes/migrating-3-4/index.html" title="3.x to 4.0" class="md-nav__link">
+    <a href="api-changes/migrating-3-4.html" title="3.x to 4.0" class="md-nav__link">
       3.x to 4.0
     </a>
   </li>
@@ -400,7 +407,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api-changes/migrating-4-5/index.html" title="4.x to 5.0" class="md-nav__link">
+    <a href="api-changes/migrating-4-5.html" title="4.x to 5.0" class="md-nav__link">
       4.x to 5.0
     </a>
   </li>
@@ -412,7 +419,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api-changes/migrating-5-6/index.html" title="5.x to 6.0" class="md-nav__link">
+    <a href="api-changes/migrating-5-6.html" title="5.x to 6.0" class="md-nav__link">
       5.x to 6.0
     </a>
   </li>
@@ -424,7 +431,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api-changes/migrating-6_6-6_7/index.html" title="6.6.x to 6.7.0" class="md-nav__link">
+    <a href="api-changes/migrating-6_6-6_7.html" title="6.6.x to 6.7.0" class="md-nav__link">
       6.6.x to 6.7.0
     </a>
   </li>
@@ -436,7 +443,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api-changes/migrating-6_7-7_0/index.html" title="6.7+ to 7.0" class="md-nav__link">
+    <a href="api-changes/migrating-6_7-7_0.html" title="6.7+ to 7.0" class="md-nav__link">
       6.7+ to 7.0
     </a>
   </li>
@@ -472,7 +479,7 @@
 
 
   <li class="md-nav__item">
-    <a href="errors/sdk-errors/index.html" title="SDK errors" class="md-nav__link">
+    <a href="errors/sdk-errors.html" title="SDK errors" class="md-nav__link">
       SDK errors
     </a>
   </li>
@@ -484,7 +491,7 @@
 
 
   <li class="md-nav__item">
-    <a href="errors/status-words/index.html" title="Seos status words" class="md-nav__link">
+    <a href="errors/status-words.html" title="Seos status words" class="md-nav__link">
       Seos status words
     </a>
   </li>
@@ -496,7 +503,7 @@
 
 
   <li class="md-nav__item">
-    <a href="errors/gatt-errors/index.html" title="GATT errors" class="md-nav__link">
+    <a href="errors/gatt-errors.html" title="GATT errors" class="md-nav__link">
       GATT errors
     </a>
   </li>
@@ -532,7 +539,7 @@
 
 
   <li class="md-nav__item">
-    <a href="samples/remote-session/index.html" title="Remote session" class="md-nav__link">
+    <a href="samples/remote-session.html" title="Remote session" class="md-nav__link">
       Remote session
     </a>
   </li>
@@ -568,7 +575,7 @@
 
 
   <li class="md-nav__item">
-    <a href="seos-access-api-samples/read-adf-metadata/index.html" title="Read ADF metadata" class="md-nav__link">
+    <a href="seos-access-api-samples/read-adf-metadata.html" title="Read ADF metadata" class="md-nav__link">
       Read ADF metadata
     </a>
   </li>
@@ -580,7 +587,7 @@
 
 
   <li class="md-nav__item">
-    <a href="seos-access-api-samples/read-write-tags-on-adf/index.html" title="Read/Write tag on ADF" class="md-nav__link">
+    <a href="seos-access-api-samples/read-write-tags-on-adf.html" title="Read/Write tag on ADF" class="md-nav__link">
       Read/Write tag on ADF
     </a>
   </li>
@@ -592,7 +599,7 @@
 
 
   <li class="md-nav__item">
-    <a href="seos-access-api-samples/accessing-remote-seos/index.html" title="Accessing a Seos over HTTP" class="md-nav__link">
+    <a href="seos-access-api-samples/accessing-remote-seos.html" title="Accessing a Seos over HTTP" class="md-nav__link">
       Accessing a Seos over HTTP
     </a>
   </li>
@@ -604,7 +611,7 @@
 
 
   <li class="md-nav__item">
-    <a href="seos-access-api-samples/credential-for-test/index.html" title="Credential for test" class="md-nav__link">
+    <a href="seos-access-api-samples/credential-for-test.html" title="Credential for test" class="md-nav__link">
       Credential for test
     </a>
   </li>
@@ -616,7 +623,7 @@
 
 
   <li class="md-nav__item">
-    <a href="seos-access-api-samples/ake-session-setup/index.html" title="AKE session setup" class="md-nav__link">
+    <a href="seos-access-api-samples/ake-session-setup.html" title="AKE session setup" class="md-nav__link">
       AKE session setup
     </a>
   </li>
@@ -656,7 +663,7 @@
                 
                 
                 <h1 id="seos-mobile-sdk-for-android-overview">Seos Mobile SDK for Android Overview</h1>
-<p>New to the SDK? Go to the <a href="getting-started/getting-started/index.html">getting started section</a></p>
+<p>New to the SDK? Go to the <a href="getting-started/getting-started.html">getting started section</a></p>
 <p>This document is a quick start guide to integrating Mobile Credentials in an application using the ASSA ABLOY Seos Mobile SDK for Android version 6.x.
 It explains some of the basic uses of the SDK, and contains a few code samples to get started.</p>
 <p>The SDK is divided into three main areas:</p>
@@ -668,7 +675,7 @@ It explains some of the basic uses of the SDK, and contains a few code samples t
 <p>The Seos eco system is rather complex, and the SDK is constantly evolving. Depending on the type of TSM used by the backend, the type of phone and the type of secure element, the underlying process of installing and managing Seos might differ. 
 The goal of the SDK is to hide that complexity from the integrator and provide a uniform API independent of
 the underlying implementation.</p>
-<p><img alt="High Level System Overview" src="./assets/images/High_Level_Architecture.jpg" /></p>
+<p><img alt="High Level System Overview" src="assets/images/High_Level_Architecture.jpg" /></p>
 <h1 id="third-party-licenses">Third party licenses</h1>
 <table>
 <thead>
@@ -706,6 +713,8 @@ the underlying implementation.</p>
               
               
                 
+
+
               
             </article>
           </div>
@@ -719,7 +728,7 @@ the underlying implementation.</p>
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="getting-started/getting-started/index.html" title="Getting started with the SDK" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="getting-started/getting-started.html" title="Getting started with the SDK" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
@@ -741,34 +750,28 @@ the underlying implementation.</p>
       <div class="md-footer-copyright">
         
         powered by
-        <a href="http://www.mkdocs.org">MkDocs</a>
+        <a href="https://www.mkdocs.org">MkDocs</a>
         and
         <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
-        
   <div class="md-footer-social">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
     
       <a href="https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/" class="md-footer-social__link fa fa-website"></a>
     
   </div>
 
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="./assets/javascripts/application.02434462.js"></script>
+      <script src="assets/javascripts/application.ac79c3b0.js"></script>
       
-      <script>app.initialize({version:"0.17.2",url:{base:"."}})</script>
-      
-    
-    
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
     
   </body>

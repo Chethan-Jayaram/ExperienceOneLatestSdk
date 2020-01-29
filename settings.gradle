@@ -1,2 +1,2 @@
-include ':app', ':mobilekeys-android-sdk-release-7.3.0'
+include ':app', ':mobilekeys-android-sdk-release-7.4.3'
 rootProject.name='ExperienceOne'

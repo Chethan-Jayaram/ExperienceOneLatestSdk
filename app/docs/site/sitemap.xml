@@ -1,146 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/index.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//getting-started/getting-started/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/getting-started/getting-started.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//getting-started/logging/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/getting-started/logging.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//getting-started/proguard/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/getting-started/proguard.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//getting-started/permissions/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/getting-started/permissions.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//getting-started/custom-tsm/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/getting-started/custom-tsm.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
-    
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//api-changes/migrating-3-4/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/api-changes/migrating-3-4.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//api-changes/migrating-4-5/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/api-changes/migrating-4-5.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//api-changes/migrating-5-6/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/api-changes/migrating-5-6.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//api-changes/migrating-6_6-6_7/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/api-changes/migrating-6_6-6_7.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//api-changes/migrating-6_7-7_0/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/api-changes/migrating-6_7-7_0.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
-    
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//errors/sdk-errors/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/errors/sdk-errors.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//errors/status-words/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/errors/status-words.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//errors/gatt-errors/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/errors/gatt-errors.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
-    
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//samples/remote-session/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/samples/remote-session.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
-    
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//seos-access-api-samples/read-adf-metadata/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/seos-access-api-samples/read-adf-metadata.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//seos-access-api-samples/read-write-tags-on-adf/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/seos-access-api-samples/read-write-tags-on-adf.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//seos-access-api-samples/accessing-remote-seos/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/seos-access-api-samples/accessing-remote-seos.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//seos-access-api-samples/credential-for-test/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/seos-access-api-samples/credential-for-test.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos//seos-access-api-samples/ake-session-setup/index.html</loc>
-     <lastmod>2019-08-20</lastmod>
+     <loc>https://www.assaabloy.com/en/com/solutions/technology-platforms/seos/seos-access-api-samples/ake-session-setup.html</loc>
+     <lastmod>2020-01-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
 </urlset>

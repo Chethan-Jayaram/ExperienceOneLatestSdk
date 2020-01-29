@@ -5,8 +5,13 @@ import android.Manifest;
 import android.app.Notification;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -14,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -30,6 +37,14 @@ import com.example.experienceone.helper.GlobalClass;
 import com.example.experienceone.unlock.ClosestLockTrigger;
 import com.example.experienceone.unlock.MobileKeysApiFacade;
 import com.example.experienceone.unlock.UnlockNotification;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Collections;
@@ -42,6 +57,7 @@ public class DoorUnlockingFragment extends Fragment
         implements View.OnClickListener, MobileKeysCallback, ClosestLockTrigger.LockInRangeListener,
         SwipeRefreshLayout.OnRefreshListener {
 
+    private static final int REQUEST_LOCATION_PERMISSION = 10;
     private MobileKeysApiFacade mobileKeysApiFacade;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView tv_unlock_status, registor_status, tv_search, tv_unlock_msg;
@@ -49,12 +65,15 @@ public class DoorUnlockingFragment extends Fragment
     private BluetoothAdapter mBluetoothAdapter;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private Handler handler;
+    private Context mContext;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_door_unlocking, container, false);
         try {
+            mContext=getContext();
             tv_unlock_status = view.findViewById(R.id.tv_unlock_status);
             swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
             registor_status = view.findViewById(R.id.registor_status);
@@ -66,6 +85,8 @@ public class DoorUnlockingFragment extends Fragment
             TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             toolbar_title.setText("DoorUnlock");
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            statusCheck();
+
             GlobalClass.flow = true;
 
             tv_unlock_status.setOnClickListener(this);
@@ -81,7 +102,7 @@ public class DoorUnlockingFragment extends Fragment
             handler.postDelayed(() -> {
                 try {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new HomeGridFragment()).commit();
-                    GlobalClass.mPreviousRouteName="";
+                    GlobalClass.mPreviousRouteName = "";
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -94,6 +115,7 @@ public class DoorUnlockingFragment extends Fragment
         }
         return view;
     }
+
 
 
     @Override
@@ -195,10 +217,49 @@ public class DoorUnlockingFragment extends Fragment
     private void requestLocationPermission() {
         if (!hasLocationPermissions()) {
             ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    getPermissions(),
                     MY_PERMISSIONS_REQUEST_LOCATION);
         }
     }
+
+    public static String[] getPermissions() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ?
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION} :
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
+        } else {
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+        }
+    }
+
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        }
+    }
+
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", (dialog, id) -> {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new HomeGridFragment()).commit();
+                    GlobalClass.mPreviousRouteName = "";
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     /**
      * Callback from closest lock trigger.
@@ -321,4 +382,20 @@ public class DoorUnlockingFragment extends Fragment
         registor_status.setText("ACTIVE");
         registor_status.setBackgroundColor(Color.parseColor("#76b833"));
     }
+
+    /**
+     * Permission request callback
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            startScanning();
+        }
+    }
+
+
 }

@@ -5,11 +5,11 @@ project.archivesBaseName = "aamk-sample-" + project.archivesBaseName
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.experienceone"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -133,9 +133,12 @@ dependencies {
     //image pic and crop lib
     implementation 'com.myhexaville:smart-image-picker:1.0.4'
 
-    implementation project(path: ':mobilekeys-android-sdk-release-7.3.0')
+   /* implementation project(path: ':mobilekeys-android-sdk-release-7.3.0')*/
 
     implementation 'com.llew.huawei:verifier:1.0.2'
+ /*   implementation project(path: ':mobilekeys-android-sdk-debug-7.4.3')*/
+    implementation project(path: ':mobilekeys-android-sdk-release-7.4.3')
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 }
 
 configurations {

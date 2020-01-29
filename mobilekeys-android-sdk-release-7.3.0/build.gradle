@@ -1,2 +1,0 @@
-configurations.maybeCreate("default")
-artifacts.add("default", file('mobilekeys-android-sdk-release-7.3.0.aar'))
