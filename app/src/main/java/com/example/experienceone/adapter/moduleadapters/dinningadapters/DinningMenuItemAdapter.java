@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -20,20 +22,21 @@ import com.example.experienceone.pojo.dinning.CategoryItem;
 
 import java.util.List;
 
-public class DinningMenuItemAdapter extends RecyclerView.Adapter<DinningMenuItemAdapter.SubHeaderCategory> {
+public class DinningMenuItemAdapter extends RecyclerView.Adapter<DinningMenuItemAdapter.SubHeaderCategory>  {
 
     private MenuAdapterlistner menuAdapterlistner;
     private  Integer count=0;
     private  Double price=0.0;
     private List<CategoryItem> mCategoryItems;
-
-
+    // Animation
+   private Animation mAnimSlideDown,mCountIncrementAnima,mCountDescrementAnim;
 
     public DinningMenuItemAdapter(List<CategoryItem> mCategoryItems,Integer count,Double price,MenuAdapterlistner menuAdapterlistner) {
         this.count=count;
         this.price=price;
         this.mCategoryItems=mCategoryItems;
         this.menuAdapterlistner = menuAdapterlistner;
+
     }
 
     public interface MenuAdapterlistner { // create an interface
@@ -43,6 +46,14 @@ public class DinningMenuItemAdapter extends RecyclerView.Adapter<DinningMenuItem
     @NonNull
     @Override
     public SubHeaderCategory onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // load the animation
+        mCountIncrementAnima= AnimationUtils.loadAnimation(parent.getContext(),
+                R.anim.slide_up);
+
+        mAnimSlideDown= AnimationUtils.loadAnimation(parent.getContext(),
+                R.anim.slide_down);
+        mCountDescrementAnim= AnimationUtils.loadAnimation(parent.getContext(),
+                R.anim.slide_down);
         View itemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.category_subcategory_card, parent, false);
                 return new SubHeaderCategory(itemView);
@@ -52,6 +63,7 @@ public class DinningMenuItemAdapter extends RecyclerView.Adapter<DinningMenuItem
     @Override
     public void onBindViewHolder(@NonNull SubHeaderCategory holder, int position) {
         try {
+
           if(mCategoryItems.get(position).getQuantity()!=null) {
                 holder.tv_count.setText(mCategoryItems.get(position).getQuantity().toString());
             }
@@ -63,15 +75,35 @@ public class DinningMenuItemAdapter extends RecyclerView.Adapter<DinningMenuItem
             holder.img_add.setOnClickListener(v -> {
                 try {
                     if (Integer.parseInt( holder.tv_count.getText().toString()) < 100) {
-                        count += 1;
-                        price += Double.parseDouble(mCategoryItems.get(position).getItemPrice());
+                        mCountIncrementAnima.setDuration(100);
+                        holder.tv_count.startAnimation(mCountIncrementAnima);
+
                     }
-                    holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperAdd(Integer.parseInt( holder.tv_count.getText().toString()))));
-                    mCategoryItems.get(position).setQuantity(Integer.valueOf(holder.tv_count.getText().toString()));
-                    mCategoryItems.get(position).setTitle(mCategoryItems.get(position).getItemName()+"("+mCategoryItems.get(position).getItemCode()+")");
-                    mCategoryItems.get(position).setDescription(mCategoryItems.get(position).getItemDescription());
-                    mCategoryItems.get(position).setPrice(mCategoryItems.get(position).getItemPrice());
-                    menuAdapterlistner.onItemClickListener(mCategoryItems.get(position),price,position);
+                    mCountIncrementAnima.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            count += 1;
+                            price += Double.parseDouble(mCategoryItems.get(position).getItemPrice());
+                            mAnimSlideDown.setDuration(0);
+                            holder.tv_count.startAnimation(mAnimSlideDown);
+                            holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperAdd(Integer.parseInt(holder.tv_count.getText().toString()))));
+                            mCategoryItems.get(position).setQuantity(Integer.valueOf(holder.tv_count.getText().toString()));
+                            mCategoryItems.get(position).setTitle(mCategoryItems.get(position).getItemName()+"("+mCategoryItems.get(position).getItemCode()+")");
+                            mCategoryItems.get(position).setDescription(mCategoryItems.get(position).getItemDescription());
+                            mCategoryItems.get(position).setPrice(mCategoryItems.get(position).getItemPrice());
+                            menuAdapterlistner.onItemClickListener(mCategoryItems.get(position),price,position);
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -79,15 +111,32 @@ public class DinningMenuItemAdapter extends RecyclerView.Adapter<DinningMenuItem
             holder.img_mius.setOnClickListener(v -> {
                 try {
                     if (Integer.parseInt(holder.tv_count.getText().toString()) >0) {
-                        count -= 1;
-                        price -= Double.parseDouble(mCategoryItems.get(position).getItemPrice());
+                        mCountDescrementAnim.setDuration(100);
+                        holder.tv_count.startAnimation(mCountDescrementAnim);
                     }
-                    holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperSub(Integer.parseInt(holder.tv_count.getText().toString()))));
-                    mCategoryItems.get(position).setQuantity(Integer.valueOf(holder.tv_count.getText().toString()));
-                    mCategoryItems.get(position).setTitle(mCategoryItems.get(position).getItemName());
-                    mCategoryItems.get(position).setDescription(mCategoryItems.get(position).getItemDescription());
-                    mCategoryItems.get(position).setPrice(mCategoryItems.get(position).getItemPrice());
-                    menuAdapterlistner.onItemClickListener(mCategoryItems.get(position),price,position);
+                    mCountDescrementAnim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            count -= 1;
+                            price -= Double.parseDouble(mCategoryItems.get(position).getItemPrice());
+                            holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperSub(Integer.parseInt(holder.tv_count.getText().toString()))));
+                            mCategoryItems.get(position).setQuantity(Integer.valueOf(holder.tv_count.getText().toString()));
+                            mCategoryItems.get(position).setTitle(mCategoryItems.get(position).getItemName());
+                            mCategoryItems.get(position).setDescription(mCategoryItems.get(position).getItemDescription());
+                            mCategoryItems.get(position).setPrice(mCategoryItems.get(position).getItemPrice());
+                            menuAdapterlistner.onItemClickListener(mCategoryItems.get(position),price,position);
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,7 +151,6 @@ public class DinningMenuItemAdapter extends RecyclerView.Adapter<DinningMenuItem
     public int getItemCount() {
         return  mCategoryItems.size();
     }
-
 
 
 

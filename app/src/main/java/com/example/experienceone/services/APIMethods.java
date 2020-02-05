@@ -45,158 +45,158 @@ import retrofit2.http.Url;
 
 public interface APIMethods {
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("exp-authenticate-mobile/")
     Call<AuthenticateMobile> userAuthentication(@Body Map map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("exp-guest-authenticate-otp/")
     Call<AuthenticateMobile> verifyOTP(@Body Map map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("create-mpin/")
     Call<CreateMpin> createMpin(@HeaderMap Map<String,String> headers,@Body Map map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("login-guest/")
     Call<LoginMpin> loginMpin(@Body Map map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("guest-resend-otp/")
     Call<AuthenticateMobile> resendOTP(@Body Map map);
 
 
-    @Headers({"Content-Type:application/json","organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-dashbord-module-view/")
     Call<DashbordElements> getDashBoardElemnts(@HeaderMap Map<String,String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-mobile-routes-category/")
     Call<NavMenuItems> getNavItems(@HeaderMap Map<String,String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-wifi/")
     Call<Wifi> getWifiCred(@HeaderMap Map<String,String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-directory-service/")
     Call<HotelDirectoryPojo> getHotelDirectory(@HeaderMap Map<String,String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET
     Call<HouseKeepingPojo> getHouseKeeping(@Url String url, @HeaderMap Map<String, String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST
     Call<TicketID> postSegmentModule(@Url String url, @HeaderMap Map<String,String> headers, @Body ModuleSegmentModel houseKeepingPojo);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("display-ticket/{id}/")
     Call<TicketDetailsPojo>  getticketDetails(@HeaderMap Map<String,String> headers , @Path("id") String id);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-laundry-category/")
     Call<HouseKeepingPojo> getLaundry(@HeaderMap Map<String,String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-emergency-service/")
     Call<Emergency> getEmergencyDashBoardElemnts(@HeaderMap Map<String,String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("emergency-service-book-ticket/")
     Call<TicketID> postEmergencyRequst(@HeaderMap Map<String,String> headers, @Body ModuleSegmentModel houseKeepingPojo);
 
    /* @GET("guest-dining/")
     Call<Dinning> getDinningElemnts(@HeaderMap Map<String,String> headers);*/
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-dining-category/")
     Call<InRoomDinning> getDinningElemnts(@HeaderMap Map<String,String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("dining-book-ticket/")
     Call<TicketID> postDinningSegment(@HeaderMap Map<String,String> headers, @Body DinningSegmentModel dinningSegmentModel);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-car-category/")
     Call<TravelPojo> getTravelList(@HeaderMap Map<String,String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-list-ticket/")
     Call<TicketList>  getticketList(@HeaderMap Map<String,String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-master-currency/currencylist/")
     Call<ForeignExchangePojo>  getexchange(@HeaderMap Map<String,String> headers);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-master-currency/currencylistbyId/")
     Call<ForeignExchangePojo>  getexchangeById(@HeaderMap Map<String,String> headers, @Query("id") Integer id);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("guest-currency-exchange/")
     Call<CurrencyExchange> postForeignExchnage(@HeaderMap Map<String,String> headers,@Body Map map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST
     Call<TicketID> postforeignExchange(@Url String url, @HeaderMap Map<String,String> headers, @Body ForeignExchangemodel houseKeepingPojo);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("car-book-ticket/")
     Call<TicketID> postTravelRequst(@HeaderMap Map<String, String> headers,@Body TravelModel model);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-preference/")
     Call<PreferencePojo> getPrefrenceList(@HeaderMap Map<String,String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("guest-preference/")
     Call<CreateUpdatePrefrencesPojo> postCreatePrefrence(@HeaderMap Map<String,String> headers, @Body Map<String, String> map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @PUT("guest-preference/{id}/")
     Call<CreateUpdatePrefrencesPojo> putStatusPrefrence(@Path("id") String id, @HeaderMap Map<String, String> headers, @Body Map<String, String> map);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @DELETE("guest-preference/{id}/")
     Call<GeneralPojo> deletePrefrence(@Path("id") String id, @HeaderMap Map<String, String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-booking/")
     Call<MyStayPojo>  getBookingDetails(@HeaderMap Map<String,String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-localtour-guide-place/")
     Call<TourGuidePojo>  getTourGuideList(@HeaderMap Map<String,String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @PUT("guest/{id}/")
     Call<GuestDeatils> putProfileDeatils(@Path("id") String id, @HeaderMap Map<String, String> headers, @Body Map<String, String> map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET
     Call<TicketList>  getticketNextPage(@Url String url,@HeaderMap Map<String,String> headers);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("guest-sos/")
     Call<GeneralPojo>  triggerSOS(@HeaderMap Map<String,String> headers,@Body Map<String, String> map);
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("guest-sos/")
     Call<SoSDetails> getGuestSoS(@HeaderMap Map<String, String> headerMap);
 
 
-    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @POST("guest/")
     Call<AuthenticateMobile> regUser(@Body Map<String, String> map);
 

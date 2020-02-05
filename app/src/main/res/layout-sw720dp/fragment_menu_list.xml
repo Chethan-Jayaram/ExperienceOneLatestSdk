@@ -114,7 +114,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="18sp"
                 android:textColor="@color/white"
-                android:text="Including all taxes"
+                android:text="Excluding all taxes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>

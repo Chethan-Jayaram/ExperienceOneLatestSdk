@@ -69,7 +69,7 @@ public class APIResponse {
                     } else {
                         progressDialog.dismiss();
                         CustomMessageHelper showDialog = new CustomMessageHelper(context);
-                        showDialog.showCustomMessage((Activity) context, "Alert!!", response.errorBody().toString(), false, false);
+                        showDialog.showCustomMessage((Activity) context, "Alert!!", response.raw().toString(), false, false);
                     }
                 } catch (Exception e) {
                     Log.d(apiCallName,e.getMessage());

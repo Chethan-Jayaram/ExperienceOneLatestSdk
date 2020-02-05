@@ -6,6 +6,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -125,6 +127,7 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
             try {
                 menuItems.add(categoryItem);
                 dinningSegmentModel.setDetails(GlobalClass.removeDuplicateItems(menuItems));
+
                 item_count.setText(dinningSegmentModel.getDetails().size() + " items");
                 tv_item_price.setText(GlobalClass.decimalFormat.format(Math.abs(price)) + " Rs");
                 this.prices = price;
@@ -159,4 +162,5 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
         }
         super.onDestroy();
     }
+
 }

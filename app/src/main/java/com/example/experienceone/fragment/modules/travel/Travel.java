@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.Animation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -46,15 +47,10 @@ public class Travel extends Fragment implements ApiListener {
     private RecyclerView travel_recycler;
     private Context context;
     private ArrayList<CategoryItem> details=new ArrayList<>();
-    private TravelModel model;
+    private TravelModel mModel;
     private ProgressBar loading;
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        details.clear();
-    }
 
     @Nullable
     @Override
@@ -69,15 +65,15 @@ public class Travel extends Fragment implements ApiListener {
             TextView tv_request_cab = view.findViewById(R.id.tv_request_cab);
             loading=view.findViewById(R.id.loading);
 
-            model = new TravelModel();
+            mModel = new TravelModel();
 
             getHosueKeepingList();
 
 
             tv_request_cab.setOnClickListener(v -> {
                 try {
-                    model.setTitle("Cab booking");
-                    model.setBooking(GlobalClass.Booking_id);
+                    mModel.setTitle("Cab booking");
+                    mModel.setBooking(GlobalClass.Booking_id);
                     List<CategoryItem> categoryItems = GlobalClass.removeDuplicates(details);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         categoryItems = categoryItems.stream().filter(p -> Integer.parseInt(p.getQuantity()) != 0).collect(Collectors.toList());
@@ -88,9 +84,9 @@ public class Travel extends Fragment implements ApiListener {
                             }
                         }
                     }
-                    model.setDetails(categoryItems);
+                    mModel.setDetails(categoryItems);
                     if (categoryItems.size() > 0) {
-                        postTravelRequest(model);
+                        postTravelRequest(mModel);
                     } else {
                         GlobalClass.ShowAlet(context, "Alert", "please select a car to book");
                     }
@@ -166,6 +162,13 @@ public class Travel extends Fragment implements ApiListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        details.clear();
     }
 
     @Override

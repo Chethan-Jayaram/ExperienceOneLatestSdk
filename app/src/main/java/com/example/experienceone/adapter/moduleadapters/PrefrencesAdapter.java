@@ -23,9 +23,13 @@ import com.example.experienceone.services.ApiListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -77,6 +81,9 @@ public class PrefrencesAdapter extends RecyclerView.Adapter<PrefrencesAdapter.My
             holder.iv_options_menu.setOnClickListener(v -> {
                 showPopUpMenu(holder, position);
             });
+
+;
+            GlobalClass.inputTimeFormat.setTimeZone(TimeZone.getDefault());
             holder.tv_time.setText(GlobalClass.outputTimeFormat.format(GlobalClass.inputTimeFormat.parse(item_.get(position).getTime())));
         } catch (Exception e) {
             e.printStackTrace();

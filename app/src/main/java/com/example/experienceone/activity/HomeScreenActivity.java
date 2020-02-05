@@ -2,26 +2,22 @@ package com.example.experienceone.activity;
 
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
 import com.assaabloy.mobilekeys.api.MobileKeys;
 import com.assaabloy.mobilekeys.api.MobileKeysCallback;
 import com.assaabloy.mobilekeys.api.MobileKeysException;
@@ -38,31 +34,16 @@ import com.assaabloy.mobilekeys.api.hce.HceConnectionCallback;
 import com.assaabloy.mobilekeys.api.hce.HceConnectionListener;
 import com.bumptech.glide.Glide;
 import com.example.experienceone.R;
-import com.example.experienceone.adapter.generaladapters.ExpandableNavListAdapter;
 import com.example.experienceone.fragment.general.EditProfile;
-import com.example.experienceone.fragment.general.SOS;
 import com.example.experienceone.fragment.general.HomeGridFragment;
-import com.example.experienceone.helper.APIResponse;
-
+import com.example.experienceone.fragment.general.SOS;
 import com.example.experienceone.helper.GlobalClass;
-
-import com.example.experienceone.pojo.navmenuitems.NavMenuItems;
-import com.example.experienceone.pojo.navmenuitems.Result;
-import com.example.experienceone.pojo.navmenuitems.RoutesSubcategory;
-import com.example.experienceone.retrofit.ClientServiceGenerator;
-import com.example.experienceone.services.APIMethods;
-import com.example.experienceone.services.ApiListener;
 import com.example.experienceone.unlock.MobileKeysApiFacade;
 import com.example.experienceone.unlock.MobileKeysApiFactory;
+import com.example.experienceone.utils.NetworkChangeReceiver;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 
 public class HomeScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -73,8 +54,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
 
     private static final String TAG = HomeScreenActivity.class.getName();
     private MobileKeys mobileKeys;
-    private ExpandableListView expandableListView;
-
     private DrawerLayout drawer;
     private View headerLayout;
     private ReaderConnectionCallback readerConnectionCallback;
@@ -82,9 +61,11 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     private ReaderConnectionController readerConnectionController;
     private MobileKeysApiFactory mobileKeysApiFactory;
     private ScanConfiguration scanConfiguration;
-    private MobileKeysApiFacade mobileKeysApiFacade;
     private Vibrator vibrator;
-    private ImageView nav_menu, btn_back, iv_sos, img_et_btn;
+    private ImageView nav_menu;
+    private ImageView iv_sos;
+    private ImageView img_et_btn;
+    private NetworkChangeReceiver mNetworkChangeReceiver;
 
 
     @Override
@@ -93,19 +74,33 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_home);
         try {
             nav_menu = findViewById(R.id.nav_menu);
-            btn_back = findViewById(R.id.btn_back);
-            iv_sos = findViewById(R.id.iv_sos);
+            ImageView btn_back = findViewById(R.id.btn_back);
             NavigationView navigationView = findViewById(R.id.nav_view);
-            expandableListView = findViewById(R.id.expandableListView);
+            iv_sos = findViewById(R.id.iv_sos);
             drawer = findViewById(R.id.drawer_layout);
             vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
+            RegistorNetworkChnage();
+
+
+            Intent intent = getIntent();
+
+            String str=intent.getStringExtra("changes");
+            if(str.equalsIgnoreCase("ble")){
+                GlobalClass.showErrorMsg(this,"Bluetooth Turned off");
+            }else if(str.equalsIgnoreCase("loc")){
+                GlobalClass.showErrorMsg(this,"Location turned off");
+            }
+
+
+
+
+            //initialize sdk callback methods
             onCreated();
             readCallBack();
 
             navigationView.setNavigationItemSelectedListener(this);
 
-           // getNavMenuItems();
 
             this.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new HomeGridFragment()).commit();
 
@@ -139,6 +134,12 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         }
     }
 
+    private void RegistorNetworkChnage() {
+        mNetworkChangeReceiver=new NetworkChangeReceiver();
+        IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        this.registerReceiver(mNetworkChangeReceiver, intentFilter);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -163,17 +164,12 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         }
     }
 
-   /* private void getNavMenuItems() {
-        APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
-        Map<String, String> headerMap = new HashMap();
-        headerMap.put("Authorization", "bearer " + GlobalClass.token);
-        Call<NavMenuItems> navApiCall = api.getNavItems(headerMap);
-        APIResponse.callBackgroundRetrofit(navApiCall, "navitems", this, this);
-    }*/
+
 
     @Override
     protected void onResume() {
         try {
+
             if (GlobalClass.hasActiveBooking) {
                 iv_sos.setVisibility(View.VISIBLE);
             } else {
@@ -203,127 +199,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     }
 
 
-   /* @Override
-    public <ResponseType> void success(Response<ResponseType> response, String apiCallName) {
-        try {
-            if (apiCallName.equalsIgnoreCase("navitems")) {
-                NavMenuItems navMenuItems = (NavMenuItems) response.body();
-                if (navMenuItems.getStatus().equalsIgnoreCase("Success")) {
-                    List<Result> item = navMenuItems.getResult();
-                    HashMap<Result, List<RoutesSubcategory>> childList = new HashMap<>();
-                    for (int i = 0; i < item.size(); i++) {
-                        headerList.add(item.get(i));
-                        if (!item.get(i).getRoutesSubcategory().isEmpty()) {
-                            for (int j = 0; j < item.get(i).getRoutesSubcategory().size(); j++) {
-                                List<RoutesSubcategory> routesSubcategory = item.get(i).getRoutesSubcategory();
-                                childList.put(headerList.get(i), routesSubcategory);
-                            }
-                        }
-                    }
-                    populateExpandableList(this, headerList, childList);
-                } else {
-                    GlobalClass.showErrorMsg(this, navMenuItems.getError());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-
- /*   @Override
-    public void onErrorListner() {
-
-    }*/
-
-   /* private void populateExpandableList(HomeScreenActivity homeScreenActivity, List<Result> headerList, HashMap<Result, List<RoutesSubcategory>> childList) {
-
-        ExpandableListAdapter expandableListAdapter = new ExpandableNavListAdapter(homeScreenActivity, headerList, childList);
-
-        expandableListView.setAdapter(expandableListAdapter);
-
-
-        expandableListView.setOnGroupClickListener((parent, v, groupPosition, ID) -> {
-            if (!headerList.get(groupPosition).getSelected()) {
-                headerList.get(groupPosition).setSelected(true);
-                for(int i=0;i<headerList.size();i++){
-                    if(groupPosition!=i) {
-                        headerList.get(i).setSelected(false);
-                    }
-                }
-                ChangeFragment(headerList.get(groupPosition).getMobileRoute().getRouteName());
-                if(groupPosition!=2){
-                    handelNavDrawer();
-                }
-            }else if(groupPosition!=2) {
-                handelNavDrawer();
-            }
-
-            return false;
-        });
-
-        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            if (GlobalClass.hasActiveBooking) {
-                if (!childList.get(headerList.get(groupPosition)).get(childPosition).getSelected()) {
-                    childList.get(headerList.get(groupPosition)).get(childPosition).setSelected(true);
-                    for(int i=0;i<childList.get(headerList.get(groupPosition)).size();i++){
-                        if(childPosition!=i) {
-                            childList.get(headerList.get(groupPosition)).get(i).setSelected(false);
-                        }
-                    }
-                    if(  GlobalClass.ChangeChildFragment(childList.get(headerList.get(groupPosition)).get(childPosition).getMobileRoute().getRouteName(),this)){
-                        handelNavDrawer();
-                        HomeGridFragment homeGridFragment=new HomeGridFragment();
-                        homeGridFragment.getInvitationCode();
-                    }
-
-
-                }else{
-                    handelNavDrawer();
-                }
-
-
-
-            }
-            return false;
-        });
-    }
-
-    private void ChangeFragment(String className) {
-        try {
-            try {
-                if (GlobalClass.hasActiveBooking) {
-                    GlobalClass.edit.putBoolean("hasInvitationCode", false);
-                    GlobalClass.edit.apply();
-                 *//*   if (!mobileKeysApiFacade.getMobileKeys().listMobileKeys().isEmpty()) {
-                        mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
-                        mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
-                    }*//*
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            className = GlobalClass.getClassName(className);
-            if (className.contains("Logout")) {
-                Intent intent = new Intent(this, UseAuthenticationActivity.class);
-                intent.putExtra("logout", true);
-                startActivity(intent);
-                finish();
-            } else if (!className.isEmpty()) {
-                String fullPathOfTheClass = "com.example.experienceone.fragment." + className;
-                Class<?> cls = Class.forName(fullPathOfTheClass);
-                Fragment fragment = (Fragment) cls.newInstance();
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-*/
-
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return false;
@@ -333,7 +208,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     //on create initialize all sdk keys
     private void onCreated() {
         try {
-            mobileKeysApiFacade = this;
+            MobileKeysApiFacade mobileKeysApiFacade = this;
             mobileKeysApiFactory = (MobileKeysApiFactory) getApplication();
             mobileKeys = mobileKeysApiFactory.getMobileKeys();
             readerConnectionController = mobileKeysApiFactory.getReaderConnectionController();
@@ -343,7 +218,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         }
     }
 
-    //read connetion call backs from sdk
+    //read connection call backs from sdk
     private void readCallBack() {
         try {
             readerConnectionCallback = new ReaderConnectionCallback(getApplicationContext());
@@ -355,10 +230,11 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         }
     }
 
-    //unregister calbacks and receivers
+    //unregister callbacks and receivers
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(mNetworkChangeReceiver);
         readerConnectionCallback.unregisterReceiver();
         hceConnectionCallback.unregisterReceiver();
     }
@@ -389,6 +265,9 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     public void onReaderConnectionOpened(Reader reader, OpeningType openingType) {
     }
 
+
+
+    //on successful door unlock navigate to main screen with vibration alert
     @Override
     public void onReaderConnectionClosed(Reader reader, OpeningResult openingResult) {
         try {
@@ -431,6 +310,8 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
 
     }
 
+
+    //is end point setup complete return's the staus of invitation key registration
     @Override
     public boolean isEndpointSetUpComplete() {
         boolean isEndpointSetup = false;
@@ -475,6 +356,9 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
 
     }
 
+
+
+    //onAcitvity result pass data from gallery to fragment(edit profile)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -506,9 +390,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         }
         return shouldRetry;
     }
-    public void   handelNavDrawer() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-    }
+
+
 }

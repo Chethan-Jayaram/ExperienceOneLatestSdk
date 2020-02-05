@@ -136,7 +136,6 @@ if(mpin.length()==4){
 
     @Override
     public <ResponseType> void success(Response<ResponseType> response,String apiCallName) {
-
             try {
             LoginMpin loginMpin= (LoginMpin) response.body();
             if(apiCallName.equalsIgnoreCase("loginMpin")) {
@@ -151,6 +150,7 @@ if(mpin.length()==4){
                             loginMpin.getResult().getGuest().getImage());
                     Intent intent = new Intent();
                     intent.setClassName(context, "com.example.experienceone.activity.HomeScreenActivity");
+                    intent.putExtra("changes","");
                     GlobalClass.loacation=loginMpin.getResult().getLocation().getLocationName();
                     startActivity(intent);
                     getActivity().finish();

@@ -1,6 +1,5 @@
 package com.example.experienceone.adapter.ticketadapters;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
@@ -48,11 +47,12 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.My
             holder.tv_ticket_list_number.setText("#" + result.get(position).getTicketNumber());
             holder.tv_ticket_list_status.setText(result.get(position).getCurrentStatus().getName());
             holder.tv_Ticket_list_module_category.setText(result.get(position).getTitle());
-            holder.tv_started_date_time.setText(GlobalClass.outputdateformat.format(GlobalClass.inputdateformat.parse(result.get(position).getStartDateTime())));
-            holder.tv_activated_date_time.setText(GlobalClass.outputdateformat.format(GlobalClass.inputdateformat.parse(result.get(position).getLastActivityOn())));
             holder.content_lyt.setOnClickListener(v -> adapterClickListner.onItemClickListener(position));
             GradientDrawable drawable = (GradientDrawable) holder.tv_ticket_list_status.getBackground();
             drawable.setColor(Color.parseColor(result.get(position).getCurrentStatus().getEventStyle().getTicketStatusPills().getBackground()));
+            holder.tv_started_date_time.setText( GlobalClass.dateTimeConverter(result.get(position).getStartDateTime()));
+            holder.tv_activated_date_time.setText(GlobalClass.dateTimeConverter(result.get(position).getLastActivityOn()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

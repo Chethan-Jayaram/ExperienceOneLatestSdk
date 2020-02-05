@@ -3,6 +3,8 @@ package com.example.experienceone.adapter.moduleadapters.housekeeping;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -17,9 +19,10 @@ import java.util.List;
 public class HouseKeepingSubCategory  extends RecyclerView.Adapter<HouseKeepingSubCategory.MyViewHolder> {
    private List<CategoryItem> mCategoryItem;
     private AdapterClickListner adapterClickListner;
+    private Animation mAnimSlideDown,mCountIncrementAnima,mCountDescrementAnim;
 
 
-    public HouseKeepingSubCategory(List<CategoryItem> categoryItem,AdapterClickListner adapterClickListner) {
+    HouseKeepingSubCategory(List<CategoryItem> categoryItem, AdapterClickListner adapterClickListner) {
         this.mCategoryItem=categoryItem;
         this.adapterClickListner=adapterClickListner;
     }
@@ -29,6 +32,13 @@ public class HouseKeepingSubCategory  extends RecyclerView.Adapter<HouseKeepingS
     @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mCountIncrementAnima= AnimationUtils.loadAnimation(parent.getContext(),
+                R.anim.slide_up);
+
+        mAnimSlideDown= AnimationUtils.loadAnimation(parent.getContext(),
+                R.anim.slide_down);
+        mCountDescrementAnim= AnimationUtils.loadAnimation(parent.getContext(),
+                R.anim.slide_down);
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.category_subcategory_card, parent, false);
         return new MyViewHolder(itemView);
@@ -48,22 +58,68 @@ public class HouseKeepingSubCategory  extends RecyclerView.Adapter<HouseKeepingS
            }
             holder.img_add.setOnClickListener(v -> {
                 try {
-                    holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperAdd(Integer.parseInt( holder.tv_count.getText().toString()))));
-                    mCategoryItem.get(position).setQuantity( holder.tv_count.getText().toString());
-                    mCategoryItem.get(position).setTitle(mCategoryItem.get(position).getName());
-                    mCategoryItem.get(position).setDescription("");
-                    adapterClickListner.onItemClickListener(mCategoryItem.get(position));
+                    if (Integer.parseInt( holder.tv_count.getText().toString()) < 100) {
+
+                        mCountIncrementAnima.setDuration(100);
+                        holder.tv_count.startAnimation(mCountIncrementAnima);
+                    }
+                    mCountIncrementAnima.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            mAnimSlideDown.setDuration(0);
+                            holder.tv_count.startAnimation(mAnimSlideDown);
+                            holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperAdd(Integer.parseInt( holder.tv_count.getText().toString()))));
+                            mCategoryItem.get(position).setQuantity( holder.tv_count.getText().toString());
+                            mCategoryItem.get(position).setTitle(mCategoryItem.get(position).getName());
+                            mCategoryItem.get(position).setDescription("");
+                            adapterClickListner.onItemClickListener(mCategoryItem.get(position));
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             });
             holder.img_mius.setOnClickListener(v -> {
                 try {
-                    holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperSub(Integer.parseInt( holder.tv_count.getText().toString()))));
-                    mCategoryItem.get(position).setQuantity( holder.tv_count.getText().toString());
-                    mCategoryItem.get(position).setTitle( mCategoryItem.get(position).getName());
-                    mCategoryItem.get(position).setDescription("");
-                    adapterClickListner.onItemClickListener(mCategoryItem.get(position));
+                    if (Integer.parseInt(holder.tv_count.getText().toString()) >0) {
+                        mCountDescrementAnim.setDuration(100);
+                        holder.tv_count.startAnimation(mCountDescrementAnim);
+                    }
+                    mCountDescrementAnim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            holder.tv_count.setText(String.valueOf(GlobalClass.numberStepperSub(Integer.parseInt( holder.tv_count.getText().toString()))));
+                            mCategoryItem.get(position).setQuantity( holder.tv_count.getText().toString());
+                            mCategoryItem.get(position).setTitle( mCategoryItem.get(position).getName());
+                            mCategoryItem.get(position).setDescription("");
+                            adapterClickListner.onItemClickListener(mCategoryItem.get(position));
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
+
+
+
+
+
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }

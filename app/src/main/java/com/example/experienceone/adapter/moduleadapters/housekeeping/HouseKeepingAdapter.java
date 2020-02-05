@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +31,7 @@ public class HouseKeepingAdapter extends PagedListAdapter<Result, HouseKeepingAd
     private Context mCtx;
     private HouseKeepingSubCategory mAdapter;
     private AdapterClickListner adapterClickListner;
+    private Animation mAnimSlideDown,mCountIncrementAnima,mCountDescrementAnim;
 
 
 

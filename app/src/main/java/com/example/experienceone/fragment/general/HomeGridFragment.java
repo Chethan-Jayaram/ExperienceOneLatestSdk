@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,14 +63,13 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
     private GridView gridView;
     private List<DashboardItem> item;
     private Context context=getContext();
-
     private ProgressBar loading;
     private ProgressDialog dialog;
     private MobileKeysApiFacade mobileKeysApiFacade;
     private SnackbarFactory snackbarFactory;
     private ExpandableListView expandableListView;
     private DrawerLayout drawer;
-    private static String mPreviousRouteName="";
+
 
 
     @Override
@@ -96,30 +94,41 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
             expandableListView = getActivity().findViewById(R.id.expandableListView);
             drawer = getActivity().findViewById(R.id.drawer_layout);
             expandableListView.setDividerHeight(0);
+            loading=view.findViewById(R.id.loading);
             TextView toolBarText = getActivity().findViewById(R.id.toolbar_title);
 
+
+
             getNavMenuItems();
-            loading=view.findViewById(R.id.loading);
-            snackbarFactory = new SnackbarFactory(container);
             getDashBoardElements();
+
+
+
+            snackbarFactory = new SnackbarFactory(container);
             toolBarText.setText(GlobalClass.loacation);
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
         return view;
     }
 
+
+    //hide keyboard on Activity created
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         try {
-
             final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
+
+
     private void getNavMenuItems() {
         GlobalClass.headerList.clear();
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
@@ -147,10 +156,6 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
                 if (dashbordElements.getStatus().equalsIgnoreCase("Success")) {
                     item = dashbordElements.getResult().getDashboardItems();
                     GlobalClass.hasActiveBooking=dashbordElements.getResult().getIsActive();
-                /*    if(!dashbordElements.getResult().getIsActive()){
-                       //logout user once the active booking is expired
-
-                    }*/
                     HashMap<String,String> routeMap=new HashMap<>();
                     for(DashboardItem result:item){
                         routeMap.put(result.getMobileRoute().getRouteName(),"");
@@ -199,22 +204,6 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
 
     }
 
-  /*  private void ChangeFragment(String className) {
-        try {
-            className = GlobalClass.getClassName(className);
-            String fullPathOfTheClass = "com.example.experienceone.fragment.modules." + className;
-            Class<?> cls = Class.forName(fullPathOfTheClass);
-             fragment = (Fragment) cls.newInstance();
-
-            if (!GlobalClass.sharedPreferences.getBoolean("hasInvitationCode",false)&&className.contains("DoorUnlockingFragment")) {
-                    getInvitationCode();
-            } else {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
     public void onStart() {
@@ -227,6 +216,7 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
         }
     }
 
+
     /**
      * Mobile keys transaction success/completed callback
      */
@@ -238,7 +228,8 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
     }
 
 
-    public void getInvitationCode() {
+    //door unlock invitation code api call
+    private void getInvitationCode() {
         dialog = new ProgressDialog(context);
         dialog.setMessage("please wait..");
         dialog.setCancelable(false);
@@ -304,6 +295,8 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
         }
     }
 
+
+    //submit invitation code to SDK
     private void submitInvitationCode(String invitation) {
         try {
             mobileKeysApiFacade.getMobileKeys().endpointSetup(this, invitation, new EndpointSetupConfiguration.Builder().build());
@@ -316,6 +309,8 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
         }
     }
 
+
+    //Check if invitation code registration successful
     private void checkInvitionComplet() {
         try {
             new Handler().postDelayed(() -> {
@@ -331,6 +326,8 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
         }
     }
 
+
+    //api call to get mobilekeys
     private void mobilekeyapi() {
         try {
             dialog.dismiss();
@@ -417,6 +414,9 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
 
     }
 
+
+    //nav Drawer using  expandable list view
+
     private void populateExpandableList(Context context, List<Result> headerList, HashMap<Result, List<RoutesSubcategory>> childList) {
 
         ExpandableListAdapter expandableListAdapter = new ExpandableNavListAdapter(context, headerList, childList);
@@ -473,18 +473,7 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
 
     private void ChangeFragment(String className) {
         try {
-          /*  try {
-                if (GlobalClass.hasActiveBooking) {
-                    GlobalClass.edit.putBoolean("hasInvitationCode", false);
-                    GlobalClass.edit.apply();
-                  *//*  if (!mobileKeysApiFacade.getMobileKeys().listMobileKeys().isEmpty()) {
-                        mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
-                        mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
-                    }*//*
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }*/
+
             className = GlobalClass.getClassName(className);
             if (className.equalsIgnoreCase("general.Logout")) {
                 Intent intent = new Intent(context, UseAuthenticationActivity.class);
@@ -506,6 +495,9 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
             e.printStackTrace();
         }
     }
+
+
+    //hide nav drawer
     private void handelNavDrawer() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);

@@ -59,7 +59,6 @@ public class ActiveBookingAdapter extends RecyclerView.Adapter<ActiveBookingAdap
                     holder.tv_checkin_date_time.setText(GlobalClass.outputdateformat.format(GlobalClass.inputdateformat.parse(activeBookingList.get(position).getCheckinDateTime())));
                     holder.tv_checkout_date_time.setText(GlobalClass.outputdateformat.format(GlobalClass.inputdateformat.parse(activeBookingList.get(position).getCheckoutDateTime())));
                 }else if(bookingHistories!=null){
-
                     GradientDrawable drawable = (GradientDrawable) holder.tv_Booking_status.getBackground();
                     drawable.setColor(Color.parseColor("#ff2d55"));
                     holder.tv_Booking_status.setText("Completed");

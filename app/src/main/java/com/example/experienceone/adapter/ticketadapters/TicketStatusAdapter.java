@@ -2,7 +2,6 @@ package com.example.experienceone.adapter.ticketadapters;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,14 +35,11 @@ public class TicketStatusAdapter extends RecyclerView.Adapter<TicketStatusAdapte
     @Override
     public void onBindViewHolder(@NonNull TicketStatusAdapter.MyViewHolder holder, int position) {
         try {
-            holder.tv_date_time.setText(GlobalClass.outputdateformat.format(GlobalClass.inputdateformat.parse(ticketActivity.get(position).getActivityOn())));
             holder.tv_status.setText(ticketActivity.get(position).getStatus().getName());
-
-
-
             GradientDrawable drawable = (GradientDrawable) holder.tv_status.getBackground();
             drawable.setColor(Color.parseColor(ticketActivity.get(position).getStatus().getEventStyle().getTicketStatusPills().getBackground()));
 
+            holder.tv_date_time.setText(GlobalClass.dateTimeConverter(ticketActivity.get(position).getActivityOn()));
 
         } catch (Exception e) {
             e.printStackTrace();

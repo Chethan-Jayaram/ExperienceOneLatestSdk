@@ -103,7 +103,11 @@ public class EditProfile extends Fragment implements ApiListener {
                     e.printStackTrace();
                 }
             });
+
+
             getGuestProfileDetails();
+
+
             et_fst_name.setText(firstName);
             et_lst_name.setText(lastName);
             et_email.setText(email);
@@ -283,7 +287,8 @@ public class EditProfile extends Fragment implements ApiListener {
         alertDialog.show();
     }
 
-    public void getGuestProfileDetails() {
+
+    private void getGuestProfileDetails() {
         GlobalClass.edit = GlobalClass.sharedPreferences.edit();
         firstName = GlobalClass.sharedPreferences.getString("fName", "");
         lastName = GlobalClass.sharedPreferences.getString("lName", "");

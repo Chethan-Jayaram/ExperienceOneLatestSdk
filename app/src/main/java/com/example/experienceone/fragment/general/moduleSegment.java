@@ -51,12 +51,13 @@ public class moduleSegment extends Fragment implements ApiListener {
         getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         TextView tv_confirm_button = view.findViewById(R.id.tv_confirm_button);
         RecyclerView house_keeping_segment_recycler = view.findViewById(R.id.house_keeping_segment_recycler);
+        TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+
         Bundle data =getArguments();
         url=data.getString("url");
         houseKeepingModel=data.getParcelable("subcategory");
-        TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-        toolbar_title.setText(data.getString("toolbar_title"));
 
+        toolbar_title.setText(data.getString("toolbar_title"));
         tv_confirm_button.setVisibility(houseKeepingModel.getDetails().size()>0 ? View.VISIBLE: View.GONE );
 
         List<CategoryItem> details = houseKeepingModel.getDetails();
@@ -76,7 +77,7 @@ public class moduleSegment extends Fragment implements ApiListener {
 
     private void postHosueKeepingList(ModuleSegmentModel houseKeepingModel) {
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
-        Map<String, String> headerMap = new HashMap();
+        Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Authorization", "bearer " + GlobalClass.token);
         Call<TicketID> TicketID = api.postSegmentModule(url,headerMap,houseKeepingModel);
         APIResponse.postCallRetrofit(TicketID, "moduleSegment", context, this);

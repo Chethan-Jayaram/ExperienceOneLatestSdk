@@ -113,8 +113,6 @@ public class UserAuthenticationFragment extends Fragment implements ApiListener 
     @Override
     public void onErrorListner() {
 
-
-
     }
 
 }

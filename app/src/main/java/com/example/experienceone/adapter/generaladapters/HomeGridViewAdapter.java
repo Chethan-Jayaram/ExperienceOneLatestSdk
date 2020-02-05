@@ -20,7 +20,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
     private List<DashboardItem> item;
     private Context mContext;
     private GridAdapterlistner gridAdapterlistner;
-    private   LayoutInflater inflater;
+    private LayoutInflater inflater;
 
     public HomeGridViewAdapter(Context mContext, List<DashboardItem> item, GridAdapterlistner gridAdapterlistner) {
         this.mContext=mContext;
@@ -28,9 +28,11 @@ public class HomeGridViewAdapter extends BaseAdapter {
         this.gridAdapterlistner=gridAdapterlistner;
         inflater = (LayoutInflater.from(mContext));
     }
+
     public interface GridAdapterlistner { // create an interface
         void onItemClickListener(int position); // create callback function
     }
+
     @Override
     public int getCount() {
         // TODO Auto-generated method stub

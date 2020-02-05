@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -53,6 +56,7 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
     private TextView item_count,tv_item_price,tv_view_order;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,9 +87,14 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
             getDinningElements();
         } else {
             setAdapterView();
-            bottom_view.setVisibility(View.VISIBLE);
+            scaleView(bottom_view,0,1);
             item_count.setText(count + " items");
             tv_item_price.setText(prices + " Rs");
+        }
+        if (dinningSegmentModel.getDetails() != null && dinningSegmentModel.getDetails().size() > 0) {
+            bottom_view.setVisibility(View.VISIBLE);
+        }else{
+            bottom_view.setVisibility(View.GONE);
         }
         tv_view_order.setOnClickListener(v->{
             if (dinningSegmentModel.getDetails() != null && dinningSegmentModel.getDetails().size() > 0) {
@@ -166,7 +175,16 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
         }
     }
 
-
+    public void scaleView(View v, float startScale, float endScale) {
+        Animation anim = new ScaleAnimation(
+                1f, 1f, // Start and end values for the X axis scaling
+                startScale, endScale, // Start and end values for the Y axis scaling
+                Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+        anim.setFillAfter(true); // Needed to keep the result of the animation
+        anim.setDuration(200);
+        v.startAnimation(anim);
+    }
 
     @Override
     public void onDataSent(Double price, Integer count, DinningSegmentModel dinningSegmentModel) {
@@ -177,4 +195,5 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
         this.dinningSegmentModel.setDetails(dinningSegmentModel.getDetails());
 
     }
+
 }

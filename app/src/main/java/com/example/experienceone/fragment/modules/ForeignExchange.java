@@ -132,7 +132,6 @@ public class ForeignExchange extends Fragment implements ApiListener {
             });
             img_swap_category.setOnClickListener(v -> {
                 restForeignExchnage();
-              /*  et_to_currency.setText(mFromresult.getName());*/
 
                 mFromId=mToResult.getId();
                 mToID=mFromresult.getId();
@@ -143,13 +142,6 @@ public class ForeignExchange extends Fragment implements ApiListener {
                         getExcahngeItemsbyId(mFromresult.getId());
                     }
                 }
-
-
-
-               /* Result temp = mFromresult;
-                mFromresult = mToResult;
-                mToResult = temp;
-             */
 
             });
         } catch (Exception e) {
@@ -331,7 +323,6 @@ public class ForeignExchange extends Fragment implements ApiListener {
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
         ForeignExchangeAdapter adapter = new ForeignExchangeAdapter(result, position -> {
-            et_amount.setText("");
             if (flag) {
                 et_from_currency.setText(result.get(position).getName());
                 mFromresult = result.get(position);

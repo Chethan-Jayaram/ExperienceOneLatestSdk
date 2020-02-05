@@ -144,8 +144,5 @@ public class ServiceModuleAdapter extends RecyclerView.Adapter {
                 e.printStackTrace();
             }
         }
-
-
-
     }
 }

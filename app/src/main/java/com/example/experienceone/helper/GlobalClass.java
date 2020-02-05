@@ -8,34 +8,45 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Button;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
 import com.example.experienceone.R;
 import com.example.experienceone.pojo.color.ColorPojo;
 import com.example.experienceone.pojo.dinning.CategoryItem;
 import com.example.experienceone.pojo.navmenuitems.Result;
 import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @SuppressLint("SimpleDateFormat")
 public class GlobalClass {
-//doorunlock
-    public static String mPreviousRouteName="";
+    //doorunlock
+    public static String mPreviousRouteName = "";
     public static List<Result> headerList = new ArrayList<>();
 
-    public static boolean flow=false;
- //complte setup
-    public static String loacation="";
+    public static boolean flow = false;
+    //complte setup
+    public static String loacation = "";
     public static Boolean isMpinSetupComplete = false;
     public static Boolean hasActiveBooking = false;
     public static final String shredPrefName = "experienceOne";
@@ -50,6 +61,7 @@ public class GlobalClass {
     public static Gson gson = new Gson();
 
     public static DateFormat inputTimeFormat = new SimpleDateFormat("HH:mm:ss");
+
 
     public static DateFormat outputTimeFormat = new SimpleDateFormat("hh:mm a");
 
@@ -70,9 +82,9 @@ public class GlobalClass {
         showDialog.showCustomMessage((Activity) context, "Alert!!", error, false, false);
     }
 
-    public static String getColor(String str){
+    public static String getColor(String str) {
         ColorPojo map = gson.fromJson(str, ColorPojo.class);
-        return  map.getActionStyles().getBackground();
+        return map.getActionStyles().getBackground();
     }
 
     public static String getClassName(String className) {
@@ -95,27 +107,27 @@ public class GlobalClass {
             name = "preferences.Preferences";
         } else if (className.equalsIgnoreCase("tavel")) {
             name = "travel.Travel";
-        } else if(className.equalsIgnoreCase("tour-package")){
+        } else if (className.equalsIgnoreCase("tour-package")) {
             name = "LocalTourGuide";
-        } else if(className.equalsIgnoreCase("main-screen")){
+        } else if (className.equalsIgnoreCase("main-screen")) {
             name = "general.HomeGridFragment";
-        }else if(className.equalsIgnoreCase("hotel-information")){
+        } else if (className.equalsIgnoreCase("hotel-information")) {
             name = "general.HotelInformation";
-        }else if(className.equalsIgnoreCase("services")){
+        } else if (className.equalsIgnoreCase("services")) {
             name = "";
-        }else if(className.equalsIgnoreCase("my-stay")){
+        } else if (className.equalsIgnoreCase("my-stay")) {
             name = "mystay.MyStayFragment";
-        }else if(className.equalsIgnoreCase("tickets")){
+        } else if (className.equalsIgnoreCase("tickets")) {
             name = "general.TicketsList";
-        }else if(className.equalsIgnoreCase("notification")){
+        } else if (className.equalsIgnoreCase("notification")) {
             name = "general.Notification";
-        } else if(className.equalsIgnoreCase("about")){
+        } else if (className.equalsIgnoreCase("about")) {
             name = "general.About";
-        }else if(className.equalsIgnoreCase("report-a-bug")){
+        } else if (className.equalsIgnoreCase("report-a-bug")) {
             name = "general.ReportABug";
-        }else if(className.equalsIgnoreCase("logout")){
+        } else if (className.equalsIgnoreCase("logout")) {
             name = "general.Logout";
-        }else if(className.equalsIgnoreCase("assa-abloy-door-unlock")){
+        } else if (className.equalsIgnoreCase("assa-abloy-door-unlock")) {
             name = "DoorUnlockingFragment";
         }
         return name;
@@ -205,30 +217,26 @@ public class GlobalClass {
         String aTime = new StringBuilder().append(hours).append(':')
                 .append(minutes).append(" ").append(timeSet).toString();
 
-      return aTime;
+        return aTime;
     }
 
 
-
     public static String encodeTobase64(Bitmap image) {
-        String imageEncoded="";
+        String imageEncoded = "";
         try {
-            Bitmap immagex =image;
+            Bitmap immagex = image;
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             immagex.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
             byte[] b = byteArrayOutputStream.toByteArray();
             imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return imageEncoded;
     }
 
 
-
-
-
-    public static void putsharedpreference(Context context, String firstName, String lastName, String contactNumber, String email, String martialStatus, String gender,String img) {
+    public static void putsharedpreference(Context context, String firstName, String lastName, String contactNumber, String email, String martialStatus, String gender, String img) {
         GlobalClass.sharedPreferences = context.getSharedPreferences(GlobalClass.shredPrefName, 0);
         GlobalClass.edit = GlobalClass.sharedPreferences.edit();
         GlobalClass.edit.putString("fName", firstName);
@@ -242,12 +250,12 @@ public class GlobalClass {
     }
 
     public static List<CategoryItem> removeDuplicateItems(ArrayList<CategoryItem> menuItems) {
-        List<CategoryItem>  menu_item=GlobalClass.removeDuplicates(menuItems);
+        List<CategoryItem> menu_item = GlobalClass.removeDuplicates(menuItems);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            menu_item=  menu_item.stream().filter(p->p.getQuantity()!=0).collect(Collectors.toList());
-        }else{
-            for(int i=0;i<menu_item.size();i++){
-                if(menu_item.get(i).getQuantity()==0){
+            menu_item = menu_item.stream().filter(p -> p.getQuantity() != 0).collect(Collectors.toList());
+        } else {
+            for (int i = 0; i < menu_item.size(); i++) {
+                if (menu_item.get(i).getQuantity() == 0) {
                     menu_item.remove(menu_item.get(i));
                 }
             }
@@ -257,15 +265,15 @@ public class GlobalClass {
 
     public static Boolean ChangeChildFragment(String className, FragmentActivity context) {
         try {
-            if(!mPreviousRouteName.equalsIgnoreCase(className)) {
-                mPreviousRouteName=className;
+            if (!mPreviousRouteName.equalsIgnoreCase(className)) {
+                mPreviousRouteName = className;
                 className = GlobalClass.getClassName(className);
                 String fullPathOfTheClass = "com.example.experienceone.fragment.modules." + className;
                 Class<?> cls = Class.forName(fullPathOfTheClass);
                 Fragment fragment = (Fragment) cls.newInstance();
 
-                if (!GlobalClass.sharedPreferences.getBoolean("hasInvitationCode",false)&&className.equalsIgnoreCase("DoorUnlockingFragment")) {
-                    return  true; //getInvitationCode();
+                if (!GlobalClass.sharedPreferences.getBoolean("hasInvitationCode", false) && className.equalsIgnoreCase("DoorUnlockingFragment")) {
+                    return true; //getInvitationCode();
                 } else {
                     context.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
                     return false;
@@ -281,6 +289,37 @@ public class GlobalClass {
     }
 
 
+    public static String dateTimeConverter(String date) {
+        String dateTime = "";
+        try {
+            DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date d = utcFormat.parse(date);
+            DateFormat pstFormat = new SimpleDateFormat("MMM d, yyyy h:mm a");
+            pstFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+            dateTime = pstFormat.format(d);
+            return dateTime;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateTime;
+    }
+
+    public static String timeConverter(String date) {
+        String dateTime = "";
+        try {
+            DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date d = utcFormat.parse(date);
+            DateFormat pstFormat = new SimpleDateFormat("hh:mm a");
+            pstFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+            dateTime = pstFormat.format(d);
+            return dateTime;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateTime;
+    }
 
 
 }

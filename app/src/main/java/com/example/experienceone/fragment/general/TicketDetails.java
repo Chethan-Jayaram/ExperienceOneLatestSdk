@@ -68,6 +68,7 @@ public class TicketDetails extends Fragment implements ApiListener {
         getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.nav_menu).setVisibility(View.GONE);
         getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
+
         toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         tv_ticket_number = view.findViewById(R.id.tv_ticket_number);
         tv_ticket_status = view.findViewById(R.id.tv_ticket_status);

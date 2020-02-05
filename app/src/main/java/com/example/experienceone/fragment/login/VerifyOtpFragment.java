@@ -43,7 +43,6 @@ public class VerifyOtpFragment extends Fragment implements SMSReceiver.OTPReceiv
 private EditText et_one,et_two,et_three,et_four,et_five,et_six;
 private Context context;
 private String token;
-private Handler handler;
 private Button btn_otp;
 private TextView tv_resend_otp,tv_timer;
 
@@ -74,7 +73,7 @@ private TextView tv_resend_otp,tv_timer;
             token = getArguments().getString("token", "");
             init();
             startTimer();
-            startSMSListener();
+          //  startSMSListener();
             tv_resend_otp.setOnClickListener(v -> {
                 tv_resend_otp.setVisibility(View.GONE);
                 tv_timer.setVisibility(View.VISIBLE);
@@ -282,7 +281,7 @@ private TextView tv_resend_otp,tv_timer;
             et_four.setText(otp.charAt(4) + "");
             et_five.setText(otp.charAt(5) + "");
             et_six.setText(otp.charAt(6) + "");
-            handler = new Handler();
+            Handler handler = new Handler();
             handler.postDelayed(() -> {
                 btn_otp.performClick();
 
@@ -304,9 +303,8 @@ private TextView tv_resend_otp,tv_timer;
 
     }
     private void verifyOTP(String Otp,String Token) {
-
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
-        Map map = new HashMap();
+        Map<String,String> map = new HashMap<>();
         map.put("otp",Otp);
         map.put("token",Token);
         Call<AuthenticateMobile> authenticateMobileCall = api.verifyOTP(map);
@@ -315,7 +313,7 @@ private TextView tv_resend_otp,tv_timer;
 
     private void resendOtpAPI(String token) {
         try {
-            Map map = new HashMap();
+            Map<String,String> map = new HashMap<>();
             map.put("token",token);
             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
             Call<AuthenticateMobile> authenticateMobileCall = api.resendOTP(map);
@@ -328,7 +326,6 @@ private TextView tv_resend_otp,tv_timer;
 
     @Override
     public <ResponseType> void success(Response<ResponseType> response,String apiCallName) {
-
         try {
             AuthenticateMobile authenticateMobile = (AuthenticateMobile) response.body();
             authenticateMobile = (AuthenticateMobile) response.body();

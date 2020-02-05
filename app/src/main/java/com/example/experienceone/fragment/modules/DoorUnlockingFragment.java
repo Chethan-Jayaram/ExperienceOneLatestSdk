@@ -5,9 +5,8 @@ import android.Manifest;
 import android.app.Notification;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -37,15 +35,8 @@ import com.example.experienceone.helper.GlobalClass;
 import com.example.experienceone.unlock.ClosestLockTrigger;
 import com.example.experienceone.unlock.MobileKeysApiFacade;
 import com.example.experienceone.unlock.UnlockNotification;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Result;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.material.navigation.NavigationView;
+import com.example.experienceone.utils.BluetoothChangeReceiver;
+import com.example.experienceone.utils.GpsLocationReceiver;
 
 import java.util.Collections;
 import java.util.List;
@@ -66,6 +57,9 @@ public class DoorUnlockingFragment extends Fragment
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private Handler handler;
     private Context mContext;
+    private BluetoothChangeReceiver mBluetoothReceiver;
+    private GpsLocationReceiver mLocationReceiver;
+
 
 
 
@@ -84,6 +78,7 @@ public class DoorUnlockingFragment extends Fragment
             getActivity().findViewById(R.id.nav_menu).setVisibility(View.GONE);
             TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             toolbar_title.setText("DoorUnlock");
+
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             statusCheck();
 
@@ -233,7 +228,7 @@ public class DoorUnlockingFragment extends Fragment
         }
     }
 
-    public void statusCheck() {
+    private void statusCheck() {
         final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -245,13 +240,9 @@ public class DoorUnlockingFragment extends Fragment
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+        builder.setMessage("Please turn on location to unlock Door")
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
+                .setPositiveButton("Yes", (dialog, id) -> startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
                 .setNegativeButton("No", (dialog, id) -> {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new HomeGridFragment()).commit();
                     GlobalClass.mPreviousRouteName = "";
@@ -324,6 +315,15 @@ public class DoorUnlockingFragment extends Fragment
                     e.printStackTrace();
                 }
             }
+            mLocationReceiver=new GpsLocationReceiver();
+            mBluetoothReceiver =new BluetoothChangeReceiver();
+            IntentFilter bluetoothFilter = new IntentFilter("android.bluetooth.adapter.action.STATE_CHANGED");
+            getActivity().registerReceiver(mBluetoothReceiver, bluetoothFilter);
+            IntentFilter locationFilter = new IntentFilter("android.location.PROVIDERS_CHANGED");
+            getActivity().registerReceiver(mLocationReceiver, locationFilter);
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -344,7 +344,8 @@ public class DoorUnlockingFragment extends Fragment
             handler.removeCallbacksAndMessages(null);
         }
 
-
+        getActivity().unregisterReceiver(mBluetoothReceiver);
+        getActivity().unregisterReceiver(mLocationReceiver);
     }
 
 
@@ -397,5 +398,9 @@ public class DoorUnlockingFragment extends Fragment
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
+    }
 }

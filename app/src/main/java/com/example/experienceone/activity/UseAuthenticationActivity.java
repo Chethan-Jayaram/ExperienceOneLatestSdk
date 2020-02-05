@@ -1,12 +1,10 @@
 package com.example.experienceone.activity;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import com.example.experienceone.R;
 import com.example.experienceone.fragment.login.LoginMpinFragment;
 import com.example.experienceone.fragment.login.UserAuthenticationFragment;
@@ -32,23 +30,12 @@ public class UseAuthenticationActivity extends AppCompatActivity {
             }else{
                 this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserAuthenticationFragment()).commit();
             }
-            btn_back.setOnClickListener(v -> {
-                onBackPressed();
-            });
+            btn_back.setOnClickListener(v -> onBackPressed());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-  /*  @Override
-    public void onBackPressed() {
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }if(GlobalClass.isMpinSetupComplete){
-            finish();
-        }else {
-            super.onBackPressed();
-        }
-    }*/
+
 }
 

@@ -17,10 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceModuleSegmentAdapter extends RecyclerView.Adapter<ServiceModuleSegmentAdapter.MyViewHolder> {
+
     private List<CategoryItem> details;
     private ArrayList<Result> results;
-
-
 
     public ServiceModuleSegmentAdapter(List<CategoryItem> details, ArrayList<com.example.experienceone.pojo.HouseKeeping.Result> results) {
         this.details=details;

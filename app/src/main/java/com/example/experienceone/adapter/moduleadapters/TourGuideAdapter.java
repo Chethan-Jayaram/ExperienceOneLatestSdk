@@ -48,7 +48,6 @@ public class TourGuideAdapter extends RecyclerView.Adapter<TourGuideAdapter.MyVi
     @Override
     public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try {
-
             holder.tour_title.setText(item_.get(position).getTitle());
             holder.tour_loc.setText(item_.get(position).getCity() + " | " + item_.get(position).getState() + " | " + item_.get(position).getCountry());
             holder.tour_desc.setText(item_.get(position).getDescription());
@@ -63,8 +62,8 @@ public class TourGuideAdapter extends RecyclerView.Adapter<TourGuideAdapter.MyVi
             SlidingImage_Adapter adapter=new SlidingImage_Adapter(mContext,item_.get(position).getImage());            holder.tour_indicator.setViewPager(holder.tour_pager);
             holder.tour_pager.setAdapter(adapter);
             holder.tour_indicator.setViewPager(holder.tour_pager);
-            holder.tour_timings.setText(GlobalClass.outputTimeFormat.format(GlobalClass.inputdateformat.parse(item_.get(position).getFromTime()))+
-                    " - "+GlobalClass.outputTimeFormat.format(GlobalClass.inputdateformat.parse(item_.get(position).getToTime())));
+            holder.tour_timings.setText(GlobalClass.timeConverter(item_.get(position).getFromTime())+
+                    " - "+GlobalClass.timeConverter(item_.get(position).getToTime()));
         } catch (Exception e) {
             e.printStackTrace();
         }
