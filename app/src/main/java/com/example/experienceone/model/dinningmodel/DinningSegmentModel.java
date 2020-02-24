@@ -19,6 +19,13 @@ public class DinningSegmentModel implements Parcelable{
     @SerializedName("booking")
     @Expose
     private Integer booking;
+
+
+    @SerializedName("room_no")
+    @Expose
+    private String room_no;
+
+
     @SerializedName("details")
     @Expose
     private List<CategoryItem> details = null;
@@ -67,5 +74,13 @@ public class DinningSegmentModel implements Parcelable{
 
     public void setSpecialinstructions(String specialinstructions) {
         this.specialinstructions = specialinstructions;
+    }
+
+    public String getRoom_no() {
+        return room_no;
+    }
+
+    public void setRoom_no(String room_no) {
+        this.room_no = room_no;
     }
 }

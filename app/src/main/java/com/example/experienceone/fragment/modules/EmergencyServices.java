@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.experienceone.R;
 import com.example.experienceone.adapter.moduleadapters.EmergencyGridViewAdapter;
+import com.example.experienceone.fragment.general.MultipleRoomDialougFragment;
 import com.example.experienceone.fragment.general.TicketDetails;
 import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.GlobalClass;
@@ -88,7 +89,7 @@ public class EmergencyServices extends Fragment implements ApiListener {
     private void getEmegencyDashBoardElements() {
         loading.setVisibility(View.VISIBLE);
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
-        Map<String, String> headerMap = new HashMap();
+        Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Authorization", "bearer " + GlobalClass.token);
         Call<Emergency> emergencyCall = api.getEmergencyDashBoardElemnts(headerMap);
         APIResponse.getCallRetrofit(emergencyCall, "emergencyCall", context, this);
@@ -96,7 +97,7 @@ public class EmergencyServices extends Fragment implements ApiListener {
 
     private void postEmergencyRequest(ModuleSegmentModel houseKeepingModel) {
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
-        Map<String, String> headerMap = new HashMap();
+        Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Authorization", "bearer " + GlobalClass.token);
         Call<TicketID> emergencyCall = api.postEmergencyRequst(headerMap,houseKeepingModel);
         APIResponse.postCallRetrofit(emergencyCall, "postemergency", context, this);
@@ -153,7 +154,19 @@ public class EmergencyServices extends Fragment implements ApiListener {
             builder.setMessage(message)
                     .setCancelable(false)
                     .setPositiveButton("OK", (dialog, id) -> {
-                        postEmergencyRequest(houseKeepingModel);
+                        if(GlobalClass.MY_ROOMS.size()==1){
+                            houseKeepingModel.setRoom_no(GlobalClass.MY_ROOMS.get(0).getRoom().getRoomNo());
+                            postEmergencyRequest(houseKeepingModel);
+                        }else{
+                            MultipleRoomDialougFragment bottom = new MultipleRoomDialougFragment();
+                            Bundle bundle=new Bundle();
+                            bundle.putString("module","Emergency");
+                            bundle.putParcelable("subcategory",houseKeepingModel);
+                            bottom.setArguments(bundle);
+                            bottom.show(getActivity().getSupportFragmentManager(),
+                                    GlobalClass.BOTTOM_VIEW);
+                        }
+
                     })
                     .setNegativeButton("CANCEL", (dialog, id) -> dialog.dismiss());
             AlertDialog alert = builder.create();

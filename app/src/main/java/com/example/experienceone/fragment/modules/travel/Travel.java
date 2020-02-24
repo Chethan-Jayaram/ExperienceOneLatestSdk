@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.experienceone.R;
 import com.example.experienceone.adapter.moduleadapters.travel.TravelModuleAdapter;
+import com.example.experienceone.fragment.general.MultipleRoomDialougFragment;
 import com.example.experienceone.fragment.general.TicketDetails;
 import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.GlobalClass;
@@ -86,7 +87,18 @@ public class Travel extends Fragment implements ApiListener {
                     }
                     mModel.setDetails(categoryItems);
                     if (categoryItems.size() > 0) {
-                        postTravelRequest(mModel);
+                        if(GlobalClass.MY_ROOMS.size()==1){
+                            mModel.setRoomNo(GlobalClass.MY_ROOMS.get(0).getRoom().getRoomNo());
+                            postTravelRequest(mModel);
+                        }else{
+                            MultipleRoomDialougFragment bottom = new MultipleRoomDialougFragment();
+                            Bundle bundle=new Bundle();
+                            bundle.putString("module","travel");
+                            bundle.putParcelable("travelCategory",mModel);
+                            bottom.setArguments(bundle);
+                            bottom.show(getActivity().getSupportFragmentManager(),
+                                    GlobalClass.BOTTOM_VIEW);
+                        }
                     } else {
                         GlobalClass.ShowAlet(context, "Alert", "please select a car to book");
                     }
@@ -170,7 +182,6 @@ public class Travel extends Fragment implements ApiListener {
         super.onResume();
         details.clear();
     }
-
     @Override
     public void onErrorListner() {
         try{

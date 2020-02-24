@@ -20,11 +20,14 @@ import com.example.experienceone.R;
 import com.example.experienceone.adapter.moduleadapters.housekeeping.HouseKeepingAdapter;
 import com.example.experienceone.adapter.pagination.HouseKeepingViewModel;
 import com.example.experienceone.adapter.pagination.MyViewModelFactory;
+import com.example.experienceone.fragment.general.MultipleRoomDialougFragment;
 import com.example.experienceone.fragment.general.moduleSegment;
 import com.example.experienceone.helper.GlobalClass;
 import com.example.experienceone.model.raisingticketmodel.ModuleSegmentModel;
 import com.example.experienceone.pojo.HouseKeeping.CategoryItem;
 import com.example.experienceone.pojo.HouseKeeping.Result;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,8 +41,8 @@ public class HouseKeeping extends Fragment {
     private ModuleSegmentModel houseKeepingModel;
     private ArrayList<CategoryItem> details=new ArrayList<>();
     private ArrayList<Result> results=new ArrayList<>();
-   private  HouseKeepingViewModel itemViewModel;
-   private ProgressBar loading;
+    private  HouseKeepingViewModel itemViewModel;
+    private ProgressBar loading;
 
     @Nullable
     @Override
@@ -67,7 +70,8 @@ public class HouseKeeping extends Fragment {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         categoryItems = categoryItems.stream().filter(p -> Integer.parseInt(p.getQuantity()) != 0).collect(Collectors.toList());
                     } else {
-                        for (int i = 0; i < categoryItems.size(); i++) {
+                        for (int i = 0; i <
+                                categoryItems.size(); i++) {
                             if (Integer.parseInt(categoryItems.get(i).getQuantity()) == 0) {
                                 categoryItems.remove(categoryItems.get(i));
                             }
@@ -105,14 +109,18 @@ public class HouseKeeping extends Fragment {
     }
 
     private void showonRecyclerView(PagedList<Result> items) {
-        final HouseKeepingAdapter adapter = new HouseKeepingAdapter(context,details1-> {
-            details.add(details1);
-        });
-        house_keeping_recycler.setLayoutManager(new LinearLayoutManager(context));
-        house_keeping_recycler.setHasFixedSize(true);
-        house_keeping_recycler.setAdapter(adapter);
+        try {
+            final HouseKeepingAdapter adapter = new HouseKeepingAdapter(context, details1 -> {
+                details.add(details1);
+            });
+            house_keeping_recycler.setLayoutManager(new LinearLayoutManager(context));
+            house_keeping_recycler.setHasFixedSize(true);
+            house_keeping_recycler.setAdapter(adapter);
 
-        adapter.submitList(items);
+            adapter.submitList(items);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     /*private void getHosueKeepingList() {
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);

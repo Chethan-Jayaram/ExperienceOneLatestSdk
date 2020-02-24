@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.experienceone.R;
 import com.example.experienceone.adapter.moduleadapters.ForeignExchangeAdapter;
+import com.example.experienceone.fragment.general.MultipleRoomDialougFragment;
 import com.example.experienceone.fragment.general.TicketDetails;
 import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.GlobalClass;
@@ -86,7 +87,9 @@ public class ForeignExchange extends Fragment implements ApiListener {
             loading = view.findViewById(R.id.loading);
             toolbar_title.setText("Foreign Exchange");
             isCurrencyConverted = false;
+
             getExcahngeItems();
+
             btn_convert.setOnClickListener(v -> {
                 try {
                     if (!et_amount.getText().toString().isEmpty()) {
@@ -107,7 +110,21 @@ public class ForeignExchange extends Fragment implements ApiListener {
             btn_exchange.setOnClickListener(v -> {
                 if (isCurrencyConverted) {
                     prepareModelClass(currencyExchange);
-                    postforeignExchnage(exchangemodel);
+
+                    if(GlobalClass.MY_ROOMS.size()==1){
+                        exchangemodel.setRoom_no(GlobalClass.MY_ROOMS.get(0).getRoom().getRoomNo());
+                        postforeignExchnage(exchangemodel);
+                    }else{
+                        MultipleRoomDialougFragment bottom = new MultipleRoomDialougFragment();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("module","foreginExchange");
+                        bundle.putParcelable("ForeginCategory",exchangemodel);
+                        bottom.setArguments(bundle);
+                        bottom.show(getActivity().getSupportFragmentManager(),
+                                GlobalClass.BOTTOM_VIEW);
+                    }
+
+
                 } else {
                     GlobalClass.ShowAlet(context, "Alert", "Convert currecny before raising ticket");
                 }

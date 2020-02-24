@@ -2,6 +2,8 @@
 package com.example.experienceone.pojo.ticketdetails;
 
 import java.util.List;
+
+import com.example.experienceone.pojo.mystay.Room;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -64,6 +66,18 @@ public class Result {
     @SerializedName("layout")
     @Expose
     private String layout;
+
+    @SerializedName("room_no")
+    @Expose
+    private String room_no;
+
+    public String getRoom_no() {
+        return room_no;
+    }
+
+    public void setRoom_no(String room_no) {
+        this.room_no = room_no;
+    }
 
     @SerializedName("special_instructions")
     @Expose
@@ -228,5 +242,6 @@ public class Result {
     public void setLayout(String layout) {
         this.layout = layout;
     }
+
 
 }

@@ -45,25 +45,28 @@ public class Preferences extends Fragment implements ApiListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_preferences, container, false);
-        mContext = view.getContext();
-        getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
-        FloatingActionButton fab_pref_add = view.findViewById(R.id.fab_pref_add);
-        TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-        toolbar_title.setText("Preferences");
-        pref_recycler_view = view.findViewById(R.id.pref_recycler_view);
-        loading=view.findViewById(R.id.loading);
+        try {
+            mContext = view.getContext();
+            getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
+            FloatingActionButton fab_pref_add = view.findViewById(R.id.fab_pref_add);
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            toolbar_title.setText("Preferences");
+            pref_recycler_view = view.findViewById(R.id.pref_recycler_view);
+            loading = view.findViewById(R.id.loading);
 
-        getprefList();
+            getprefList();
 
 
-        fab_pref_add.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            Fragment fragment = new CreateUpdatePreferences();
-            bundle.putString("Operation","Create");
-            fragment.setArguments(bundle);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack("create").commit();
-        });
-
+            fab_pref_add.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                Fragment fragment = new CreateUpdatePreferences();
+                bundle.putString("Operation", "Create");
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack("create").commit();
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return view;
     }
 

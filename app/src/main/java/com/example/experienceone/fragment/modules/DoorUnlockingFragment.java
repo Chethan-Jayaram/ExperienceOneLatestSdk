@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -30,6 +31,7 @@ import com.assaabloy.mobilekeys.api.MobileKeysCallback;
 import com.assaabloy.mobilekeys.api.MobileKeysException;
 import com.assaabloy.mobilekeys.api.ReaderConnectionController;
 import com.example.experienceone.R;
+import com.example.experienceone.activity.HomeScreenActivity;
 import com.example.experienceone.fragment.general.HomeGridFragment;
 import com.example.experienceone.helper.GlobalClass;
 import com.example.experienceone.unlock.ClosestLockTrigger;
@@ -73,11 +75,13 @@ public class DoorUnlockingFragment extends Fragment
             registor_status = view.findViewById(R.id.registor_status);
             tv_search = view.findViewById(R.id.tv_search);
             tv_unlock_msg = view.findViewById(R.id.tv_unlock_msg);
-            getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
+           ImageView btn_back= getActivity().findViewById(R.id.btn_back);
+            btn_back.setVisibility(View.VISIBLE);
             getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
             getActivity().findViewById(R.id.nav_menu).setVisibility(View.GONE);
             TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             toolbar_title.setText("DoorUnlock");
+
 
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             statusCheck();
@@ -96,8 +100,7 @@ public class DoorUnlockingFragment extends Fragment
             handler = new Handler();
             handler.postDelayed(() -> {
                 try {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new HomeGridFragment()).commit();
-                    GlobalClass.mPreviousRouteName = "";
+                    btn_back.performClick();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -105,6 +108,13 @@ public class DoorUnlockingFragment extends Fragment
             if (!mBluetoothAdapter.isEnabled()) {
                 mBluetoothAdapter.enable();
             }
+
+            btn_back.setOnClickListener(v->{
+                Intent intent=new Intent(mContext, HomeScreenActivity.class);
+                intent.putExtra("changes","");
+                mContext.startActivity(intent);
+                getActivity().finish();
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,6 +9,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ import com.example.experienceone.helper.GlobalClass;
 import com.example.experienceone.unlock.MobileKeysApiFacade;
 import com.example.experienceone.unlock.MobileKeysApiFactory;
 import com.example.experienceone.utils.NetworkChangeReceiver;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
@@ -101,9 +103,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
 
             navigationView.setNavigationItemSelectedListener(this);
 
-
-            this.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new HomeGridFragment()).commit();
-
             nav_menu.setOnClickListener(v -> {
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.closeDrawer(GravityCompat.START);
@@ -128,7 +127,34 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
                 this.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new SOS()).addToBackStack(null).commit();
 
             });
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new HomeGridFragment()).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+
+    @Override
+    protected void onResume() {
+        try {
+            performMadetoryOperations();
+            super.onResume();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        try {
+            onResume();
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,61 +166,28 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         this.registerReceiver(mNetworkChangeReceiver, intentFilter);
     }
 
-
-    @Override
-    public void onBackPressed() {
-        try {
-            onResume();
-            if (GlobalClass.flow) {
-                GlobalClass.flow = false;
-                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                }
-                this
-                        .getSupportFragmentManager()
-                        .beginTransaction().replace(R.id.home_fragment_container,
-                        new HomeGridFragment()).commit();
-            } else if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                super.onBackPressed();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void performMadetoryOperations() {
+        if (GlobalClass.hasActiveBooking) {
+            iv_sos.setVisibility(View.VISIBLE);
+        } else {
+            iv_sos.setVisibility(View.GONE);
         }
-    }
-
-
-
-    @Override
-    protected void onResume() {
-        try {
-
-            if (GlobalClass.hasActiveBooking) {
-                iv_sos.setVisibility(View.VISIBLE);
-            } else {
-                iv_sos.setVisibility(View.GONE);
-            }
-            img_et_btn.setVisibility(View.VISIBLE);
-            nav_menu.setVisibility(View.VISIBLE);
-            TextView user_name = headerLayout.findViewById(R.id.user_name);
-            TextView email = headerLayout.findViewById(R.id.user_email);
-            ImageView img_profile_photo = headerLayout.findViewById(R.id.img_profile_photo);
-            user_name.setText(GlobalClass.sharedPreferences.getString("fName", "") + " " + GlobalClass.sharedPreferences.getString("lName", ""));
-            Glide.with(this).load(GlobalClass.sharedPreferences.getString("img", "")).error(R.drawable.profile_image).into(img_profile_photo);
-            email.setText(GlobalClass.sharedPreferences.getString("eMail", ""));
-            GlobalClass.mPreviousRouteName="";
-            for (int i = 0; i < GlobalClass.headerList.size(); i++) {
-                GlobalClass.headerList.get(i).setSelected(false);
-                if (!GlobalClass.headerList.get(i).getRoutesSubcategory().isEmpty()) {
-                    for (int j = 0; j < GlobalClass.headerList.get(i).getRoutesSubcategory().size(); j++) {
-                        GlobalClass.headerList.get(i).getRoutesSubcategory().get(j).setSelected(false);
-                    }
+        img_et_btn.setVisibility(View.VISIBLE);
+        nav_menu.setVisibility(View.VISIBLE);
+        TextView user_name = headerLayout.findViewById(R.id.user_name);
+        TextView email = headerLayout.findViewById(R.id.user_email);
+        ImageView img_profile_photo = headerLayout.findViewById(R.id.img_profile_photo);
+        user_name.setText(GlobalClass.sharedPreferences.getString("fName", "") + " " + GlobalClass.sharedPreferences.getString("lName", ""));
+        Glide.with(this).load(GlobalClass.sharedPreferences.getString("img", "")).error(R.drawable.profile_image).into(img_profile_photo);
+        email.setText(GlobalClass.sharedPreferences.getString("eMail", ""));
+        GlobalClass.mPreviousRouteName="";
+        for (int i = 0; i < GlobalClass.headerList.size(); i++) {
+            GlobalClass.headerList.get(i).setSelected(false);
+            if (!GlobalClass.headerList.get(i).getRoutesSubcategory().isEmpty()) {
+                for (int j = 0; j < GlobalClass.headerList.get(i).getRoutesSubcategory().size(); j++) {
+                    GlobalClass.headerList.get(i).getRoutesSubcategory().get(j).setSelected(false);
                 }
             }
-            super.onResume();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -230,14 +223,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         }
     }
 
-    //unregister callbacks and receivers
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mNetworkChangeReceiver);
-        readerConnectionCallback.unregisterReceiver();
-        hceConnectionCallback.unregisterReceiver();
-    }
+
 
 
     @Override
@@ -271,19 +257,15 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     @Override
     public void onReaderConnectionClosed(Reader reader, OpeningResult openingResult) {
         try {
-
             if (Build.VERSION.SDK_INT >= 26) {
                 vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
                 vibrator.vibrate(200);
             }
-            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-            }
-            this
-                    .getSupportFragmentManager()
-                    .beginTransaction().replace(R.id.home_fragment_container,
-                    new HomeGridFragment()).commit();
+            Intent intent=new Intent(this, HomeScreenActivity.class);
+            intent.putExtra("changes","");
+            startActivity(intent);
+            finish();
             GlobalClass.mPreviousRouteName="";
         } catch (Exception e) {
             e.printStackTrace();
@@ -389,6 +371,15 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
                 break;
         }
         return shouldRetry;
+    }
+
+    //unregister callbacks and receivers
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mNetworkChangeReceiver);
+        readerConnectionCallback.unregisterReceiver();
+        hceConnectionCallback.unregisterReceiver();
     }
 
 

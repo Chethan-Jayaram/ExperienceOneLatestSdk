@@ -6,14 +6,14 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class BookingHistoryPojo implements Parcelable {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("location_detail")
-    @Expose
-    private LocationDetail locationDetail;
+
     @SerializedName("guest")
     @Expose
     private Guest guest;
@@ -22,7 +22,7 @@ public class BookingHistoryPojo implements Parcelable {
     private String bookingNumber;
     @SerializedName("room")
     @Expose
-    private String room;
+    private List<Room> room;
     @SerializedName("guest_count")
     @Expose
     private Object guestCount;
@@ -68,13 +68,7 @@ public class BookingHistoryPojo implements Parcelable {
         this.id = id;
     }
 
-    public LocationDetail getLocationDetail() {
-        return locationDetail;
-    }
 
-    public void setLocationDetail(LocationDetail locationDetail) {
-        this.locationDetail = locationDetail;
-    }
 
     public Guest getGuest() {
         return guest;
@@ -92,11 +86,11 @@ public class BookingHistoryPojo implements Parcelable {
         this.bookingNumber = bookingNumber;
     }
 
-    public String getRoom() {
+    public List<Room> getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(List<Room> room) {
         this.room = room;
     }
 

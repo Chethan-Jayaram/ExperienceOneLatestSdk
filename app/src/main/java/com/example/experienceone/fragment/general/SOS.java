@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.experienceone.R;
 import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.GlobalClass;
@@ -54,7 +55,7 @@ public class SOS extends Fragment implements ApiListener {
         try {
             mContext = view.getContext();
             getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
-            getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
+
             TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             toolbar_title.setText("SOS");
             initial = view.findViewById(R.id.initial);
@@ -103,6 +104,21 @@ public class SOS extends Fragment implements ApiListener {
         headerMap.put("Authorization", "bearer " + GlobalClass.token);
         Call<SoSDetails> guest = api.getGuestSoS(headerMap);
         APIResponse.callBackgroundRetrofit(guest, "getGuest", mContext, this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
+        GlobalClass.mPreviousRouteName="";
+        for (int i = 0; i < GlobalClass.headerList.size(); i++) {
+            GlobalClass.headerList.get(i).setSelected(false);
+            if (!GlobalClass.headerList.get(i).getRoutesSubcategory().isEmpty()) {
+                for (int j = 0; j < GlobalClass.headerList.get(i).getRoutesSubcategory().size(); j++) {
+                    GlobalClass.headerList.get(i).getRoutesSubcategory().get(j).setSelected(false);
+                }
+            }
+        }
     }
 
     private void triggerSoS() {
@@ -165,6 +181,16 @@ public class SOS extends Fragment implements ApiListener {
             loading.setVisibility(View.GONE);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (GlobalClass.hasActiveBooking) {
+            getActivity().findViewById(R.id.iv_sos).setVisibility(View.VISIBLE);
+        } else {
+            getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
         }
     }
 }

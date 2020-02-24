@@ -24,6 +24,9 @@ import com.example.experienceone.pojo.preference.Result;
 import com.example.experienceone.retrofit.ClientServiceGenerator;
 import com.example.experienceone.services.APIMethods;
 import com.example.experienceone.services.ApiListener;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -41,8 +44,6 @@ public class CreateUpdatePreferences extends Fragment implements ApiListener {
     private Integer id;
 
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,8 +83,11 @@ public class CreateUpdatePreferences extends Fragment implements ApiListener {
                 for (String s : arr) {
                     setSelectedBackground(s);
                 }
-                timePicker.setHour(Integer.parseInt(GlobalClass.outputhourFormat.format(GlobalClass.inputTimeFormat.parse(mResult.getTime()))));
-                timePicker.setMinute(Integer.parseInt(GlobalClass.outputMinFormat.format(GlobalClass.inputTimeFormat.parse(mResult.getTime()))));
+
+                    int hour=Integer.parseInt(GlobalClass.outputhourFormat.format(GlobalClass.inputTimeFormat.parse(mResult.getTime())));
+                   int min=Integer.parseInt(GlobalClass.outputMinFormat.format(GlobalClass.inputTimeFormat.parse(mResult.getTime())));
+                    setTime(hour,min);
+
             }
 
 
@@ -139,7 +143,15 @@ public class CreateUpdatePreferences extends Fragment implements ApiListener {
         }
         return weekdayBuilder;
     }
-
+    private void setTime(int hour, int minute) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePicker.setHour(hour);
+            timePicker.setMinute(minute);
+        } else {
+            timePicker.setCurrentHour(hour);
+            timePicker.setCurrentMinute(minute);
+        }
+    }
 
     private void postPreffrences(String repeatdays) {
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
@@ -277,6 +289,7 @@ public class CreateUpdatePreferences extends Fragment implements ApiListener {
                 if (stateChanged) {
                     sat.setBackgroundColor(getResources().getColor(R.color.white));
                     sat.setTextColor(getResources().getColor(R.color.black));
+                    weekdays.put("Saturday", 0);
                 } else {
                     setSelectedBackground("Saturday");
                 }

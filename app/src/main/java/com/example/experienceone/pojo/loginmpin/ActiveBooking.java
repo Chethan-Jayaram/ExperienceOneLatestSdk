@@ -1,10 +1,13 @@
 
 package com.example.experienceone.pojo.loginmpin;
 
+import com.example.experienceone.pojo.GeneralPojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ActiveBooking {
+import java.util.List;
+
+public class ActiveBooking  {
 
     @SerializedName("id")
     @Expose
@@ -20,7 +23,7 @@ public class ActiveBooking {
     private String bookingNumber;
     @SerializedName("room")
     @Expose
-    private String room;
+    private List<Room> room;
     @SerializedName("guest_count")
     @Expose
     private Object guestCount;
@@ -87,11 +90,11 @@ public class ActiveBooking {
         this.bookingNumber = bookingNumber;
     }
 
-    public String getRoom() {
+    public List<Room> getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(List<Room> room) {
         this.room = room;
     }
 

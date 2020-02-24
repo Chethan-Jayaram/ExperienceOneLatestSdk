@@ -425,47 +425,52 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
 
 
         expandableListView.setOnGroupClickListener((parent, v, groupPosition, ID) -> {
-            if(headerList.get(groupPosition).getRoutesSubcategory().size()<=0) {
-                if(!headerList.get(groupPosition).getSelected()){
-                    headerList.get(groupPosition).setSelected(true);
-                    for (int i = 0; i < headerList.size(); i++) {
-                        if (groupPosition != i) {
-                            headerList.get(i).setSelected(false);
+            try {
+                if (headerList.get(groupPosition).getRoutesSubcategory().size() <= 0) {
+                    if (!headerList.get(groupPosition).getSelected()) {
+                        headerList.get(groupPosition).setSelected(true);
+                        for (int i = 0; i < headerList.size(); i++) {
+                            if (groupPosition != i) {
+                                headerList.get(i).setSelected(false);
+                            }
                         }
-                    }
-                    ChangeFragment(headerList.get(groupPosition).getMobileRoute().getRouteName());
-                    if (headerList.get(groupPosition).getRoutesSubcategory().size() <= 0) {
+                        ChangeFragment(headerList.get(groupPosition).getMobileRoute().getRouteName());
+                        if (headerList.get(groupPosition).getRoutesSubcategory().size() <= 0) {
+                            handelNavDrawer();
+                        }
+                    } else if (headerList.get(groupPosition).getRoutesSubcategory().size() <= 0) {
                         handelNavDrawer();
                     }
-                } else if (headerList.get(groupPosition).getRoutesSubcategory().size() <= 0) {
-                    handelNavDrawer();
                 }
+            }catch (Exception e){
+                e.printStackTrace();
             }
-
             return false;
         });
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            if (GlobalClass.hasActiveBooking) {
-                if (!childList.get(headerList.get(groupPosition)).get(childPosition).getSelected()) {
-                    childList.get(headerList.get(groupPosition)).get(childPosition).setSelected(true);
-                    for(int i=0;i<childList.get(headerList.get(groupPosition)).size();i++){
-                        if(childPosition!=i) {
-                            childList.get(headerList.get(groupPosition)).get(i).setSelected(false);
+            try {
+                if (GlobalClass.hasActiveBooking) {
+                    if (!childList.get(headerList.get(groupPosition)).get(childPosition).getSelected()) {
+                        childList.get(headerList.get(groupPosition)).get(childPosition).setSelected(true);
+                        for (int i = 0; i < childList.get(headerList.get(groupPosition)).size(); i++) {
+                            if (childPosition != i) {
+                                childList.get(headerList.get(groupPosition)).get(i).setSelected(false);
+                            }
                         }
-                    }
-                    if (GlobalClass.ChangeChildFragment(childList.get(headerList.get(groupPosition)).get(childPosition).getMobileRoute().getRouteName(), (FragmentActivity) context)){
-                        getInvitationCode();
-                    }else{
+                        if (GlobalClass.ChangeChildFragment(childList.get(headerList.get(groupPosition)).get(childPosition).getMobileRoute().getRouteName(), (FragmentActivity) context)) {
+                            getInvitationCode();
+                        } else {
+                            handelNavDrawer();
+                        }
+                    } else {
                         handelNavDrawer();
                     }
 
-                }else{
-                    handelNavDrawer();
+
                 }
-
-
-
+            }catch (Exception e){
+                e.printStackTrace();
             }
             return false;
         });
@@ -481,10 +486,10 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
                 startActivity(intent);
                 getActivity().finish();
             } else if (className.contains("HomeGridFragment")) {
-                String fullPathOfTheClass = "com.example.experienceone.fragment." + className;
-                Class<?> cls = Class.forName(fullPathOfTheClass);
-                Fragment fragment = (Fragment) cls.newInstance();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).commit();
+                Intent intent=new Intent(context, HomeScreenActivity.class);
+                intent.putExtra("changes","");
+                context.startActivity(intent);
+                getActivity().finish();
             }else if(!className.isEmpty()){
                 String fullPathOfTheClass = "com.example.experienceone.fragment." + className;
                 Class<?> cls = Class.forName(fullPathOfTheClass);
@@ -495,7 +500,6 @@ public class HomeGridFragment extends Fragment implements ApiListener, MobileKey
             e.printStackTrace();
         }
     }
-
 
     //hide nav drawer
     private void handelNavDrawer() {

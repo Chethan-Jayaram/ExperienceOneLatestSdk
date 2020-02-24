@@ -73,11 +73,11 @@ public class EditProfile extends Fragment implements ApiListener {
         View view = inflater.inflate(R.layout.edit_profile_fragment, container, false);
         try {
             mContext = view.getContext();
-            getActivity().findViewById(R.id.btn_back).setVisibility(View.GONE);
+
             TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
             getActivity().findViewById(R.id.nav_menu).setVisibility(View.VISIBLE);
-            getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
+
 
 
             toolbar_title.setText("My Profile");
@@ -93,12 +93,12 @@ public class EditProfile extends Fragment implements ApiListener {
             imagePicker = new ImagePicker(getActivity(), this, v -> {
                 try {
                     isProfilePicChanged = true;
-                    uri=v;
+                    uri = v;
 
                     //img_profile.setImageBitmap(bitmap);
                     img_profile.setImageURI(v);
 
-                    bitmap=((BitmapDrawable)img_profile.getDrawable()).getBitmap();
+                    bitmap = ((BitmapDrawable) img_profile.getDrawable()).getBitmap();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -244,10 +244,10 @@ public class EditProfile extends Fragment implements ApiListener {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
         getActivity().findViewById(R.id.img_et_btn).setVisibility(View.GONE);
     }
 
@@ -299,5 +299,9 @@ public class EditProfile extends Fragment implements ApiListener {
         img = GlobalClass.sharedPreferences.getString("img", "");
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().findViewById(R.id.img_et_btn).setVisibility(View.VISIBLE);
+    }
 }

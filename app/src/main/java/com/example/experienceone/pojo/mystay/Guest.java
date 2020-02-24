@@ -9,6 +9,9 @@ public class Guest {
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("image")
+    @Expose
+    private String image;
     @SerializedName("country_code")
     @Expose
     private String countryCode;
@@ -50,16 +53,22 @@ public class Guest {
     private Object bookingRef;
     @SerializedName("salutation")
     @Expose
-    private Object salutation;
+    private String salutation;
     @SerializedName("no_of_invite_code")
     @Expose
-    private Object noOfInviteCode;
+    private Integer noOfInviteCode;
     @SerializedName("location_id")
     @Expose
     private Integer locationId;
     @SerializedName("organization_id")
     @Expose
     private Integer organizationId;
+    @SerializedName("gender")
+    @Expose
+    private String gender;
+    @SerializedName("marital_status")
+    @Expose
+    private String maritalStatus;
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -70,6 +79,14 @@ public class Guest {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getCountryCode() {
@@ -176,19 +193,19 @@ public class Guest {
         this.bookingRef = bookingRef;
     }
 
-    public Object getSalutation() {
+    public String getSalutation() {
         return salutation;
     }
 
-    public void setSalutation(Object salutation) {
+    public void setSalutation(String salutation) {
         this.salutation = salutation;
     }
 
-    public Object getNoOfInviteCode() {
+    public Integer getNoOfInviteCode() {
         return noOfInviteCode;
     }
 
-    public void setNoOfInviteCode(Object noOfInviteCode) {
+    public void setNoOfInviteCode(Integer noOfInviteCode) {
         this.noOfInviteCode = noOfInviteCode;
     }
 
@@ -206,6 +223,22 @@ public class Guest {
 
     public void setOrganizationId(Integer organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
     }
 
     public Integer getStatus() {

@@ -28,7 +28,6 @@ public class TicketStatusAdapter extends RecyclerView.Adapter<TicketStatusAdapte
     @Override
     public TicketStatusAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_status_recycler_content, parent, false);
-
         return new MyViewHolder(itemView);
     }
 
@@ -38,9 +37,7 @@ public class TicketStatusAdapter extends RecyclerView.Adapter<TicketStatusAdapte
             holder.tv_status.setText(ticketActivity.get(position).getStatus().getName());
             GradientDrawable drawable = (GradientDrawable) holder.tv_status.getBackground();
             drawable.setColor(Color.parseColor(ticketActivity.get(position).getStatus().getEventStyle().getTicketStatusPills().getBackground()));
-
             holder.tv_date_time.setText(GlobalClass.dateTimeConverter(ticketActivity.get(position).getActivityOn()));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,12 +57,6 @@ public class TicketStatusAdapter extends RecyclerView.Adapter<TicketStatusAdapte
             super(itemView);
              tv_date_time=itemView.findViewById(R.id.tv_date_time);
              tv_status=itemView.findViewById(R.id.tv_status);
-
-
-
-
-
-
         }
     }
 }

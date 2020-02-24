@@ -86,6 +86,8 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.My
             add(result);
         }
     }
+
+
     public void add(Result r) {
         result.add(r);
         notifyItemInserted(result.size());

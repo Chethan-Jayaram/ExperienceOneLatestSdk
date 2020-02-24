@@ -29,7 +29,7 @@ public class HouseKeepingViewModel extends AndroidViewModel {
         PagedList.Config config =
                 (new PagedList.Config.Builder())
                         .setEnablePlaceholders(false)
-                        .setPageSize(25)
+                        .setPageSize(15)
                         .build();
 
         itemPagedList = (new LivePagedListBuilder<Integer,Result>(itemDataSourceFactory,config))

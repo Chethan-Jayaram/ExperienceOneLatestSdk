@@ -2,12 +2,14 @@ package com.example.experienceone.fragment.general;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.experienceone.R;
+import com.example.experienceone.activity.HomeScreenActivity;
 import com.example.experienceone.adapter.ticketadapters.TicketDetailsAdapter;
 import com.example.experienceone.adapter.ticketadapters.TicketListAdapter;
 import com.example.experienceone.adapter.ticketadapters.TicketStatusAdapter;
@@ -29,6 +32,7 @@ import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.GlobalClass;
 import com.example.experienceone.pojo.ticketdetails.TicketDetailsPojo;
 import com.example.experienceone.pojo.ticketdetails.TicketDetailsSocketPojo;
+import com.example.experienceone.pojo.tourguide.Image;
 import com.example.experienceone.retrofit.ClientServiceGenerator;
 import com.example.experienceone.services.APIMethods;
 import com.example.experienceone.services.ApiListener;
@@ -65,7 +69,8 @@ public class TicketDetails extends Fragment implements ApiListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ticket_layout, container, false);
         context = view.getContext();
-        getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
+        ImageView btn_back=getActivity().findViewById(R.id.btn_back);
+        btn_back.setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.nav_menu).setVisibility(View.GONE);
         getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
 
@@ -92,6 +97,17 @@ public class TicketDetails extends Fragment implements ApiListener {
         type = data.getString("type");
         layoutDecider(lyt);
         getTicketDetails(id);
+
+        btn_back.setOnClickListener(v->{
+            try {
+                Intent intent = new Intent(context, HomeScreenActivity.class);
+                intent.putExtra("changes", "");
+                context.startActivity(intent);
+                getActivity().finish();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            });
         return view;
     }
 
@@ -157,7 +173,7 @@ public class TicketDetails extends Fragment implements ApiListener {
         GradientDrawable drawable = (GradientDrawable) tv_ticket_status.getBackground();
         drawable.setColor(Color.parseColor(ticketDetails.getResult().getCurrentStatus().getEventStyle().getTicketStatusPills().getBackground()));
         tv_module_category.setText("> " + ticketDetails.getResult().getTitle());
-        tv_guest_room_no.setText(ticketDetails.getResult().getBooking().getRoom());
+        tv_guest_room_no.setText(ticketDetails.getResult().getRoom_no());
         tv_guest_name.setText(ticketDetails.getResult().getBooking().getGuest().getFirstName() +
                 " " + ticketDetails.getResult().getBooking().getGuest().getLastName());
         if (!ticketDetails.getResult().getSpecial_instructions().isEmpty()) {

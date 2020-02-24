@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.experienceone.R;
 import com.example.experienceone.adapter.moduleadapters.dinningadapters.DinningMenuItemAdapter;
+import com.example.experienceone.fragment.general.MultipleRoomDialougFragment;
 import com.example.experienceone.fragment.general.TicketDetails;
 import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.GlobalClass;
@@ -67,7 +68,7 @@ public class DiningModuleSegment extends Fragment implements ApiListener, Parcel
             toolbar_title.setText("Your Order");
 
             Bundle data = getArguments();
-            dinningSegmentModel = data.getParcelable("subcategory");
+            dinningSegmentModel = data.getParcelable("DinningModel");
             dinningSegmentModel.setTitle("In-Room-Dinning");
             dinningSegmentModel.setBooking(GlobalClass.Booking_id);
             bottom_view.setVisibility(dinningSegmentModel.getDetails().size() > 0 ? View.VISIBLE : View.GONE);
@@ -124,7 +125,16 @@ public class DiningModuleSegment extends Fragment implements ApiListener, Parcel
                     if (et_special_inst.getText().toString().length() < 200) {
                         dinningSegmentModel.setSpecialinstructions(et_special_inst.getText().toString());
                         // dinningSegmentModel.setDetails(menuItems);
-                        postHosueKeepingList(dinningSegmentModel);
+                        if(GlobalClass.MY_ROOMS.size()==1){
+                            dinningSegmentModel.setRoom_no(GlobalClass.MY_ROOMS.get(0).getRoom().getRoomNo());
+                            postHosueKeepingList(dinningSegmentModel);
+                        }else{
+                            MultipleRoomDialougFragment bottom = new MultipleRoomDialougFragment();
+                            data.putString("module","Dining");
+                            bottom.setArguments(data);
+                            bottom.show(getActivity().getSupportFragmentManager(),
+                                    GlobalClass.BOTTOM_VIEW);
+                        }
                     } else {
                         GlobalClass.ShowAlet(context, "Alert", "Instructions cannot be more than 200 character");
                     }

@@ -155,6 +155,7 @@ if(mpin.length()==4){
                     startActivity(intent);
                     getActivity().finish();
                     GlobalClass.Guest_id=loginMpin.getResult().getGuest().getId()!=null?loginMpin.getResult().getGuest().getId():0;
+                    GlobalClass.MY_ROOMS=loginMpin.getResult().getActiveBooking().get(0).getRoom();
                     if(loginMpin.getResult().getActiveBooking().size()>0){
                         GlobalClass.hasActiveBooking=true;
                         GlobalClass.Booking_id= loginMpin.getResult().getActiveBooking().get(0).getId()!=null?loginMpin.getResult().getActiveBooking().get(0).getId():0;

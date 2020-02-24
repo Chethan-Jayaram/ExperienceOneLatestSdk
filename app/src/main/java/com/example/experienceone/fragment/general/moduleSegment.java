@@ -70,7 +70,16 @@ public class moduleSegment extends Fragment implements ApiListener {
         house_keeping_segment_recycler.setAdapter(adapter);
 
         tv_confirm_button.setOnClickListener(v -> {
-            postHosueKeepingList(houseKeepingModel);
+            if(GlobalClass.MY_ROOMS.size()==1){
+                houseKeepingModel.setRoom_no(GlobalClass.MY_ROOMS.get(0).getRoom().getRoomNo());
+                postHosueKeepingList(houseKeepingModel);
+            }else{
+                MultipleRoomDialougFragment bottom = new MultipleRoomDialougFragment();
+                data.putString("module","HouseKeeping");
+                bottom.setArguments(data);
+                bottom.show(getActivity().getSupportFragmentManager(),
+                        GlobalClass.BOTTOM_VIEW);
+            }
         });
         return view;
     }

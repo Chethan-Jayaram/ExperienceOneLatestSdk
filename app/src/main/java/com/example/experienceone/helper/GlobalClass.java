@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.experienceone.R;
 import com.example.experienceone.pojo.color.ColorPojo;
 import com.example.experienceone.pojo.dinning.CategoryItem;
+import com.example.experienceone.pojo.loginmpin.Room;
 import com.example.experienceone.pojo.navmenuitems.Result;
 import com.google.gson.Gson;
 
@@ -43,6 +44,11 @@ public class GlobalClass {
     //doorunlock
     public static String mPreviousRouteName = "";
     public static List<Result> headerList = new ArrayList<>();
+
+
+    public static List<Room> MY_ROOMS;
+
+    public static final String BOTTOM_VIEW="BOTTOM_VIEW";
 
     public static boolean flow = false;
     //complte setup
@@ -125,7 +131,7 @@ public class GlobalClass {
             name = "general.About";
         } else if (className.equalsIgnoreCase("report-a-bug")) {
             name = "general.ReportABug";
-        } else if (className.equalsIgnoreCase("logout")) {
+        } else if (className.equalsIgnoreCase("mpin-login")) {
             name = "general.Logout";
         } else if (className.equalsIgnoreCase("assa-abloy-door-unlock")) {
             name = "DoorUnlockingFragment";

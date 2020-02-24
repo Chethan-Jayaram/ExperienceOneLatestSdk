@@ -99,7 +99,7 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
         tv_view_order.setOnClickListener(v->{
             if (dinningSegmentModel.getDetails() != null && dinningSegmentModel.getDetails().size() > 0) {
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("subcategory", dinningSegmentModel);
+                bundle.putParcelable("DinningModel", dinningSegmentModel);
                 menuItems.addAll(this.dinningSegmentModel.getDetails());
                 bundle.putParcelableArrayList("category", menuItems);
                 bundle.putString("item_count", item_count.getText().toString());
@@ -151,7 +151,7 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
             submenuitems.addAll(item.get(position).getCategoryItem());
             bundle.putParcelableArrayList("OutletMenus", submenuitems);
             bundle.putString("SubMenuName", item.get(position).getMenuName());
-            bundle.putParcelable("subcategory", dinningSegmentModel);
+            bundle.putParcelable("DinningModel", dinningSegmentModel);
             bundle.putString("item_count", String.valueOf(count));
             bundle.putString("item_price", String.valueOf(prices));
             bundle.putParcelable("diningModuleSegment",diningModuleSegment);

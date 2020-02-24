@@ -14,6 +14,8 @@ import com.example.experienceone.pojo.emergency.Emergency;
 import com.example.experienceone.pojo.foreignexchange.ForeignExchangePojo;
 import com.example.experienceone.pojo.GuestDeatils;
 import com.example.experienceone.pojo.doorunlock.InvitationCode;
+import com.example.experienceone.pojo.loginmpin.ActiveBooking;
+import com.example.experienceone.pojo.multiplerooms.MultipleRoomNumber;
 import com.example.experienceone.pojo.mystay.MyStayPojo;
 import com.example.experienceone.pojo.posttickets.TicketID;
 import com.example.experienceone.pojo.preference.CreateUpdatePrefrencesPojo;
@@ -211,6 +213,12 @@ public interface APIMethods {
     @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location"})
     @POST("mobile-key-generation/")
     Call<Mobilekeys> mobilekeyapi(@Body Map map);
+
+
+
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
+    @GET("active-booking/")
+    Call<MultipleRoomNumber>  getRoomNumbers(@HeaderMap Map<String,String> headers);
 
 
 }

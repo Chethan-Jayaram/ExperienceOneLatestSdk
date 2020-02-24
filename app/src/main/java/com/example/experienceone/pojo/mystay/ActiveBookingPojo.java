@@ -3,27 +3,19 @@ package com.example.experienceone.pojo.mystay;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ActiveBookingPojo implements Parcelable {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("location_detail")
-    @Expose
-    private LocationDetail locationDetail;
-    @SerializedName("guest")
-    @Expose
-    private Guest guest;
     @SerializedName("booking_number")
     @Expose
     private String bookingNumber;
-    @SerializedName("room")
-    @Expose
-    private String room;
     @SerializedName("guest_count")
     @Expose
     private Object guestCount;
@@ -33,12 +25,6 @@ public class ActiveBookingPojo implements Parcelable {
     @SerializedName("checkout_date_time")
     @Expose
     private String checkoutDateTime;
-    @SerializedName("guest_checkin_date_time")
-    @Expose
-    private Object guestCheckinDateTime;
-    @SerializedName("guest_checkout_date_time")
-    @Expose
-    private Object guestCheckoutDateTime;
     @SerializedName("guest_document")
     @Expose
     private String guestDocument;
@@ -54,12 +40,18 @@ public class ActiveBookingPojo implements Parcelable {
     @SerializedName("booking_status")
     @Expose
     private Boolean bookingStatus;
-    @SerializedName("status")
+    @SerializedName("guest")
     @Expose
-    private Integer status;
+    private Guest guest;
     @SerializedName("last_activity_by")
     @Expose
     private Integer lastActivityBy;
+    @SerializedName("status")
+    @Expose
+    private Integer status;
+    @SerializedName("room")
+    @Expose
+    private List<Room> room = null;
 
     public Integer getId() {
         return id;
@@ -69,36 +61,12 @@ public class ActiveBookingPojo implements Parcelable {
         this.id = id;
     }
 
-    public LocationDetail getLocationDetail() {
-        return locationDetail;
-    }
-
-    public void setLocationDetail(LocationDetail locationDetail) {
-        this.locationDetail = locationDetail;
-    }
-
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }
-
     public String getBookingNumber() {
         return bookingNumber;
     }
 
     public void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
     }
 
     public Object getGuestCount() {
@@ -123,22 +91,6 @@ public class ActiveBookingPojo implements Parcelable {
 
     public void setCheckoutDateTime(String checkoutDateTime) {
         this.checkoutDateTime = checkoutDateTime;
-    }
-
-    public Object getGuestCheckinDateTime() {
-        return guestCheckinDateTime;
-    }
-
-    public void setGuestCheckinDateTime(Object guestCheckinDateTime) {
-        this.guestCheckinDateTime = guestCheckinDateTime;
-    }
-
-    public Object getGuestCheckoutDateTime() {
-        return guestCheckoutDateTime;
-    }
-
-    public void setGuestCheckoutDateTime(Object guestCheckoutDateTime) {
-        this.guestCheckoutDateTime = guestCheckoutDateTime;
     }
 
     public String getGuestDocument() {
@@ -181,12 +133,12 @@ public class ActiveBookingPojo implements Parcelable {
         this.bookingStatus = bookingStatus;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Guest getGuest() {
+        return guest;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setGuest(Guest guest) {
+        this.guest = guest;
     }
 
     public Integer getLastActivityBy() {
@@ -195,6 +147,22 @@ public class ActiveBookingPojo implements Parcelable {
 
     public void setLastActivityBy(Integer lastActivityBy) {
         this.lastActivityBy = lastActivityBy;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<Room> getRoom() {
+        return room;
+    }
+
+    public void setRoom(List<Room> room) {
+        this.room = room;
     }
 
     @Override

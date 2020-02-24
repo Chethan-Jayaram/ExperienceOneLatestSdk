@@ -59,10 +59,11 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
             Bundle data = getArguments();
             detail = data.getParcelableArrayList("OutletMenus");
             String menuName = data.getString("SubMenuName");
-            dinningSegmentModel=data.getParcelable("subcategory");
+            dinningSegmentModel=data.getParcelable("DinningModel");
             moduleSegment=data.getParcelable("diningModuleSegment");
             moduleSegment.setFragmentCallback(this);
             if(!isForward){
+                isForward=true;
                 this.prices = Double.valueOf(data.getString("item_price").replace(" Rs", ""));
                 this.count = Integer.valueOf(data.getString("item_count").replace(" items", ""));
             }
@@ -84,12 +85,11 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
             tv_view_order.setOnClickListener(v -> {
                 if (dinningSegmentModel.getDetails() != null && dinningSegmentModel.getDetails().size() > 0) {
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable("subcategory", dinningSegmentModel);
+                    bundle.putParcelable("DinningModel", dinningSegmentModel);
                     bundle.putParcelableArrayList("category", menuItems);
                     bundle.putString("item_count", item_count.getText().toString());
                     bundle.putString("item_price", tv_item_price.getText().toString());
                     moduleSegment.setArguments(bundle);
-                    isForward = true;
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, moduleSegment).addToBackStack(null).commit();
                 } else {
                     GlobalClass.ShowAlet(context, "Alert", "please select at least one item");

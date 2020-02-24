@@ -43,6 +43,7 @@ public class APIResponse {
                         CustomMessageHelper showDialog = new CustomMessageHelper(context);
                         showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.SOCKET_ISSUE), false, false);
                     } else {
+                        Log.d("APIerror",t.getMessage());
                         apiListener.onErrorListner();
                         CustomMessageHelper showDialog = new CustomMessageHelper(context);
                         showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.NETWORK_ISSUE), false, false);
