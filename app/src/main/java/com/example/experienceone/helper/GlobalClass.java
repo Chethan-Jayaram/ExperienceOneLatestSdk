@@ -6,9 +6,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
@@ -24,6 +28,8 @@ import com.example.experienceone.pojo.navmenuitems.Result;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -45,10 +51,13 @@ public class GlobalClass {
     public static String mPreviousRouteName = "";
     public static List<Result> headerList = new ArrayList<>();
 
-
+    public static final Integer PICKER_REQUEST_CODE = 30;
     public static List<Room> MY_ROOMS;
 
     public static final String BOTTOM_VIEW="BOTTOM_VIEW";
+
+    public static Boolean mISVisible=false;
+
 
     public static boolean flow = false;
     //complte setup
@@ -129,13 +138,17 @@ public class GlobalClass {
             name = "general.Notification";
         } else if (className.equalsIgnoreCase("about")) {
             name = "general.About";
-        } else if (className.equalsIgnoreCase("report-a-bug")) {
-            name = "general.ReportABug";
-        } else if (className.equalsIgnoreCase("mpin-login")) {
+        }else if (className.equalsIgnoreCase("mpin-login")) {
             name = "general.Logout";
         } else if (className.equalsIgnoreCase("assa-abloy-door-unlock")) {
             name = "DoorUnlockingFragment";
+        }else if (className.equalsIgnoreCase("support")) {
+            name = "general.SupportFragment";
+        }else if (className.equalsIgnoreCase("report-a-bug")) {
+            name = "general.MobileCheckInFragment";
         }
+
+
         return name;
     }
 
@@ -327,5 +340,30 @@ public class GlobalClass {
         return dateTime;
     }
 
+    public static void scaleView(View v, float startScale, float endScale) {
+        Animation anim = new ScaleAnimation(
+                1f, 1f, // Start and end values for the X axis scaling
+                startScale, endScale, // Start and end values for the Y axis scaling
+                Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+        anim.setFillAfter(true); // Needed to keep the result of the animation
+        anim.setDuration(200);
+        v.startAnimation(anim);
+    }
 
+    public static Bitmap getBitmap(String path) {
+        Bitmap bitmap=null;
+        try {
+            File f= new File(path);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, options);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return bitmap;
+    }
 }

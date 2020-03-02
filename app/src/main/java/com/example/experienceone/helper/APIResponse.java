@@ -117,11 +117,16 @@ public class APIResponse {
             @Override
             public void onFailure(Call<ResponseType> call, Throwable t) {
                 try {
-                    apiListener.onErrorListner();
-                    CustomMessageHelper showDialog = new CustomMessageHelper(context);
-                    showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.SOCKET_ISSUE), false, false);
+                    if (t instanceof SocketTimeoutException) {
+                        apiListener.onErrorListner();
+                        CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                        showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.SOCKET_ISSUE), false, false);
+                    } else {
+                        apiListener.onErrorListner();
+                        CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                        showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.NETWORK_ISSUE), false, false);
+                    }
                 } catch (Exception e) {
-                    apiListener.onErrorListner();
                     e.printStackTrace();
                 }
             }

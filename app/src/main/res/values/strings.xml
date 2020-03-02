@@ -129,16 +129,27 @@
     <string name="action_retry">Retry</string>
     <string name="action_dismiss">Dismiss</string>
     <string name="action_enable">allow</string>
+    <string name="comments">Please write your comments here...</string>
+    <string name="Support">Support Service</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="nationality">Nationality</string>
+    <string name="mobile_check_in">Mobile Check-In</string>
+    <string name="kyc">KYC document (Document Number and Document Type)</string>
+    <string name="document_type">Document Type</string>
+    <string name="document_number">Document Number</string>
+    <string name="attachments">Attachments</string>
+    <string name="upload">Upload</string>
+    <string name="submit">Submit</string>
 
 
-<!--    android:fontFamily="sans-serif"           // roboto regular
-    android:fontFamily="sans-serif-light"     // roboto light
-    android:fontFamily="sans-serif-condensed" // roboto condensed
-    android:fontFamily="sans-serif-black"     // roboto black
-    android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)
-    android:fontFamily="sans-serif-medium"      // roboto medium (android 5.0)
+    <!--    android:fontFamily="sans-serif"           // roboto regular
+        android:fontFamily="sans-serif-light"     // roboto light
+        android:fontFamily="sans-serif-condensed" // roboto condensed
+        android:fontFamily="sans-serif-black"     // roboto black
+        android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)
+        android:fontFamily="sans-serif-medium"      // roboto medium (android 5.0)
 
-               android:textStyle="italic"-->
+                   android:textStyle="italic"-->
    <!-- android:fontFamily="sans-serif-medium"
     android:textStyle="italic"-->
 

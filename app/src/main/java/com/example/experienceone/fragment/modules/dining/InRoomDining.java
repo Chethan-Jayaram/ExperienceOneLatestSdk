@@ -83,11 +83,11 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
                 submenuitems.get(i).setQuantity(0);
             }
 
-            bottom_view.setVisibility(View.GONE);
+           /* bottom_view.setVisibility(View.GONE);*/
             getDinningElements();
         } else {
             setAdapterView();
-            scaleView(bottom_view,0,1);
+            GlobalClass.scaleView(bottom_view,0,1);
             item_count.setText(count + " items");
             tv_item_price.setText(prices + " Rs");
         }
@@ -106,6 +106,7 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
                 bundle.putString("item_price", tv_item_price.getText().toString());
                 diningModuleSegment.setArguments(bundle);
                 isForward = true;
+                GlobalClass.mISVisible=false;
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, diningModuleSegment).addToBackStack(null).commit();
             } else {
                 GlobalClass.ShowAlet(context, "Alert", "please select at least one item");
@@ -115,6 +116,8 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
 
         return view;
     }
+
+
 
     private void getDinningElements() {
         loading.setVisibility(View.VISIBLE);
@@ -175,16 +178,7 @@ public class InRoomDining extends Fragment implements ApiListener, FragmentCallb
         }
     }
 
-    public void scaleView(View v, float startScale, float endScale) {
-        Animation anim = new ScaleAnimation(
-                1f, 1f, // Start and end values for the X axis scaling
-                startScale, endScale, // Start and end values for the Y axis scaling
-                Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
-                Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-        anim.setFillAfter(true); // Needed to keep the result of the animation
-        anim.setDuration(200);
-        v.startAnimation(anim);
-    }
+
 
     @Override
     public void onDataSent(Double price, Integer count, DinningSegmentModel dinningSegmentModel) {

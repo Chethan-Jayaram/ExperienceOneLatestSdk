@@ -25,6 +25,8 @@ import com.example.experienceone.model.foreignexchange.ForeignExchangemodel;
 import com.example.experienceone.model.raisingticketmodel.ModuleSegmentModel;
 import com.example.experienceone.pojo.multiplerooms.MultipleRoomNumber;
 import com.example.experienceone.pojo.posttickets.TicketID;
+import com.example.experienceone.pojo.support.Support;
+import com.example.experienceone.pojo.ticketdetails.TicketDetailsPojo;
 import com.example.experienceone.retrofit.ClientServiceGenerator;
 import com.example.experienceone.services.APIMethods;
 import com.example.experienceone.services.ApiListener;
@@ -79,6 +81,7 @@ public class MultipleRoomDialougFragment extends BottomSheetDialogFragment imple
                     houseKeepingModel.setRoom_no(room_no.toString().substring(0, room_no.length() - 2));
                     postHosueKeepingList(houseKeepingModel);
                 }else if(mPostCallDecider.equalsIgnoreCase("Emergency")){
+                    houseKeepingModel.setRoom_no(room_no.toString().substring(0, room_no.length() - 2));
                     postEmergencyRequest(houseKeepingModel);
                 }else if(mPostCallDecider.equalsIgnoreCase("travel")){
                     mModel.setRoomNo(room_no.toString().substring(0, room_no.length() - 2));
@@ -88,7 +91,10 @@ public class MultipleRoomDialougFragment extends BottomSheetDialogFragment imple
                     postforeignExchnage(exchangemodel);
                 }else if(mPostCallDecider.equalsIgnoreCase("Dining")){
                     dinningSegmentModel.setRoom_no(room_no.toString().substring(0, room_no.length() - 2));
-                    postHosueKeepingList(dinningSegmentModel);
+                    postDinningList(dinningSegmentModel);
+            }else if(mPostCallDecider.equalsIgnoreCase("Support")){
+                    houseKeepingModel.setRoom_no(room_no.toString().substring(0, room_no.length() - 2));
+                    postSupport(houseKeepingModel);
                 }
             }else {
                 GlobalClass.ShowAlet(mContext,"Message","Please select at least one room number");
@@ -104,7 +110,7 @@ public class MultipleRoomDialougFragment extends BottomSheetDialogFragment imple
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
         HashMap headerMap = new HashMap();
         headerMap.put("Authorization", "bearer " + GlobalClass.token);
-        Call ticketDetailsPojoCall = api.getRoomNumbers(headerMap);
+        Call<TicketDetailsPojo> ticketDetailsPojoCall = api.getRoomNumbers(headerMap);
         APIResponse.getCallRetrofit(ticketDetailsPojoCall, "rooms", mContext, this);
     }
 
@@ -139,9 +145,14 @@ public class MultipleRoomDialougFragment extends BottomSheetDialogFragment imple
         Call<TicketID> TicketID = api.postforeignExchange("foreign-exchange-book-ticket/", headerMap, exchangemodel);
         APIResponse.postCallRetrofit(TicketID, "foreignExchange", mContext, this);
     }
-
-    private void postHosueKeepingList(DinningSegmentModel dinningModuleSegment) {
-
+    private void postSupport(ModuleSegmentModel houseKeepingModel) {
+        APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
+        HashMap headerMap = new HashMap();
+        headerMap.put("Authorization", "bearer " + GlobalClass.token);
+        Call<TicketID> supportCall = api.postSupport(headerMap,houseKeepingModel);
+        APIResponse.postCallRetrofit(supportCall, "postSupport", mContext, this);
+    }
+    private void postDinningList(DinningSegmentModel dinningModuleSegment) {
         APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
         Map<String, String> headerMap = new HashMap();
         headerMap.put("Authorization", "bearer " + GlobalClass.token);
@@ -236,6 +247,21 @@ public class MultipleRoomDialougFragment extends BottomSheetDialogFragment imple
                     getActivity().getSupportFragmentManager().popBackStack();
                     closeBottomSheetFragment();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
+            }else if(apiCallName.equalsIgnoreCase("postSupport")){
+                TicketID ticketDetails = (TicketID) response.body();
+                if (ticketDetails.getStatus().equalsIgnoreCase("Success")) {
+                    Bundle bundle = new Bundle();
+                    Fragment fragment = new TicketDetails();
+                    bundle.putString("id", String.valueOf(ticketDetails.getResult().getId()));
+                    bundle.putString("lyt", ticketDetails.getResult().getLayout());
+                    bundle.putString("type", "Support");
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().popBackStack();
+                    closeBottomSheetFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
+                }else {
+                    GlobalClass.showErrorMsg(mContext,ticketDetails.getError());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

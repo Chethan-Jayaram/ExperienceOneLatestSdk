@@ -218,6 +218,6 @@ public class DiningModuleSegment extends Fragment implements ApiListener, Parcel
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
     }
+
 }

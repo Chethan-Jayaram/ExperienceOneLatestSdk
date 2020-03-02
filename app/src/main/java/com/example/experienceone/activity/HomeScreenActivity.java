@@ -13,12 +13,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+
 import com.assaabloy.mobilekeys.api.MobileKeys;
 import com.assaabloy.mobilekeys.api.MobileKeysCallback;
 import com.assaabloy.mobilekeys.api.MobileKeysException;
@@ -34,9 +36,11 @@ import com.assaabloy.mobilekeys.api.ble.ScanConfiguration;
 import com.assaabloy.mobilekeys.api.hce.HceConnectionCallback;
 import com.assaabloy.mobilekeys.api.hce.HceConnectionListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.experienceone.R;
 import com.example.experienceone.fragment.general.EditProfile;
 import com.example.experienceone.fragment.general.HomeGridFragment;
+import com.example.experienceone.fragment.general.MobileCheckInFragment;
 import com.example.experienceone.fragment.general.SOS;
 import com.example.experienceone.helper.GlobalClass;
 import com.example.experienceone.unlock.MobileKeysApiFacade;
@@ -87,14 +91,12 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
 
             Intent intent = getIntent();
 
-            String str=intent.getStringExtra("changes");
-            if(str.equalsIgnoreCase("ble")){
-                GlobalClass.showErrorMsg(this,"Bluetooth Turned off");
-            }else if(str.equalsIgnoreCase("loc")){
-                GlobalClass.showErrorMsg(this,"Location turned off");
+            String str = intent.getStringExtra("changes");
+            if (str.equalsIgnoreCase("ble")) {
+                GlobalClass.showErrorMsg(this, "Bluetooth Turned off");
+            } else if (str.equalsIgnoreCase("loc")) {
+                GlobalClass.showErrorMsg(this, "Location turned off");
             }
-
-
 
 
             //initialize sdk callback methods
@@ -145,7 +147,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     }
 
 
-
     @Override
     public void onBackPressed() {
         try {
@@ -161,12 +162,13 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     }
 
     private void RegistorNetworkChnage() {
-        mNetworkChangeReceiver=new NetworkChangeReceiver();
+        mNetworkChangeReceiver = new NetworkChangeReceiver();
         IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         this.registerReceiver(mNetworkChangeReceiver, intentFilter);
     }
 
     private void performMadetoryOperations() {
+        GlobalClass.mISVisible = false;
         if (GlobalClass.hasActiveBooking) {
             iv_sos.setVisibility(View.VISIBLE);
         } else {
@@ -178,9 +180,12 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         TextView email = headerLayout.findViewById(R.id.user_email);
         ImageView img_profile_photo = headerLayout.findViewById(R.id.img_profile_photo);
         user_name.setText(GlobalClass.sharedPreferences.getString("fName", "") + " " + GlobalClass.sharedPreferences.getString("lName", ""));
-        Glide.with(this).load(GlobalClass.sharedPreferences.getString("img", "")).error(R.drawable.profile_image).into(img_profile_photo);
+        Glide.with(this)
+                .load(GlobalClass.sharedPreferences.getString("img", ""))
+                .apply(RequestOptions.placeholderOf(R.drawable.profile_image).error(R.drawable.profile_image))
+                .into(img_profile_photo);
         email.setText(GlobalClass.sharedPreferences.getString("eMail", ""));
-        GlobalClass.mPreviousRouteName="";
+        GlobalClass.mPreviousRouteName = "";
         for (int i = 0; i < GlobalClass.headerList.size(); i++) {
             GlobalClass.headerList.get(i).setSelected(false);
             if (!GlobalClass.headerList.get(i).getRoutesSubcategory().isEmpty()) {
@@ -224,8 +229,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     }
 
 
-
-
     @Override
     public MobileKeys getMobileKeys() {
         return mobileKeysApiFactory.getMobileKeys();
@@ -252,7 +255,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     }
 
 
-
     //on successful door unlock navigate to main screen with vibration alert
     @Override
     public void onReaderConnectionClosed(Reader reader, OpeningResult openingResult) {
@@ -262,11 +264,11 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
             } else {
                 vibrator.vibrate(200);
             }
-            Intent intent=new Intent(this, HomeScreenActivity.class);
-            intent.putExtra("changes","");
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            intent.putExtra("changes", "");
             startActivity(intent);
             finish();
-            GlobalClass.mPreviousRouteName="";
+            GlobalClass.mPreviousRouteName = "";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -337,7 +339,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     public void handleMobileKeysTransactionFailed(MobileKeysException e) {
 
     }
-
 
 
     //onAcitvity result pass data from gallery to fragment(edit profile)

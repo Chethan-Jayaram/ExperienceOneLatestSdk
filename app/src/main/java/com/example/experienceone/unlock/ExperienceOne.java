@@ -2,7 +2,6 @@ package com.example.experienceone.unlock;
 
 import android.app.Application;
 import android.content.Context;
-
 import com.assaabloy.mobilekeys.api.ApiConfiguration;
 import com.assaabloy.mobilekeys.api.MobileKeys;
 import com.assaabloy.mobilekeys.api.MobileKeysApi;
@@ -20,13 +19,9 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
 import com.llew.huawei.verifier.LoadedApkHuaWei;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.Date;
+
 
 import javax.net.ssl.SSLContext;
 

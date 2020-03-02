@@ -57,7 +57,7 @@ public class ActiveBookingAdapter extends RecyclerView.Adapter<ActiveBookingAdap
               }else{
                   roomno.append(activeBookingList.get(0).getRoom().get(0).getRoom().getRoomNo());
               }
-              holder.tv_room.setText(roomno);
+              holder.tv_room.setText(roomno.toString().substring(0, roomno.length() - 1));
                     holder.tv_username.setText(activeBookingList.get(position).getGuest().getFirstName() + " " +
                             activeBookingList.get(position).getGuest().getLastName());
                     holder.tv_user_email.setText(activeBookingList.get(position).getGuest().getEmail());

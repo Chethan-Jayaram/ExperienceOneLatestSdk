@@ -1,5 +1,6 @@
 package com.example.experienceone.services;
 
+import com.example.experienceone.fragment.general.TicketDetails;
 import com.example.experienceone.model.TravelModel;
 import com.example.experienceone.model.dinningmodel.DinningSegmentModel;
 import com.example.experienceone.model.foreignexchange.ForeignExchangemodel;
@@ -21,6 +22,7 @@ import com.example.experienceone.pojo.posttickets.TicketID;
 import com.example.experienceone.pojo.preference.CreateUpdatePrefrencesPojo;
 import com.example.experienceone.pojo.preference.PreferencePojo;
 import com.example.experienceone.pojo.sos.SoSDetails;
+import com.example.experienceone.pojo.support.Support;
 import com.example.experienceone.pojo.ticketdetails.TicketDetailsPojo;
 import com.example.experienceone.pojo.dashboardelements.DashbordElements;
 import com.example.experienceone.pojo.hoteldirectory.HotelDirectoryPojo;
@@ -214,11 +216,17 @@ public interface APIMethods {
     @POST("mobile-key-generation/")
     Call<Mobilekeys> mobilekeyapi(@Body Map map);
 
-
-
     @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
     @GET("active-booking/")
     Call<MultipleRoomNumber>  getRoomNumbers(@HeaderMap Map<String,String> headers);
+
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
+    @GET("guest-support/")
+    Call<Support>  getSupport(@HeaderMap Map<String,String> headers);
+
+    @Headers({"Content-Type:application/json", "organization-key:86168e09b29b8d1b1bf4b5ea209fe2fcdaa21c90", "location:demo-location","login-type:guest"})
+    @POST("support-book-ticket/")
+    Call<TicketID> postSupport(@HeaderMap Map<String, String> headers, @Body ModuleSegmentModel houseKeepingModel);
 
 
 }

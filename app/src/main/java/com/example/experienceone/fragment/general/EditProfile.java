@@ -29,6 +29,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.experienceone.R;
 import com.example.experienceone.helper.APIResponse;
 import com.example.experienceone.helper.CustomMessageHelper;
@@ -166,7 +167,11 @@ public class EditProfile extends Fragment implements ApiListener {
 
             });
             if (!img.isEmpty()) {
-                Glide.with(mContext).load(img).error(R.drawable.profile_image).into(img_profile);
+                Glide.with(mContext)
+                        .load(img)
+                        .apply(RequestOptions.placeholderOf(R.drawable.profile_image).error(R.drawable.profile_image))
+                        .into(img_profile);
+
             }
 
         } catch (Exception e) {

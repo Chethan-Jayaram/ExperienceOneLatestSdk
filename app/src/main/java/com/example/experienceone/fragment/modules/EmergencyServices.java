@@ -74,6 +74,7 @@ public class EmergencyServices extends Fragment implements ApiListener {
                 houseKeepingModel.setBooking(GlobalClass.Booking_id);
                 categoryItem.setTitle(title);
                 categoryItem.setId(Id);
+                categoryItem.setDescription("");
                 details.add(categoryItem);
                 houseKeepingModel.setDetails(details);
                 ShowAlet(context, "Please Confirm", "We are concerned about your saftey during our stay, please confirm by clicking OK or CANCEL");

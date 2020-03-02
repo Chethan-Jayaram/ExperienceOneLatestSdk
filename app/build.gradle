@@ -134,6 +134,11 @@ dependencies {
     //image pic and crop lib
     implementation 'com.myhexaville:smart-image-picker:1.0.4'
 
+   ///multiple image picker
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
+
+
+
    /* implementation project(path: ':mobilekeys-android-sdk-release-7.3.0')*/
 
     implementation 'com.llew.huawei:verifier:1.0.2'
@@ -141,6 +146,7 @@ dependencies {
     implementation project(path: ':mobilekeys-android-sdk-release-7.4.3')
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 }
+
 
 configurations {
     testCompile.exclude module: 'hamcrest-core'

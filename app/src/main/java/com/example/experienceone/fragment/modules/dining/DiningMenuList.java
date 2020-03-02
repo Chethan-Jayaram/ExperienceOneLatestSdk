@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,45 +30,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiningMenuList extends Fragment implements FragmentCallback {
-    
-    private ArrayList<CategoryItem> menuItems=new ArrayList<>();
-    private TextView item_count,tv_item_price;
+
+    private ArrayList<CategoryItem> menuItems = new ArrayList<>();
+    private TextView item_count, tv_item_price;
     private DinningSegmentModel dinningSegmentModel;
-    private Double prices=0.0;
-    private Integer count=0;
+    private Double prices = 0.0;
+    private Integer count = 0;
     private DiningModuleSegment moduleSegment;
-    private Boolean isForward=false;
+    private Boolean isForward = false;
     private List<CategoryItem> detail;
     private RecyclerView dinning_menu_recycler;
     private Context context;
     private FragmentCallback fragmentCallback;
+    private LinearLayout bottom_view;
+
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_menu_list,container,false);
+        View view = inflater.inflate(R.layout.fragment_menu_list, container, false);
         try {
-             context = view.getContext();
-             dinning_menu_recycler = view.findViewById(R.id.dinning_menu_recycler);
+            context = view.getContext();
+            dinning_menu_recycler = view.findViewById(R.id.dinning_menu_recycler);
+            item_count = view.findViewById(R.id.item_count);
+            tv_item_price = view.findViewById(R.id.tv_item_price);
+            bottom_view = view.findViewById(R.id.bottom_view);
             TextView menu_name = view.findViewById(R.id.menu_name);
             TextView menu_timing = view.findViewById(R.id.menu_timing);
             TextView menu_desc = view.findViewById(R.id.menu_desc);
-            item_count = view.findViewById(R.id.item_count);
-            tv_item_price = view.findViewById(R.id.tv_item_price);
             TextView tv_view_order = view.findViewById(R.id.tv_view_order);
+
             Bundle data = getArguments();
-            detail = data.getParcelableArrayList("OutletMenus");
             String menuName = data.getString("SubMenuName");
-            dinningSegmentModel=data.getParcelable("DinningModel");
-            moduleSegment=data.getParcelable("diningModuleSegment");
+            detail = data.getParcelableArrayList("OutletMenus");
+            dinningSegmentModel = data.getParcelable("DinningModel");
+            moduleSegment = data.getParcelable("diningModuleSegment");
+
             moduleSegment.setFragmentCallback(this);
-            if(!isForward){
-                isForward=true;
+
+
+            if (!isForward) {
+                isForward = true;
                 this.prices = Double.valueOf(data.getString("item_price").replace(" Rs", ""));
                 this.count = Integer.valueOf(data.getString("item_count").replace(" items", ""));
             }
-
+           /* if(dinningSegmentModel.getDetails().size()==0){
+                bottom_view.setVisibility(View.GONE);
+            }else{
+                bottom_view.setVisibility(View.VISIBLE);
+                GlobalClass.scaleView(bottom_view,0,1);
+            }*/
 
             dinningSegmentModel.setTitle("In-Room-Dinning");
             dinningSegmentModel.setBooking(GlobalClass.Booking_id);
@@ -81,7 +94,6 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
             menu_desc.setText("All " + menuName + " sets are served with the way you liked it cooked");
 
 
-
             tv_view_order.setOnClickListener(v -> {
                 if (dinningSegmentModel.getDetails() != null && dinningSegmentModel.getDetails().size() > 0) {
                     Bundle bundle = new Bundle();
@@ -90,20 +102,27 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
                     bundle.putString("item_count", item_count.getText().toString());
                     bundle.putString("item_price", tv_item_price.getText().toString());
                     moduleSegment.setArguments(bundle);
+                    GlobalClass.mISVisible=false;
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, moduleSegment).addToBackStack(null).commit();
                 } else {
                     GlobalClass.ShowAlet(context, "Alert", "please select at least one item");
                 }
             });
+
             item_count.setText(count + " items");
             tv_item_price.setText(prices + " Rs");
-
-        }catch (Exception e){
+            if (count == 0) {
+                bottom_view.setVisibility(View.GONE);
+            } else {
+                GlobalClass.mISVisible=true;
+                bottom_view.setVisibility(View.VISIBLE);
+                GlobalClass.scaleView(bottom_view, 0, 1);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return view;
     }
-
 
 
     @Override
@@ -112,7 +131,7 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
         try {
             final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -123,15 +142,23 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
     }
 
     private void setAdapter() {
-        DinningMenuItemAdapter adapter = new DinningMenuItemAdapter(detail, count,prices, (categoryItem, price, pos) -> {
+        DinningMenuItemAdapter adapter = new DinningMenuItemAdapter(detail, count, prices, (categoryItem, price, pos) -> {
             try {
                 menuItems.add(categoryItem);
                 dinningSegmentModel.setDetails(GlobalClass.removeDuplicateItems(menuItems));
-
                 item_count.setText(dinningSegmentModel.getDetails().size() + " items");
                 tv_item_price.setText(GlobalClass.decimalFormat.format(Math.abs(price)) + " Rs");
                 this.prices = price;
                 this.count = dinningSegmentModel.getDetails().size();
+                if (this.count == 0) {
+                    GlobalClass.mISVisible=false;
+                    bottom_view.setVisibility(View.GONE);
+                    GlobalClass.scaleView(bottom_view, 1, 0);
+                }else if(!GlobalClass.mISVisible){
+                    GlobalClass.mISVisible=true;
+                    bottom_view.setVisibility(View.VISIBLE);
+                    GlobalClass.scaleView(bottom_view, 0, 1);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -145,10 +172,10 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
 
     @Override
     public void onDataSent(Double price, Integer count, DinningSegmentModel dinningSegmentModel) {
-            prices=price;
-            this.count=count;
-            this.dinningSegmentModel=new DinningSegmentModel();
-            this.dinningSegmentModel.setDetails(dinningSegmentModel.getDetails());
+        prices = price;
+        this.count = count;
+        this.dinningSegmentModel = new DinningSegmentModel();
+        this.dinningSegmentModel.setDetails(dinningSegmentModel.getDetails());
     }
 
     @Override
@@ -158,7 +185,7 @@ public class DiningMenuList extends Fragment implements FragmentCallback {
 
     public void onDestroy() {
         if (fragmentCallback != null) {
-            fragmentCallback.onDataSent(this.prices , this.count , dinningSegmentModel);
+            fragmentCallback.onDataSent(this.prices, this.count, dinningSegmentModel);
         }
         super.onDestroy();
     }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_support_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_margin="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/Support"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
+
+    <Spinner
+        android:layout_below="@+id/tv_support_header"
+        android:id="@+id/support_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:dropDownWidth="match_parent"
+        android:overlapAnchor="false"
+        android:background="@drawable/et_border_black"
+        android:padding="2dp"
+        android:spinnerMode="dropdown" />
+
+
+    <EditText
+        android:fontFamily="sans-serif"
+        android:id="@+id/et_support"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/support_spinner"
+        android:layout_margin="20dp"
+        android:background="@drawable/et_border_black"
+        android:gravity="top"
+        android:hint="@string/comments"
+        android:padding="5dp"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_support"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_support"
+        android:text="Submit"
+        android:background="@drawable/btn_bg"
+        android:layout_width="80dp"
+        android:layout_height="40dp"/>
+
+</RelativeLayout>

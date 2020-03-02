@@ -4,8 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.experienceone.R;
 import com.example.experienceone.pojo.ticketdetails.Detail;
 
@@ -33,6 +35,9 @@ public class TicketDetailsAdapter extends RecyclerView.Adapter {
         } else if (type.equalsIgnoreCase("Foreign Exchange")) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_details_exchange_content, parent, false);
             return new ViewHolder(view);
+        } else if (type.equalsIgnoreCase("Support")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_details_support_content, parent, false);
+            return new SupportViewHolder(view);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_details_recycler_content, parent, false);
             return new ViewHolder(view);
@@ -50,6 +55,9 @@ public class TicketDetailsAdapter extends RecyclerView.Adapter {
                 break;
             case "Foreign Exchange":
                 ((ViewHolder) holder).bindView(position);
+                break;
+            case "Support":
+                ((SupportViewHolder) holder).bindView(position);
                 break;
             default:
                 ((ViewHolder) holder).bindView(position);
@@ -105,7 +113,7 @@ public class TicketDetailsAdapter extends RecyclerView.Adapter {
                 tv_quantity.setText("-");
             }
             if (!details.get(position).getPrice().isEmpty()) {
-                tv_price.setText(details.get(position).getPrice()+details.get(position).getCurencySymbol());
+                tv_price.setText(details.get(position).getPrice() + details.get(position).getCurencySymbol());
             } else {
                 tv_price.setText("-");
             }
@@ -154,6 +162,23 @@ public class TicketDetailsAdapter extends RecyclerView.Adapter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+        }
+    }
+
+
+    class SupportViewHolder extends RecyclerView.ViewHolder {
+        private TextView tv_tittle, tv_description;
+
+        SupportViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tv_description = itemView.findViewById(R.id.tv_description);
+            tv_tittle = itemView.findViewById(R.id.tv_tittle);
+        }
+
+        void bindView(int position) {
+            tv_tittle.setText(details.get(position).getTitle());
+            tv_description.setText(details.get(position).getDescription());
 
         }
     }
