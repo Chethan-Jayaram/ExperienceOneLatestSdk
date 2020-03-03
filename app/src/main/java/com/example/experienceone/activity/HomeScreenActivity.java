@@ -186,14 +186,14 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
                 .into(img_profile_photo);
         email.setText(GlobalClass.sharedPreferences.getString("eMail", ""));
         GlobalClass.mPreviousRouteName = "";
-        for (int i = 0; i < GlobalClass.headerList.size(); i++) {
+       /* for (int i = 0; i < GlobalClass.headerList.size(); i++) {
             GlobalClass.headerList.get(i).setSelected(false);
             if (!GlobalClass.headerList.get(i).getRoutesSubcategory().isEmpty()) {
                 for (int j = 0; j < GlobalClass.headerList.get(i).getRoutesSubcategory().size(); j++) {
                     GlobalClass.headerList.get(i).getRoutesSubcategory().get(j).setSelected(false);
                 }
             }
-        }
+        }*/
     }
 
 

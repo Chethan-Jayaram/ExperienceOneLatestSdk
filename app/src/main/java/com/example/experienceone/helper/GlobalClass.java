@@ -284,10 +284,13 @@ public class GlobalClass {
 
     public static Boolean ChangeChildFragment(String className, FragmentActivity context) {
         try {
+            Log.d("sucess",mPreviousRouteName);
             if (!mPreviousRouteName.equalsIgnoreCase(className)) {
                 mPreviousRouteName = className;
+                GlobalClass.mISVisible = false;
                 className = GlobalClass.getClassName(className);
                 String fullPathOfTheClass = "com.example.experienceone.fragment.modules." + className;
+                Log.d("sucess",fullPathOfTheClass);
                 Class<?> cls = Class.forName(fullPathOfTheClass);
                 Fragment fragment = (Fragment) cls.newInstance();
 
@@ -300,8 +303,11 @@ public class GlobalClass {
 /*
                 context.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, fragment).addToBackStack(null).commit();
 */
+            }else{
+                Log.d("failure",mPreviousRouteName);
             }
         } catch (Exception e) {
+            Log.d("failure",e.getMessage());
             e.printStackTrace();
         }
         return false;

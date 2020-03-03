@@ -308,5 +308,10 @@ public class EditProfile extends Fragment implements ApiListener {
     public void onPause() {
         super.onPause();
         getActivity().findViewById(R.id.img_et_btn).setVisibility(View.VISIBLE);
+        if (GlobalClass.hasActiveBooking) {
+            getActivity().findViewById(R.id.iv_sos).setVisibility(View.VISIBLE);
+        } else {
+            getActivity().findViewById(R.id.iv_sos).setVisibility(View.GONE);
+        }
     }
 }
