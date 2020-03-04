@@ -77,7 +77,7 @@ public class EmergencyServices extends Fragment implements ApiListener {
                 categoryItem.setDescription("");
                 details.add(categoryItem);
                 houseKeepingModel.setDetails(details);
-                ShowAlet(context, "Please Confirm", "We are concerned about your saftey during our stay, please confirm by clicking OK or CANCEL");
+                ShowAlet(context, "Please Confirm", "We are concerned about your safety during our stay, please confirm by clicking OK or CANCEL");
             }else{
                 GlobalClass.ShowAlet(context,"Alert","Please select an option to raise a ticket");
             }

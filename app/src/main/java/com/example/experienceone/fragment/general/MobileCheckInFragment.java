@@ -49,7 +49,7 @@ public class MobileCheckInFragment extends Fragment {
             TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             lyt_upload = view.findViewById(R.id.lyt_upload);
             mRecyclerView = view.findViewById(R.id.mobile_checkin_recycler);
-            toolbar_title.setText("Mobile Check In");
+            toolbar_title.setText("Mobile Check-In");
 
 
             lyt_upload.setOnClickListener(v -> {

@@ -20,7 +20,7 @@ public class HotelInformation extends Fragment {
         View view=inflater.inflate(R.layout.hotel_information,container,false);
         getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-        toolbar_title.setText("HotelInformation");
+        toolbar_title.setText("Hotel Information");
         return view;
     }
 }

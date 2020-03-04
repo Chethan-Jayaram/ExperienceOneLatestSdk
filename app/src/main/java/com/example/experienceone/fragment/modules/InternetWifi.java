@@ -43,7 +43,7 @@ public class InternetWifi extends Fragment implements ApiListener {
         View view = inflater.inflate(R.layout.fragment_internet_wifi, container, false);
         context=view.getContext();
         TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-        toolbar_title.setText("Internet Wifi");
+        toolbar_title.setText("Internet Wi-Fi");
         getActivity().findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         wifiRecycler=view.findViewById(R.id.wifiRecycler);
         loading=view.findViewById(R.id.loading);
