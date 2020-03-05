@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import android.widget.ImageView;
@@ -51,9 +52,9 @@ import retrofit2.Response;
 public class ForeignExchange extends Fragment implements ApiListener {
 
 
-    private EditText et_amount, et_from_currency, et_to_currency;
+    private EditText et_amount;
     private TextView tv_from_to;
-    private TextView tv_updated_date;
+    private TextView tv_updated_date,et_from_currency, et_to_currency;
     private TextView exchange_result;
     private TextView tv_from_standard, tv_to_standard;
     private Context context;
@@ -258,6 +259,7 @@ public class ForeignExchange extends Fragment implements ApiListener {
                     exchange_result.setText(et_amount.getText().toString() + " " + mFromresult.getSymbol() + " = " + currencyExchange.getResult().getTotalAmount() + " " + mToResult.getSymbol());
                     tv_from_standard.setText("1 " + mFromresult.getSymbol() + " = " + currencyExchange.getResult().getExchangeRate() + " " + mToResult.getSymbol());
                     tv_to_standard.setText("1 " + mToResult.getSymbol() + " = " + currencyExchange.getResult().getCommissionRate() + " " + mFromresult.getSymbol());
+                    et_amount.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 } else {
                     GlobalClass.showErrorMsg(context, currencyExchange.getError());
                 }

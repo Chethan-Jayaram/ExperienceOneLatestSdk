@@ -91,17 +91,21 @@ public class SupportFragment extends Fragment implements ApiListener {
                         categoryItem.setDescription(et_support.getText().toString());
                         details.add(categoryItem);
                         houseKeepingModel.setDetails(details);
-                        if (GlobalClass.MY_ROOMS.size() == 1) {
-                            houseKeepingModel.setRoom_no(GlobalClass.MY_ROOMS.get(0).getRoom().getRoomNo());
-                            postSupport(houseKeepingModel);
-                        } else {
-                            MultipleRoomDialougFragment bottom = new MultipleRoomDialougFragment();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("module", "Support");
-                            bundle.putParcelable("subcategory", houseKeepingModel);
-                            bottom.setArguments(bundle);
-                            bottom.show(getActivity().getSupportFragmentManager(),
-                                    GlobalClass.BOTTOM_VIEW);
+                        if(GlobalClass.MY_ROOMS!=null) {
+                            if (GlobalClass.MY_ROOMS.size() == 1) {
+                                houseKeepingModel.setRoom_no(GlobalClass.MY_ROOMS.get(0).getRoom().getRoomNo());
+                                postSupport(houseKeepingModel);
+                            } else {
+                                MultipleRoomDialougFragment bottom = new MultipleRoomDialougFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("module", "Support");
+                                bundle.putParcelable("subcategory", houseKeepingModel);
+                                bottom.setArguments(bundle);
+                                bottom.show(getActivity().getSupportFragmentManager(),
+                                        GlobalClass.BOTTOM_VIEW);
+                            }
+                        }else{
+                            GlobalClass.ShowAlet(mContext, "Message", "Sorry you currently dont have active booking");
                         }
                     }else{
                         GlobalClass.ShowAlet(mContext,"Message","Please enter vaild message..");

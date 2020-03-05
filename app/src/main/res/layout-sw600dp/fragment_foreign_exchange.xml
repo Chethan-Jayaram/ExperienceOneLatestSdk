@@ -73,7 +73,7 @@
                 android:textColor="@color/black"
                 android:text="@string/from_currnecy"/>
 
-            <EditText
+            <TextView
                 android:fontFamily="sans-serif"
                 android:drawableEnd="@drawable/ccp_down_arrow"
                 android:editable="false"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/to_currency"/>
 
-            <EditText
+            <TextView
                 android:fontFamily="sans-serif"
                 android:drawableEnd="@drawable/ccp_down_arrow"
                 android:editable="false"

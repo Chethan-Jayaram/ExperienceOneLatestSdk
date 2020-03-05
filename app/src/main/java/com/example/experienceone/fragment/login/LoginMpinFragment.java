@@ -163,7 +163,16 @@ if(mpin.length()==4){
                         GlobalClass.hasActiveBooking=false;
                     }
                 }else{
-                    GlobalClass.showErrorMsg(context,loginMpin.getError());
+                    GlobalClass.ShowAlet(context, "Alert",loginMpin.getError());
+                    try {
+                        et_1.setText("");
+                        et_2.setText("");
+                        et_3.setText("");
+                        et_4.setText("");
+                        et_1.requestFocus();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         }catch (Exception e){
