@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ExperienceOne</string>
+    <string name="app_name">IHCL</string>
     <string name="NETWORK_ISSUE">"Please check your internet connection and try again."</string>
     <string name="SOCKET_ISSUE">"The request timed out."</string>
     <string name="ERROR">"Unable to retrieve details. Please try later."</string>
@@ -45,7 +45,7 @@
     <string name="request_exchange">Request Exchange</string>
     <string name="to_currency">To Currency</string>
     <string name="get_value">Get Value</string>
-    <string name="set_your_prefrences">Set Your Preferences</string>
+    <string name="set_your_prefrences">Set Your Routines</string>
     <string name="save">Save</string>
     <string name="sunday">Sun</string>
     <string name="monday">Mon</string>
@@ -140,6 +140,9 @@
     <string name="attachments">Attachments</string>
     <string name="upload">Upload</string>
     <string name="submit">Submit</string>
+    <string name="continu">Continue</string>
+
+    <string name="identity_text">Use your fingerprint to verify your identity</string>
 
 
     <!--    android:fontFamily="sans-serif"           // roboto regular
@@ -150,9 +153,16 @@
         android:fontFamily="sans-serif-medium"      // roboto medium (android 5.0)
 
                    android:textStyle="italic"-->
-   <!-- android:fontFamily="sans-serif-medium"
+    <!-- android:fontFamily="sans-serif-medium"
     android:textStyle="italic"-->
 
+    <string name="underline">
+        This is an <u>underline</u>.
+    </string>
+    <string name="privacy_policy"><font fgcolor="#3d4043">By proceeding, you agree to IHCL\'s</font> \n <font fgcolor="#062a49"><b>Terms &amp; Conditions</b> </font> <font fgcolor="#3d4043">and </font> <font fgcolor="#062a49"><b>Privacy Policy</b> </font> </string>
 
 
+    <string name="m_pin_login">M-PIN LOGIN</string>
+    <string name="location_permission_msg">IHCL I-ZEST Mobile Door Key collects location data in background to identify nearby door lock via Bluetooth(BLE), only while the door unlock feature is being used.
+    <br/> <br/> The location data is solemnly used to unlock the door and not to support any ads.</string>
 </resources>

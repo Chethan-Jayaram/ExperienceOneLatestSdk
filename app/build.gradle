@@ -1,33 +1,68 @@
+
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/'}
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.4, 0.99.99]'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
+
+
+ext {
+    sdkVersion = "2.4.1.0"
+    sdkName = "LEGIC-Mobile-SDK-for-Android-V" + sdkVersion
+    sdkPath="libs/" + sdkName + "/" + sdkName + ".jar"
+}
+
 apply plugin: 'com.android.application'
-
-
-project.archivesBaseName = "aamk-sample-" + project.archivesBaseName
-
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
-        applicationId "com.example.experienceone"
-        minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 1
+        applicationId "com.taj.doorunlock"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 11
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+
+        manifestPlaceholders = [
+                onesignal_app_id: '33e7eb54-51d6-42ec-8451-f9825f8b7cad',
+
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE'
+        ]
 
         //Mobile keys build configurations @see gradle.properties
         buildConfigField "String", "AAMK_APP_ID", AAMK_APP_ID
         buildConfigField "String", "AAMK_APP_ID_DESCRIPTION", AAMK_APP_ID_DESCRIPTION
         buildConfigField "int", "AAMK_LOCK_SERVICE_CODE", AAMK_LOCK_SERVICE_CODE
         buildConfigField "String", "AAMK_EMAIL_LOGS_MAIL", AAMK_EMAIL_LOGS_MAIL
-
-
+        
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+     /*   release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro',"proguard.cfg"
         }
+        debug {
+            shrinkResources true
+            minifyEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro',"proguard.cfg"
+        }*/
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -37,6 +72,7 @@ android {
     lintOptions {
         abortOnError false
     }
+
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -57,18 +93,18 @@ android {
 dependencies {
     def lifecycle_version = "2.1.0"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
     //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.3.1'
-    implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.3.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.8.0'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -88,6 +124,7 @@ dependencies {
     implementation 'com.hbb20:ccp:2.3.3'
     //animations
     implementation 'com.airbnb.android:lottie:3.3.1'
+
     //auto read
     implementation 'com.google.android.gms:play-services-base:17.1.0'
     implementation 'com.google.android.gms:play-services-identity:17.0.0'
@@ -102,7 +139,6 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.4'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'org.java-websocket:Java-WebSocket:1.4.0'
-    implementation files('docs/javadoc/mobilekeys-android-sdk-7.3.0-javadoc.jar')
 
 
     //door Unlock dependencies
@@ -114,7 +150,7 @@ dependencies {
 
     // Logging in debug builds
     debugImplementation 'com.github.tony19:logback-android-core:1.1.1-6'
-    debugImplementation ('com.github.tony19:logback-android-classic:1.1.1-6') {
+    debugImplementation('com.github.tony19:logback-android-classic:1.1.1-6') {
         exclude group: 'com.google.android', module: 'android'
     }
     implementation "org.bouncycastle:bcprov-jdk15on:1.58"
@@ -131,20 +167,39 @@ dependencies {
     testImplementation 'org.hamcrest:hamcrest-all:1.3'
 
     implementation 'com.android.support:multidex:1.0.3'
-    //image pic and crop lib
-    implementation 'com.myhexaville:smart-image-picker:1.0.4'
+/*    //image pic and crop lib
+    implementation 'com.myhexaville:smart-image-picker:1.0.4'*/
 
-   ///multiple image picker
+    ///multiple image picker
     implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
 
-
-
-   /* implementation project(path: ':mobilekeys-android-sdk-release-7.3.0')*/
-
     implementation 'com.llew.huawei:verifier:1.0.2'
- /*   implementation project(path: ':mobilekeys-android-sdk-debug-7.4.3')*/
-    implementation project(path: ':mobilekeys-android-sdk-release-7.4.3')
+
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //calendar library
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+    implementation project(path: ':mobilekeys-android-sdk-release-7.4.8')
+
+    //onSignal push notification
+    implementation 'com.onesignal:OneSignal:3.15.3'
+  //  implementation "androidx.security:security-crypto:1.0.0-alpha01"
+
+    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
+    implementation 'com.google.android.play:core:1.9.1'
+
+    implementation "androidx.activity:activity:1.2.2"
+    implementation "androidx.fragment:fragment:1.3.3"
+
+
+    // LEGIC Mobile SDK
+    implementation files(sdkPath)
+
+
 }
 
 

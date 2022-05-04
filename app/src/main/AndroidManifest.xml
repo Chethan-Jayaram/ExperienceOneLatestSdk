@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.experienceone"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.taj.doorunlock"
     android:installLocation="internalOnly">
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.location.PROVIDERS_CHANGED" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"
+    tools:node="remove" />
 
 
-    <!-- NFC permissions and features -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+
     <uses-feature
         android:name="android.hardware.nfc.hce"
-        android:required="false"/>
-
+        android:required="false" />
 
     <application
-        android:name="com.example.experienceone.unlock.ExperienceOne"
-        android:allowBackup="true"
+        android:name=".unlock.Taj"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.example.experienceone.activity.HomeScreenActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SplashActivity"
+        android:allowBackup="false"
+        android:installLocation="internalOnly"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,20 +42,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.UseAuthenticationActivity"
-            android:screenOrientation="portrait"/>
-
-        <receiver
-            android:name="com.example.experienceone.helper.SMSReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
-            </intent-filter>
-        </receiver>
-
-
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB8C5a-j4N6UVHy4NI6a0KTaGnb1pmDQUc "/>
+        <activity
+            android:name=".activity.UseAuthenticationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BookingDetailsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.unlockactivity.DoormakabaUnlockActivity"
+            android:screenOrientation="portrait" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB8C5a-j4N6UVHy4NI6a0KTaGnb1pmDQUc " />
 
 
     </application>

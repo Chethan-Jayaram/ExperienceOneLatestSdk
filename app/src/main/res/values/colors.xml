@@ -38,6 +38,8 @@
     <color name="cream">#f8f1cd</color>
     <color name="yelloes_orange">#8D6704</color>
     <color name="quick_silver">#a6a6a6</color>
-
+    <color name="background">#eff3f7</color>
+    <color name="hint_color">#616669</color>
+    <color name="Btn_background">#062a49</color>
 
 </resources>
