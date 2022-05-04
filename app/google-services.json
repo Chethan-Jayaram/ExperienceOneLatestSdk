@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "202965391566",
+    "project_id": "ihcl-7bc10",
+    "storage_bucket": "ihcl-7bc10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202965391566:android:b1f4bceac6c9655eb6589f",
+        "android_client_info": {
+          "package_name": "com.taj.doorunlock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202965391566-2dkrnmptbbl16fspqh57pb7s9j7ubuc6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taj.doorunlock",
+            "certificate_hash": "8131434f9bb3ac195e6dab1b4bb3efd734587f53"
+          }
+        },
+        {
+          "client_id": "202965391566-35dd7rhev87nlo63lrd6usgn3ubnocbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANLYZHf_GkfcQR9XuImopGQa3wSaMJ9tI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202965391566-35dd7rhev87nlo63lrd6usgn3ubnocbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

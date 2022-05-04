@@ -1,0 +1,342 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <LinearLayout
+     android:visibility="gone"
+        android:id="@+id/lyt_sucess"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/sucees_txt_unlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="Welcome"
+                android:fontFamily="@font/calibri_bold"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_below="@+id/sucees_txt_unlock"
+                android:id="@+id/sucees_txt_unlock1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Room door has been unlocked!"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sucees_txt_unlock1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circular_green" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_tick" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/door_unlock_bottom_bg">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ciccular_white_bg" />
+
+              <!--  <RelativeLayout
+                    android:layout_centerVertical="true"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circle_sucess">
+
+
+                    <TextView
+                        android:id="@+id/txt_room"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:text="Room"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_below="@+id/txt_room"
+                        android:id="@+id/txt_room_sucess"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/calibri_bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>-->
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/lyt_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#062a49"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:id="@+id/txt_unloxk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="Place your phone near \n the door lock"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_unloxk"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp">
+
+                <ImageView
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/ciccular_white_bg" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/ic_lock" />
+
+                <ProgressBar
+                    android:id="@+id/timer_progressbar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="320dp"
+                    android:layout_height="220dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:indeterminate="false"
+                    android:padding="40dp"
+                    android:progress="100"
+                    android:progressDrawable="@drawable/circular_progress_bar" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/door_unlock_bottom_bg">
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ciccular_white_bg" />
+
+       <!--         <RelativeLayout
+                    android:layout_centerVertical="true"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circular_room_no_bg">
+
+
+                    <TextView
+                        android:id="@+id/txt_room2"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:text="Room"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_room_wait"
+                        android:layout_below="@+id/txt_room2"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/calibri_bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>-->
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_below="@+id/lyt_locked"
+        android:id="@+id/lyt_fail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/txt_unlock1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="Oops..!!"
+                android:fontFamily="@font/calibri_bold"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_below="@+id/txt_unlock1"
+                android:id="@+id/txt_unlock2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Room door could not be unlocked!"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_unlock2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circular_red" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_cross" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/door_unlock_bottom_bg">
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ciccular_white_bg" />
+
+              <!--  <RelativeLayout
+                    android:layout_centerVertical="true"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circular_fail">
+
+
+                    <TextView
+                        android:id="@+id/txt_room1"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:text="Room"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_room_fail"
+                        android:layout_below="@+id/txt_room1"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/calibri_bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>-->
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

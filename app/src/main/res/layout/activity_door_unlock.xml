@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+
+        android:id="@+id/lyt_locked"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#062a49"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/txt_unloxk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="Place your phone near \n the door lock"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_unloxk"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp">
+
+                <ImageView
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/ciccular_white_bg" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/ic_lock" />
+
+                <ProgressBar
+                    android:id="@+id/timer_progressbar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="320dp"
+                    android:layout_height="220dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:indeterminate="false"
+                    android:padding="40dp"
+                    android:progress="100"
+                    android:progressDrawable="@drawable/circular_progress_bar" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/door_unlock_bottom_bg">
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ciccular_white_bg" />
+
+                <RelativeLayout
+                    android:layout_centerVertical="true"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circular_room_no_bg">
+
+
+                    <TextView
+                        android:id="@+id/txt_room"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:text="Room"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_room_no"
+                        android:layout_below="@+id/txt_room"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/calibri_bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/img_assabloy"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/assabloy" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

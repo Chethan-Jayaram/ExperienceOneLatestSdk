@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#052949"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_cart"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:elevation="0dip"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:id="@+id/menu_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="2dp"
+                android:src="@drawable/ic_arrow_back" />
+
+            <ImageView
+                android:id="@+id/nav_menu"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/btn_back"
+                android:padding="2dp"
+                android:src="@drawable/ic_nav_menu" />
+
+            <TextView
+                android:fontFamily="@font/calibri_regular"
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_toLeftOf="@+id/profile_lyt"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:paddingLeft="20sp"
+                android:text="Room Keys" />
+
+            <RelativeLayout
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/profile_lyt"
+                android:layout_width="50dp"
+                android:layout_height="60dp">
+                <ImageView
+                    android:id="@+id/iv_sos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_logout"/>
+
+                <TextView
+                    android:id="@+id/tv_user_profile"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/calibri_regular"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp"/>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+</LinearLayout>

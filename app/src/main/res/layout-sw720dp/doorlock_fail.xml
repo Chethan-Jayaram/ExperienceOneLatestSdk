@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_below="@+id/lyt_locked"
+    android:id="@+id/lyt_sucess"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/txt_unlock1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="Welcome"
+            android:fontFamily="@font/calibri_bold"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="34sp" />
+
+        <TextView
+            android:layout_below="@+id/txt_unlock1"
+            android:id="@+id/txt_unlock2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Room door could not be unlocked!"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_unlock2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp">
+
+            <ImageView
+                android:layout_width="450dp"
+                android:layout_height="450dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/circular_red" />
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_cross" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.5"
+        android:background="@drawable/door_unlock_bottom_bg">
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ciccular_white_bg" />
+
+            <RelativeLayout
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circular_fail">
+
+
+                <TextView
+                    android:id="@+id/txt_room1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:text="Room"
+                    android:textSize="24sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_room_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_room1"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/calibri_bold"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/img_assabloy1"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/assabloy" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="20dp"
+    tools:targetApi="lollipop">
+<LinearLayout
+    android:id="@+id/content_lyt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/et_border_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/lyt_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:id="@+id/tv_hotel_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textColor="#062a49"
+            android:text="Click on UNLOCK DOOR button and follow the instruction"
+            />
+
+
+        <LinearLayout
+            android:layout_below="@+id/tv_hotel_location"
+            android:id="@+id/ly_room_details"
+            android:background="#eff3f7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/tv_room_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="@string/room_no"
+                    android:textSize="12sp"
+                    android:textColor="#39362f" />
+
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/tv_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#39362f" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_actived_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/calibri_regular"
+                android:text="@string/check_in"
+                android:textColor="#616264"
+                android:textSize="12sp" />
+
+
+
+
+            <TextView
+                android:id="@+id/tv_checkin_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_actived_on"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/calibri_regular"
+                android:textColor="#616264"
+                android:textSize="12sp" />
+        </RelativeLayout>
+        <View
+            android:background="@color/black"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_started_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/calibri_regular"
+                android:text="@string/check_out"
+                android:textColor="#616264"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_checkout_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_started_on"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/calibri_regular"
+                android:textColor="#616264"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="#555557"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:foregroundGravity="center_vertical"
+                android:layout_marginTop="3.5dp"
+                android:scaleType="fitXY"
+                android:gravity="center_vertical"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:fontFamily="@font/calibri_regular"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="Arear's Accessible"
+                android:layout_width="wrap_content"
+                android:textSize="14sp"
+android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_unlock_door"
+            android:textSize="14sp"
+            android:fontFamily="@font/calibri_regular"
+            android:textColor="@color/white"
+            android:background="#062a49"
+            android:padding="15dp"
+            android:textAlignment="center"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="UNLOCK DOOR"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</LinearLayout>
+</androidx.cardview.widget.CardView>

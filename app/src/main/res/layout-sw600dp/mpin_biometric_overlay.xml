@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+
+        android:id="@+id/lyt_biometric"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_marginTop="400dp"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verify your identity"
+            android:lineSpacingExtra="-12sp"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/identity_text"
+            android:lineSpacingExtra="8sp"
+            android:textColor="@color/black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:fontFamily="@font/notoseriftc_regular"
+            android:includeFontPadding="false"
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:text="Cancel" />
+<!--
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_fingerprint"
+            android:layout_marginTop="20dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="100dp"/>-->
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+

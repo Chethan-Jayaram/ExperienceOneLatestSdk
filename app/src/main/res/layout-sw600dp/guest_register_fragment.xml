@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background">
+    <LinearLayout
+        android:id="@+id/lyt_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:background="@drawable/login_bg">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/banner_login" />
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_weight="1"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Spinner
+                android:layout_below="@+id/tv_kyc"
+                android:id="@+id/et_saluation_type"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:dropDownWidth="match_parent"
+                android:textColor="@color/white"
+                android:overlapAnchor="false"
+
+                android:background="@drawable/et_border_white"/>
+
+            <EditText
+                android:textSize="20sp"
+                android:fontFamily="@font/calibri_regular"
+                android:singleLine="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/tv_fname"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/et_border_white"
+                android:hint="@string/first_name"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:textSize="20sp"
+                android:fontFamily="@font/calibri_regular"
+                android:singleLine="true"
+                android:id="@+id/tv_lname"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_border_white"
+                android:hint="@string/last_name"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:textSize="20sp"
+                android:fontFamily="@font/calibri_regular"
+                android:singleLine="true"
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/et_border_white"
+                android:hint="@string/email"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp" />
+
+            <com.hbb20.CountryCodePicker
+                android:textSize="20sp"
+                android:fontFamily="@font/calibri_regular"
+                android:id="@+id/reg_country_code_picker"
+                app:ccp_textGravity="LEFT"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_border_white"
+                android:gravity="center_vertical" />
+            <EditText
+                android:textSize="20sp"
+                android:fontFamily="@font/calibri_regular"
+                android:inputType="number"
+                android:singleLine="true"
+                android:id="@+id/tv_contact_no"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/et_border_white"
+                android:hint="Mobile Number"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp" />
+            <Button
+                android:textSize="20sp"
+                android:id="@+id/btn_register"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_bckgnd"
+                android:fontFamily="@font/calibri_regular"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    tools:context=".activity.SplashActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    tools:context=".activity.SplashActivity">
+
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/logo"
+        app:srcCompat="@drawable/ic_ihcl_logo"
+        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="250dp"/>
+
+    <TextView
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:text="The Best Hotels in the World"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/calibri_bold"
+        android:textColor="@color/white"
+        android:textSize="26sp" />
+
+    <TextView
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:text="IHCL honoured at the Conde Nast Traveller \nReaders Choice Awards 2019"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/calibri_regular"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+
+</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

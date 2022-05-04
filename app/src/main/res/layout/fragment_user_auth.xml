@@ -1,0 +1,175 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/lyt_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:background="@drawable/login_bg">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/banner_login" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-20dp"
+            android:layout_weight="1"
+            android:background="@drawable/et_background">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/country_code_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/et_border_white"
+                    android:gravity="center_vertical"
+                    app:ccp_textGravity="LEFT" />
+
+                <EditText
+                    android:id="@+id/et_phone_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/country_code_picker"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/et_border_white"
+                    android:fontFamily="@font/calibri_regular"
+                    android:hint="Enter your phone number "
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_phone_no"
+                    android:fontFamily="@font/calibri_regular"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="4sp"
+                    android:textSize="12sp"
+                    android:text="@string/privacy_policy"/>
+
+                <TextView
+                    android:id="@+id/mpin_Login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_msg"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/calibri_regular"
+                    android:gravity="center_horizontal"
+                    android:text="M-PIN Login"
+                    android:textColor="#052a4a" />
+
+                <Button
+                    android:id="@+id/btn_send_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mpin_Login"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/btn_bckgnd"
+                    android:fontFamily="@font/calibri_regular"
+                    android:padding="10dp"
+                    android:textSize="16sp"
+                    android:text="Send OTP"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_or"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/btn_send_otp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circular_bg"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="OR"
+                    android:textAlignment="center"
+                    android:textSize="10sp" />
+
+
+                <Button
+                    android:id="@+id/btn_email_ph_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_or"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/btn_email_bg"
+                    android:fontFamily="@font/calibri_regular"
+                    android:padding="10dp"
+
+                    android:textSize="16sp"
+                    android:textColor="@color/white" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_email_ph_text"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Do not have an account?"
+                        android:textColor="#3a3a3c"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_register_now"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/calibri_regular"
+                        android:text=" SIGN UP"
+                        android:textColor="#052a4a"
+                        android:textStyle="bold"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

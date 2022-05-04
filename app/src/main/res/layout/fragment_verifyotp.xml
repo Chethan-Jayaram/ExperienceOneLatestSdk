@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/lyt_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:background="@drawable/login_bg">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/banner_login" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-20dp"
+            android:layout_weight="1"
+            android:background="@drawable/et_background">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/calibri_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/enter_verification_code"
+                        android:textAlignment="center"
+                        android:textColor="#3a3a3c"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/calibri_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="#707073"
+                        android:text="@string/please_type_the_6_digit_verification_code_sent"
+                        android:textAlignment="center"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:textColor="#707073"
+                        android:id="@+id/user_ph_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/calibri_regular"
+                        android:textAlignment="center"
+                        android:textSize="14sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_one"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/otp_bg"
+                            android:fontFamily="@font/calibri_regular"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/et_two"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/otp_bg"
+                            android:fontFamily="@font/calibri_regular"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/et_three"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/otp_bg"
+                            android:fontFamily="@font/calibri_regular"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/et_four"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/otp_bg"
+                            android:fontFamily="@font/calibri_regular"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/et_five"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/otp_bg"
+                            android:fontFamily="@font/calibri_regular"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/et_six"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/otp_bg"
+                            android:fontFamily="@font/calibri_regular"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/calibri_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/didn_t_receive_the_verification_code"
+                        android:textAlignment="center"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_resend_otp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                   android:layout_margin="30dp"
+                        android:fontFamily="@font/calibri_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/resend_otp"
+                        android:textAlignment="center"
+                        android:textColor="#052a4a"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_timer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:fontFamily="@font/calibri_regular"
+                        android:includeFontPadding="false"
+                        android:textAlignment="center"
+                        android:textColor="@color/cus_blue"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btn_otp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/calibri_regular"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:text="Confirm"
+                        android:background="@drawable/btn_bckgnd" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
+
+
+
+

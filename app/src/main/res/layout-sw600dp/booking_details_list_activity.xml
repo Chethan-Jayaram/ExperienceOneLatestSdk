@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <include
+        android:layout_alignParentTop="true"
+        android:id="@+id/toolbar_cart_lyt"
+        layout="@layout/lyt_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@+id/toolbar_cart_lyt"
+        android:id="@+id/swipe_refresh_lyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+
+        android:id="@+id/lyt_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/banner_login"/>
+            <TextView
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="100dp"
+                android:id="@+id/tv_user_name"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/calibri_bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="80dp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:fontFamily="@font/calibri_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Welcome to" />
+
+            <TextView
+
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="52dp"
+                android:id="@+id/tv_Hotel_location"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/calibri_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-20dp"
+            android:layout_weight="1"
+            android:background="@drawable/et_background">
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:nestedScrollingEnabled="false"
+                    android:layout_margin="10dp"
+                    android:id="@+id/recycler_active_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+        <TextView
+            android:layout_margin="20sp"
+            android:visibility="gone"
+            android:id="@+id/tv_InactiveBooking_message"
+            android:text="No reservation found"
+            android:textColor="@color/cus_blue"
+            android:fontFamily="@font/calibri_light"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="-20dp"/>
+    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
+
