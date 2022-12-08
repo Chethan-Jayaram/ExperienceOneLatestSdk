@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ import com.taj.doorunlock.unlock.doormakaba.BaseActivity;
 import java.util.List;
 
 import static com.taj.doorunlock.helper.GlobalClass.sharedPreferences;
+
+import androidx.core.content.ContextCompat;
 
 
 public class DoormakabaUnlockActivity extends BaseActivity {
@@ -140,12 +143,20 @@ initSdk();
 
     public static String[] getPermissions() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ?
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION} :
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
         } else {
             return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+        }*/
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return new String[]{Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_ADVERTISE, Manifest.permission.BLUETOOTH_CONNECT};
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+        } else {
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
         }
     }
 
@@ -320,6 +331,30 @@ initSdk();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean hasRequiredPermissions()
+    {
+
+        boolean permissionGranted = true;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            permissionGranted &= ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+            return permissionGranted;
+        }
+
+        permissionGranted &= ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            permissionGranted &= ContextCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        }
+
+        return permissionGranted;
     }
 
 

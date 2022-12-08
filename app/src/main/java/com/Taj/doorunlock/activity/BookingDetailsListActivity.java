@@ -63,6 +63,7 @@ import com.taj.doorunlock.pojo.Data;
 import com.taj.doorunlock.pojo.GeneralPojo;
 import com.taj.doorunlock.pojo.doorunlock.DoorUnlock;
 import com.taj.doorunlock.pojo.doorunlock.LegicToken;
+import com.taj.doorunlock.pojo.doorunlock.Mobilekeys;
 import com.taj.doorunlock.retrofit.ClientServiceGenerator;
 import com.taj.doorunlock.services.APIMethods;
 import com.taj.doorunlock.services.ApiListener;
@@ -94,6 +95,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
         ReaderConnectionListener,
         MobileKeysCallback,
         HceConnectionListener, SwipeRefreshLayout.OnRefreshListener, LegicMobileSdkRegistrationEventListener {
+
 
     private Context mContext;
     private ProgressDialog mDialog;
@@ -210,7 +212,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
             if (intent.getStringExtra("fName") != null) {
                 GlobalClass.mFirstName = intent.getStringExtra("fName");
             }
-            GlobalClass.mManager = Utils.getSdkManager(this);
+            GlobalClass.mManager = Utils.getSdkManager(getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -386,7 +388,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
                 )
                 .setNegativeButton("No", (dialog, id) -> {
-                dialog.dismiss();
+                    dialog.dismiss();
                 });
         final AlertDialog alert = builder.create();
         alert.show();
@@ -544,7 +546,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                         bundle.putString("room_no", String.valueOf(openingResult.getStatusPayload()[6]));
                     }
                     fragment.setArguments(bundle);*/
-                   getSupportFragmentManager()
+                    getSupportFragmentManager()
                             .beginTransaction()
                             .add(R.id.fragment_container, fragment, "LOGIN_TAG")
                             .commit();
@@ -563,7 +565,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
                     fragment.setArguments(bundle);*/
 
-                   getSupportFragmentManager()
+                    getSupportFragmentManager()
                             .beginTransaction()
                             .add(R.id.fragment_container, fragment, "LOGIN_TAG")
                             .commit();
@@ -886,10 +888,14 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
         super.onResume();
         try {
             if (!GlobalClass.mManager.isStarted()) {
+
                 GlobalClass.mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
                         Settings.serverUrl);
             }
         } catch (LegicMobileSdkException e) {
+
+            Log.d("e.message",e.getMessage());
+
             e.printStackTrace();
         }
 
@@ -903,41 +909,41 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     private void mDormakabaDoorUnlock(String user_token, Data data) {
 
 
-            if (!sharedPreferences.getBoolean("isRegestrationComplete", false)) {
-                try {
+        if (!sharedPreferences.getBoolean("isRegestrationComplete", false)) {
+            try {
 
-                    if (!GlobalClass.mManager.isRegisteredToBackend()) {
-                        GlobalClass.edit.putString("reservation_key", data.getReservation_key());
-                        gettoken(data);
-                    } else {
-                        getkeyfiles(data);
-                    }
-                } catch (LegicMobileSdkException e) {
-                    e.printStackTrace();
+                if (!GlobalClass.mManager.isRegisteredToBackend()) {
+                    GlobalClass.edit.putString("reservation_key", data.getReservation_key());
+                    gettoken(data);
+                } else {
+                    getkeyfiles(data);
                 }
-            } else if
-            (!sharedPreferences.getString("reservation_key", "").equalsIgnoreCase(data.getReservation_key())) {
-                // multiple room api call here
-                // mobilekeyapi(MY_ROOMS.get(v).getRoom().getRoomNo());
-                GlobalClass.edit.putString("reservation_key", data.getReservation_key());
-                edit.apply();
-
-                getkeyfiles(data);
-            } else {
-                try {
-
-                    if (!GlobalClass.mManager.isStarted()) {
-                        GlobalClass.mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
-                                Settings.serverUrl);
-                    }
-                } catch (LegicMobileSdkException e) {
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent(mContext, DoormakabaUnlockActivity.class);
-                intent.putExtra("room_no", data.getRooms());
-                startActivity(intent);
+            } catch (LegicMobileSdkException e) {
+                e.printStackTrace();
             }
+        } else if
+        (!sharedPreferences.getString("reservation_key", "").equalsIgnoreCase(data.getReservation_key())) {
+            // multiple room api call here
+            // mobilekeyapi(MY_ROOMS.get(v).getRoom().getRoomNo());
+            GlobalClass.edit.putString("reservation_key", data.getReservation_key());
+            edit.apply();
+
+            getkeyfiles(data);
+        } else {
+            try {
+
+                if (!GlobalClass.mManager.isStarted()) {
+                    GlobalClass.mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
+                            Settings.serverUrl);
+                }
+            } catch (LegicMobileSdkException e) {
+                e.printStackTrace();
+            }
+            Intent intent = new Intent(mContext, DoormakabaUnlockActivity.class);
+            intent.putExtra("room_no", data.getRooms());
+            startActivity(intent);
         }
+    }
 
 
 

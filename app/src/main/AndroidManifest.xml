@@ -4,16 +4,23 @@
     package="com.taj.doorunlock"
     android:installLocation="internalOnly">
 
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"
     tools:node="remove" />
+
 
 
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
@@ -23,6 +30,7 @@
         android:required="false" />
 
     <application
+        android:exported="true"
         android:name=".unlock.Taj"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -34,6 +42,7 @@
         android:screenOrientation="portrait"
         android:usesCleartextTraffic="true">
         <activity
+            android:exported="true"
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -43,12 +52,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:exported="false"
             android:name=".activity.UseAuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".activity.BookingDetailsListActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
+
             android:name=".activity.unlockactivity.DoormakabaUnlockActivity"
             android:screenOrientation="portrait" />
         <meta-data

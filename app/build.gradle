@@ -16,7 +16,7 @@ repositories {
 
 
 ext {
-    sdkVersion = "2.4.1.0"
+    sdkVersion = "2.4.4.0"
     sdkName = "LEGIC-Mobile-SDK-for-Android-V" + sdkVersion
     sdkPath="libs/" + sdkName + "/" + sdkName + ".jar"
 }
@@ -25,12 +25,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.taj.doorunlock"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 11
+        targetSdkVersion 31
+        versionCode 20
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -51,7 +51,7 @@ android {
         
     }
     buildTypes {
-     /*   release {
+        release {
             minifyEnabled true
             shrinkResources true
             debuggable false
@@ -60,9 +60,9 @@ android {
         debug {
             shrinkResources true
             minifyEnabled true
-            debuggable false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro',"proguard.cfg"
-        }*/
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -91,8 +91,11 @@ android {
     }
 }
 dependencies {
+
     def lifecycle_version = "2.1.0"
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+   implementation fileTree(include: ['*.jar'], dir: 'libs')
+    
+
     implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.13'
@@ -175,15 +178,20 @@ dependencies {
 
     implementation 'com.llew.huawei:verifier:1.0.2'
 
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     //calendar library
     implementation 'com.applandeo:material-calendar-view:1.7.0'
-    implementation project(path: ':mobilekeys-android-sdk-release-7.4.8')
+
 
     //onSignal push notification
-    implementation 'com.onesignal:OneSignal:3.15.3'
-  //  implementation "androidx.security:security-crypto:1.0.0-alpha01"
+    //implementation 'com.onesignal:OneSignal:3.15.3'
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+
+    implementation 'androidx.security:security-crypto:1.1.0-alpha03'
+
+
+    //  implementation "androidx.security:security-crypto:1.0.0-alpha01"
 
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
     implementation 'com.google.firebase:firebase-analytics'
@@ -195,6 +203,11 @@ dependencies {
     implementation "androidx.activity:activity:1.2.2"
     implementation "androidx.fragment:fragment:1.3.3"
 
+
+    implementation files('libs/mobilekeys-android-sdk-release-8.0.4.aar')
+
+    /*implementation "com.squareup.okhttp3:okhttp:3.14.9"
+    implementation "org.bouncycastle:bcprov-jdk15on:1.69"*/
 
     // LEGIC Mobile SDK
     implementation files(sdkPath)

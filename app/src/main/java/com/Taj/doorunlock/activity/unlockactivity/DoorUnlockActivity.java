@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -62,7 +64,6 @@ public class DoorUnlockActivity extends Fragment
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private ClosestLockTrigger closestLockTrigger = new ClosestLockTrigger(this);
     private BluetoothAdapter mBluetoothAdapter;
-
     private Handler handler;
     private Context mContext;
     private BluetoothChangeReceiver mBluetoothReceiver;
@@ -76,6 +77,8 @@ public class DoorUnlockActivity extends Fragment
     private ProgressBar mTimer_Progressbar;
 
     private String  mRoom_No;
+
+    boolean permissionGranted = true;
 
 
 
@@ -224,18 +227,55 @@ public class DoorUnlockActivity extends Fragment
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
         }else{
-
             return true;
         }
         return false;
     }
 
+    /*private boolean hasRequiredPermissions()
+    {
+
+        boolean permissionGranted = true;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            permissionGranted &= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+            return permissionGranted;
+        }
+
+        permissionGranted &= ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            permissionGranted &= ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        }
+
+        return permissionGranted;
+    }*/
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage("Please turn on location to unlock Door")
                 .setCancelable(false)
-                .setPositiveButton("Yes", (dialog, id) -> startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                .setPositiveButton("Yes",
+                        (dialog, id) -> {
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                permissionGranted &= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+                            }
+                            permissionGranted &= ContextCompat.checkSelfPermission(requireContext(),
+                                    Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(requireContext(),
+                                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            }
+
+                        })
                 .setNegativeButton("No", (dialog, id) -> {
                     Intent intent = new Intent(mContext, BookingDetailsListActivity.class);
                     startActivity(intent);
@@ -245,6 +285,22 @@ public class DoorUnlockActivity extends Fragment
         final AlertDialog alert = builder.create();
         alert.show();
     }
+
+    /*private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Please turn on location to unlock Door")
+                .setCancelable(false)
+                .setPositiveButton("Yes",
+                        (dialog, id) -> startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                .setNegativeButton("No", (dialog, id) -> {
+                    Intent intent = new Intent(mContext, BookingDetailsListActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }*/
 
 
     /**
@@ -319,10 +375,6 @@ public class DoorUnlockActivity extends Fragment
             getActivity().registerReceiver(mBluetoothReceiver, bluetoothFilter);
             IntentFilter locationFilter = new IntentFilter("android.location.PROVIDERS_CHANGED");
             getActivity().registerReceiver(mLocationReceiver, locationFilter);
-
-
-
-
 
 
 

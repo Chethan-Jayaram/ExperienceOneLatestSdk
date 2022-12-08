@@ -38,7 +38,7 @@
 #   public *;
 #}
 
-# Uncomment this to preserve the line number information for
+# Uncomment this to preserve the line number informa9+6tion for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
@@ -48,4 +48,22 @@
 # Prevent R8 from leaving Data object members always null
 
 # LEGIC mobile SDK specific ProGuard configuration
--include libs/LEGIC-Mobile-SDK-Android-proguard.pro
+-include libs/LEGIC-Mobile-SDK-for-Android-V2.4.4.0/LEGIC-Mobile-SDK-Android-proguard.pro
+# NFC-HCE Service Interface
+-keep public class com.legic.mobile.sdk.services.nfc.hce.NfcHceHandler
+-keep public class com.legic.mobile.sdk.services.nfc.hce.NfcHceExchange
+
+# Legacy Deployment Data Handling (SDK V1.x.x.x)
+-keep public class com.taj.doorunlock.pojo.** {*;}
+
+-keep,includedescriptorclasses class com.idconnect.** {*;}
+
+# Remove notes releated to the LEGIC Mobile SDK
+-dontnote com.legic.mobile.sdk.**
+
+
+# For SDK V2.1.x.x or higher
+# -----------------------------------------------------------------------------
+
+# Google Firebase
+-keep class com.google.firebase.messaging.** {*;}

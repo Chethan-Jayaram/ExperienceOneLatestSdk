@@ -311,7 +311,7 @@ public class CreateMpinFragment extends Fragment implements ApiListener {
         map.put("confirm_mpin", confirm_mpin);
         map.put("device_id", GlobalClass.mPrefix+GlobalClass.android_id +GlobalClass.mSufix);
         map.put("token", token);
-        map.put("player_id", OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId());
+        map.put("player_id", OneSignal.getDeviceState().getUserId());
         map.put("source","Android:"+ Build.MODEL);
         Call<GeneralPojo> mpinApiCall = GlobalClass.mApi.createMpin(map);
         APIResponse.postCallRetrofit(mpinApiCall, "createMpin", mContext, this);

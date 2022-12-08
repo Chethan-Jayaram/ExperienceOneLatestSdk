@@ -15,6 +15,8 @@ import com.assaabloy.mobilekeys.api.ble.ScanConfiguration;
 import com.assaabloy.mobilekeys.api.ble.ScanMode;
 import com.assaabloy.mobilekeys.api.ble.TapOpeningTrigger;
 import com.assaabloy.mobilekeys.api.hce.NfcConfiguration;
+import com.onesignal.OSSubscriptionObserver;
+import com.onesignal.OSSubscriptionStateChanges;
 import com.onesignal.OneSignal;
 import com.taj.doorunlock.BuildConfig;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -33,7 +35,7 @@ import javax.net.ssl.SSLContext;
 /**
  * Application class handling the initialization of the Mobile Keys API
  */
-public class Taj extends Application implements MobileKeysApiFactory {
+public class Taj extends Application implements MobileKeysApiFactory, OSSubscriptionObserver {
 
 /*
     private static final int LOCK_SERVICE_CODE = BuildConfig.AAMK_LOCK_SERVICE_CODE;
@@ -122,13 +124,16 @@ public class Taj extends Application implements MobileKeysApiFactory {
         mInstance=this;
         context=getApplicationContext();
         initializeMobileKeysApi();
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId("33e7eb54-51d6-42ec-8451-f9825f8b7cad");
+        OneSignal.addSubscriptionObserver(this);
 
 
-        OneSignal.startInit(this)
+        /*OneSignal.startInit(this)
                 .setNotificationOpenedHandler(new NotificationHandler())
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+                .init();*/
 
 
       /*  try {
@@ -200,5 +205,10 @@ public class Taj extends Application implements MobileKeysApiFactory {
 
     public static Context getAppContext() {
         return context;
+    }
+
+    @Override
+    public void onOSSubscriptionChanged(OSSubscriptionStateChanges stateChanges) {
+
     }
 }
