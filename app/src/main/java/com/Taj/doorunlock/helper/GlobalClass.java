@@ -287,7 +287,9 @@ public class GlobalClass {
         builder.setMessage("Please turn on location to unlock Door")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
+
                     mContext.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
 
                 })
                 .setNegativeButton("No", (dialog, id) -> {

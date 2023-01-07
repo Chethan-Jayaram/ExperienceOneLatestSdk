@@ -67,3 +67,9 @@
 
 # Google Firebase
 -keep class com.google.firebase.messaging.** {*;}
+
+
+#This is already present in the 6.4 version of the SDK
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn okio.**

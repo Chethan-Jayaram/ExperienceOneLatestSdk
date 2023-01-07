@@ -268,6 +268,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                                 .into(mBannerImage);
 
                         if (GlobalClass.hasLocationPermissions(mContext)) {
+                            Log.d("Location_access","provided");
                             if (data.getLockType().equals("assaabloy") && !sharedPreferences.getBoolean("hasIvitationCode",false)) {
                                 mAssabloyDoorUnlockApi(generalPojo);
                             } else if (data.getLockType().equals("dormakaba") && !sharedPreferences.getBoolean("isRegestrationComplete",false)) {
@@ -907,7 +908,6 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     }
 
     private void mDormakabaDoorUnlock(String user_token, Data data) {
-
 
         if (!sharedPreferences.getBoolean("isRegestrationComplete", false)) {
             try {

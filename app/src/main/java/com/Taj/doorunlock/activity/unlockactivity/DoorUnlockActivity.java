@@ -271,7 +271,7 @@ public class DoorUnlockActivity extends Fragment
                             permissionGranted &= ContextCompat.checkSelfPermission(requireContext(),
                                     Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(requireContext(),
                                     Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
                                 startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                             }
 
@@ -376,7 +376,11 @@ public class DoorUnlockActivity extends Fragment
             IntentFilter locationFilter = new IntentFilter("android.location.PROVIDERS_CHANGED");
             getActivity().registerReceiver(mLocationReceiver, locationFilter);
 
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                permissionGranted &= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+            }
 
            /* mTimer=   new CountDownTimer(10000, 1000) {
 
@@ -392,6 +396,7 @@ public class DoorUnlockActivity extends Fragment
                 }
 
             }.start();
+
 */
 startTimer();
         } catch (Exception e) {
@@ -400,7 +405,7 @@ startTimer();
     }
 
     private void startTimer() {
-        if (GlobalClass.hasLocationPermissions(mContext)) {
+        if (GlobalClass.hasLocationPermissions(mContext) || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 
             if(statusCheck()){
                 handler = new Handler();
@@ -441,11 +446,21 @@ startTimer();
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) ->
                         {
-                            Intent intent = new Intent();
-                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package",getActivity().getPackageName(), null);
-                            intent.setData(uri);
-                            getActivity().startActivity(intent);
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                permissionGranted &= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+                            }
+
+                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                                Intent intent = new Intent();
+                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package",getActivity().getPackageName(), null);
+                                intent.setData(uri);
+                                getActivity().startActivity(intent);
+                            }
+
                         }
 
                 )
