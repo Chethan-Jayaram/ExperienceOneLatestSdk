@@ -1,7 +1,9 @@
 package com.taj.doorunlock.activity.unlockactivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Notification;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +22,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -50,8 +55,6 @@ import com.taj.doorunlock.utils.GpsLocationReceiver;
 import java.util.Collections;
 import java.util.List;
 
-import static com.taj.doorunlock.helper.GlobalClass.sharedPreferences;
-import static com.taj.doorunlock.helper.GlobalClass.showPermissionDialoug;
 
 
 public class DoorUnlockActivity extends Fragment
@@ -76,9 +79,10 @@ public class DoorUnlockActivity extends Fragment
     private List<MobileKey> data = null;
     private ProgressBar mTimer_Progressbar;
 
-    private String  mRoom_No;
+    private String mRoom_No;
 
-    boolean permissionGranted = true;
+    private ProgressDialog mDialog;
+
 
 
 
@@ -87,26 +91,37 @@ public class DoorUnlockActivity extends Fragment
         View view = inflater.inflate(R.layout.activity_door_unlock, container, false);
         try {
             mContext = getContext();
-              Bundle data = getArguments();
+            Bundle data = getArguments();
 
+           // RequestPermissonfromSettings();
 
-            mRoom_No=data.getString("room_no","");
+            mRoom_No = data.getString("room_no", "");
 
 
             vibrator = (Vibrator) mContext.getSystemService(mContext.VIBRATOR_SERVICE);
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             mTimer_Progressbar = view.findViewById(R.id.timer_progressbar);
 
-
-
             updateApiAction();
 
-            // onRefresh();
+            mDialog = new ProgressDialog(mContext);
+            mDialog.setMessage("please wait..");
+            mDialog.setCancelable(false);
+
+
+            if (mobileKeysApiFacade.getMobileKeys().listMobileKeys()==null || mobileKeysApiFacade.getMobileKeys().listMobileKeys().size() == 0) {
+                mDialog.show();
+                do {
+
+                }while(mobileKeysApiFacade.getMobileKeys().listMobileKeys()==null || mobileKeysApiFacade.getMobileKeys().listMobileKeys().size() == 0);
+            }
+            mDialog.dismiss();
+
+             //onRefresh();
 
             if (!mBluetoothAdapter.isEnabled()) {
                 mBluetoothAdapter.enable();
             }
-
 
 
         } catch (Exception e) {
@@ -114,6 +129,7 @@ public class DoorUnlockActivity extends Fragment
         }
         return view;
     }
+
 
 
     @Override
@@ -138,15 +154,16 @@ public class DoorUnlockActivity extends Fragment
      */
     private void loadKeys() {
 
-
         try {
 
 
-                data = mobileKeysApiFacade.getMobileKeys().listMobileKeys();
+            data = mobileKeysApiFacade.getMobileKeys().listMobileKeys();
 
+            if (data != null){
+                startTimer();
+            }
 
-                Log.d("keysize", String.valueOf(data.size()));
-/*
+            /*
             for(int i=0;i<mobileKeysApiFacade.getMobileKeys().listMobileKeys().size();i++){
                 *//*  if(mobileKeysApiFacade.getMobileKeys().listMobileKeys().get(i).getLabel().contains(room_no)){*//*
 
@@ -167,7 +184,6 @@ public class DoorUnlockActivity extends Fragment
         }
 
 
-
     }
 
 
@@ -176,20 +192,38 @@ public class DoorUnlockActivity extends Fragment
      */
     private void startScanning() {
 
+        if (!mBluetoothAdapter.isEnabled()) {
+            mBluetoothAdapter.enable();
+            startReading();
 
-            if (!mBluetoothAdapter.isEnabled()) {
-                mBluetoothAdapter.enable();
-                startReading();
-            } else {
-                startReading();
-            }
+        } else {
+            startReading();
+        }
     }
 
     private void startReading() {
-        ReaderConnectionController controller = MobileKeysApi.getInstance().getReaderConnectionController();
-        controller.enableHce();
-        Notification notification = UnlockNotification.create(requireContext());
-        controller.startForegroundScanning(notification);
+        try {
+            ReaderConnectionController controller = MobileKeysApi.getInstance().getReaderConnectionController();
+            controller.enableHce();
+            Notification notification = UnlockNotification.create(requireContext());
+            controller.startForegroundScanning(notification);
+            handler = new Handler();
+            handler.postDelayed(() -> {
+                try {
+                    Intent intent = new Intent(mContext, BookingDetailsListActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }, 20000);
+            ProgressBarAnimation anim = new ProgressBarAnimation(mTimer_Progressbar, 100, 0);
+            anim.setDuration(20100);
+            mTimer_Progressbar.startAnimation(anim);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -219,14 +253,12 @@ public class DoorUnlockActivity extends Fragment
      */
 
 
-
-
     private Boolean statusCheck() {
         final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
-        }else{
+        } else {
             return true;
         }
         return false;
@@ -262,17 +294,21 @@ public class DoorUnlockActivity extends Fragment
                 .setCancelable(false)
                 .setPositiveButton("Yes",
                         (dialog, id) -> {
-
+                    boolean permissionGranted=true;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                                 permissionGranted &= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
                                         && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
                                         && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+
                             }
+
                             permissionGranted &= ContextCompat.checkSelfPermission(requireContext(),
                                     Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(requireContext(),
                                     Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
-                                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                permissionGranted &= ContextCompat.checkSelfPermission(requireContext(),
+                                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                             }
 
                         })
@@ -332,7 +368,7 @@ public class DoorUnlockActivity extends Fragment
     public void handleMobileKeysTransactionCompleted() {
         //    swipeRefreshLayout.setRefreshing(false);
 
-       // loadKeys();
+        // loadKeys();
     }
 
 
@@ -357,7 +393,7 @@ public class DoorUnlockActivity extends Fragment
         super.onResume();
         //Listen to lock changes
         try {
-            loadKeys();
+            //loadKeys();
             mobileKeysApiFacade.getScanConfiguration().getRootOpeningTrigger().add(closestLockTrigger);
             toggleOpenButton(false);
             if (!GlobalClass.sharedPreferences.getBoolean("hasInvitationCode", false)) {
@@ -376,11 +412,6 @@ public class DoorUnlockActivity extends Fragment
             IntentFilter locationFilter = new IntentFilter("android.location.PROVIDERS_CHANGED");
             getActivity().registerReceiver(mLocationReceiver, locationFilter);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                permissionGranted &= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
-            }
 
            /* mTimer=   new CountDownTimer(10000, 1000) {
 
@@ -398,46 +429,73 @@ public class DoorUnlockActivity extends Fragment
             }.start();
 
 */
-startTimer();
+
+            loadKeys();
+
+
+
+
+           /* handler = new Handler();
+            handler.postDelayed(() -> {
+                try {
+                    loadKeys();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }, 500);*/
+
+            //loadKeys();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void startTimer() {
-        if (GlobalClass.hasLocationPermissions(mContext) || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
-            if(statusCheck()){
-                handler = new Handler();
-                handler.postDelayed(() -> {
-                    try {
-                        Intent intent = new Intent(mContext, BookingDetailsListActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }, 20000);
-
-
-                ProgressBarAnimation anim = new ProgressBarAnimation(mTimer_Progressbar, 100, 0);
-                anim.setDuration(20100);
-                mTimer_Progressbar.startAnimation(anim);
-                //Update scanning based if we have keys
-                if (data.isEmpty()) {
-                    stopScanning();
-                } else {
-                    startScanning();
+        if(Build.VERSION.SDK_INT<=Build.VERSION_CODES.R){
+            if(GlobalClass.hasLocationPermissions(mContext)){
+                if (statusCheck()) {
+                    startCallBackIntent();
                 }
-                if(GlobalClass.mLocationPermission!=null && GlobalClass.mLocationPermission.isShowing()) {
-                    GlobalClass.mLocationPermission.dismiss();
-                }
+            }else{
+                RequestPermissonfromSettings();
+            }
+        }else {
+            if(hasBluetoothSettings()) {
+                startCallBackIntent();
+            }else{
+                requestBlePermissions(getActivity(),100);
+            }
+        }
+    }
+
+    private void startCallBackIntent() {
+
+            //Update scanning based if we have key
+            if (data.isEmpty()) {
+
+                stopScanning();
+            } else {
+                startScanning();
+            }
+            if (GlobalClass.mLocationPermission != null && GlobalClass.mLocationPermission.isShowing()) {
+                GlobalClass.mLocationPermission.dismiss();
             }
 
-        }else {
-            RequestPermissonfromSettings();
+    }
 
-        }
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private static final String[] ANDROID_12_BLE_PERMISSIONS = new String[]{
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_CONNECT,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH_ADVERTISE
+    };
+    public static void requestBlePermissions(Activity activity, int requestCode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            ActivityCompat.requestPermissions(activity, ANDROID_12_BLE_PERMISSIONS, requestCode);
     }
 
     private void RequestPermissonfromSettings() {
@@ -446,20 +504,14 @@ startTimer();
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) ->
                         {
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                permissionGranted &= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
-                                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
-                                        && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
-                            }
-
                             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
                                 Intent intent = new Intent();
                                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                Uri uri = Uri.fromParts("package",getActivity().getPackageName(), null);
+                                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
                                 intent.setData(uri);
                                 getActivity().startActivity(intent);
                             }
+
 
                         }
 
@@ -472,6 +524,17 @@ startTimer();
                 });
         final AlertDialog alert = builder.create();
         alert.show();
+    }
+
+
+    public static String[] getPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return new String[]{Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_ADVERTISE, Manifest.permission.BLUETOOTH_CONNECT};
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+        } else {
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
+        }
     }
 
     @Override
@@ -527,6 +590,7 @@ startTimer();
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         try {
+            Log.d("request_code", String.valueOf(requestCode));
             if (requestCode == REQUEST_LOCATION_PERMISSION) {
                 //Update scanning based if we have keys
                 if (data.isEmpty()) {
@@ -538,22 +602,35 @@ startTimer();
                     GlobalClass.mLocationPermission.dismiss();
                 }
             }
-        }catch (Exception e){
+
+            if (requestCode == 100)
+            {
+                startScanning();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+   boolean hasBluetoothSettings(){
+       boolean permissionGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+
+       Log.d("bluetooth",String.valueOf(permissionGranted));
+        return permissionGranted;
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-       try{
-           if(GlobalClass.mLocationPermission!=null && GlobalClass.mLocationPermission.isShowing()) {
-               GlobalClass.mLocationPermission.dismiss();
-           }
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+        try {
+            if (GlobalClass.mLocationPermission != null && GlobalClass.mLocationPermission.isShowing()) {
+                GlobalClass.mLocationPermission.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

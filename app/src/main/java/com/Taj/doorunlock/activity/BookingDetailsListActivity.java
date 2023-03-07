@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -90,6 +88,8 @@ import static com.taj.doorunlock.helper.GlobalClass.edit;
 import static com.taj.doorunlock.helper.GlobalClass.sharedPreferences;
 import static com.taj.doorunlock.helper.GlobalClass.showPermissionDialoug;
 
+import org.jetbrains.annotations.Nullable;
+
 
 public class BookingDetailsListActivity extends BaseActivity implements ApiListener, MobileKeysApiFacade,
         ReaderConnectionListener,
@@ -123,7 +123,8 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     private Data data;
     private Vibrator vibrator;
     private Handler handler;
-    //private AppUpdateManager mAppUpdateManager;
+    private MobileKeysApiFacade mobileKeysApiFacade;
+   //private AppUpdateManager mAppUpdateManager;
 
     /*   @Override
        protected void onStart() {
@@ -188,6 +189,8 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                 performLogut(GlobalClass.mUser_token);
 
             });
+
+
 
             if(!sharedPreferences.getBoolean("requestedRuntimePermission", false)){
                 getBooking(GlobalClass.mUser_token);
@@ -305,9 +308,9 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                 GeneralPojo generalPojo = (GeneralPojo) response.body();
                 if (generalPojo.getStatus()) {
 
-/*                    GlobalClass.edit.putBoolean("hasIvitationCode", false);
+                    GlobalClass.edit.putBoolean("hasIvitationCode", false);
                     GlobalClass.edit.apply();
-                    MobileKeysApi.getInstance().getMobileKeys().unregisterEndpoint(this);*/
+                   // MobileKeysApi.getInstance().getMobileKeys().unregisterEndpoint(this);
                     Intent intent = new Intent(this, UseAuthenticationActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("logout", false);
@@ -456,18 +459,22 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
             GlobalClass.edit.putString("reservation_key", data.getReservation_key());
             mobilekeyapi(user_token, data);
         } else {
-            Fragment fragment = new DoorUnlockActivity();
-            Bundle bundle = new Bundle();
-            bundle.putString("room_no", data.getRooms());
 
-            fragment.setArguments(bundle);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragment_container, fragment, "LOGIN_TAG")
-                    .addToBackStack(null)
-                    .commit();
-            mFragment_container.setVisibility(View.VISIBLE);
-            mLyt_home.setVisibility(View.GONE);
+
+                Fragment fragment = new DoorUnlockActivity();
+                Bundle bundle = new Bundle();
+                bundle.putString("room_no", data.getRooms());
+
+
+                fragment.setArguments(bundle);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragment_container, fragment, "LOGIN_TAG")
+                        .addToBackStack(null)
+                        .commit();
+                mFragment_container.setVisibility(View.VISIBLE);
+                mLyt_home.setVisibility(View.GONE);
+
         }
 
     }
@@ -756,7 +763,8 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     //submit invitation code to SDK
     private void submitInvitationCode(String invitationCode, String user_token, Data data) {
         try {
-            mMobileKeysApiFacade.getMobileKeys().endpointSetup(this, invitationCode, new EndpointSetupConfiguration.Builder().build());
+            mMobileKeysApiFacade.getMobileKeys().endpointSetup(this,
+                    invitationCode, new EndpointSetupConfiguration.Builder().build());
             mDialog.setMessage("please wait, while we are registering your phone for mobile key");
             mDialog.setCancelable(false);
             mDialog.show();
@@ -769,10 +777,12 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
 
     //Check if invitation code registration successful
+    @SuppressLint("LongLogTag")
     private void checkInvitionComplet(String user_token, Data data) {
         try {
             new Handler().postDelayed(() -> {
                 if (mMobileKeysApiFacade.isEndpointSetUpComplete()) {
+                    mMobileKeysApiFacade.getMobileKeys().endpointUpdate(this);
                     edit.putBoolean("hasInvitationCode", true);
                     edit.apply();
                     mobilekeyapi(user_token, data);
@@ -816,7 +826,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                                     mMobileKeysApiFacade.onEndpointSetUpComplete();
                                 }
 
-                                Fragment fragment = new DoorUnlockActivity();
+                               /* Fragment fragment = new DoorUnlockActivity();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("room_no", data.getRooms());
 
@@ -828,7 +838,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                                         .addToBackStack(null)
                                         .commit();
                                 mFragment_container.setVisibility(View.VISIBLE);
-                                mLyt_home.setVisibility(View.GONE);
+                                mLyt_home.setVisibility(View.GONE);*/
                             } else {
                                 dismissDialog();
                                 GlobalClass.edit.putBoolean("hasIvitationCode", false);
@@ -987,6 +997,9 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
     //-----------------------------------------------------------------------------------------------------------------|
     public void registerListeners() {
+
+       // Log.d("mManager", String.valueOf(GlobalClass.mManager));
+
         if (GlobalClass.mManager == null) {
             return;
         }
