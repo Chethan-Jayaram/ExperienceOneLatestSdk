@@ -64,6 +64,7 @@ import retrofit2.Response;
 
 import static android.content.Context.FINGERPRINT_SERVICE;
 import static android.content.Context.KEYGUARD_SERVICE;
+import static com.taj.doorunlock.helper.GlobalClass.edit;
 import static com.taj.doorunlock.helper.GlobalClass.sharedPreferences;
 
 public class LoginMpinFragment extends Fragment implements ApiListener, GlobalClass.OnBiometricAuthSucess {
@@ -322,6 +323,26 @@ public class LoginMpinFragment extends Fragment implements ApiListener, GlobalCl
                         mBioAlertDialog.dismiss();
                         stopFingerAuth();
                     }
+
+                    if (sharedPreferences.getString("guestUUID","").equals("")){
+                        Log.d("yesComing",generalPojo.getData().getProfile().getGuestUUID());
+                        edit.putString("guestUUID",generalPojo.getData().getProfile().getGuestUUID());
+                        edit.apply();
+                        edit.commit();
+                    }
+
+                    Log.d("sharedPreference_guest",sharedPreferences.getString("guestUUID",""));
+                    if (sharedPreferences.getString("guestUUID","").equalsIgnoreCase(generalPojo.getData().getProfile().getGuestUUID())){
+                        Log.d("user_already_registered","yes");
+                        GlobalClass.user_registered = true;
+                    }else{
+                        Log.d("new_user_reg","yes");
+                        GlobalClass.user_registered = false;
+                        GlobalClass.edit.putBoolean("isRegestrationComplete",false);
+                        GlobalClass.edit.apply();
+                        GlobalClass.edit.commit();
+                    }
+
                     GlobalClass.mUser_token=generalPojo.getData().getProfile().getToken();
                     generalPojo.getData().getLocation_key();
                     Intent intent = new Intent();

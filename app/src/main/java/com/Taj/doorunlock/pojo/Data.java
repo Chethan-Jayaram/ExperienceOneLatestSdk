@@ -15,6 +15,18 @@ import java.io.Serializable;
 @Keep
 public class Data  {
 
+    @SerializedName("guestUUID")
+    @Expose
+    private String guestUUID;
+
+    public String getGuestUUID() {
+        return guestUUID;
+    }
+
+    public void setGuestUUID(String guestUUID) {
+        this.guestUUID = guestUUID;
+    }
+
     @SerializedName("request_id")
     @Expose
     private String requestId;

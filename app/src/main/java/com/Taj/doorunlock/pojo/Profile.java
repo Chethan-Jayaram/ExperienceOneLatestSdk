@@ -11,6 +11,39 @@ import com.google.gson.annotations.SerializedName;
 @Keep
 public class Profile implements Parcelable {
 
+    @SerializedName("guestUUID")
+    @Expose
+    private String guestUUID;
+
+    protected Profile(Parcel in) {
+        guestUUID = in.readString();
+        salutation = in.readString();
+        firstname = in.readString();
+        lastname = in.readString();
+        photo = in.readString();
+        token = in.readString();
+    }
+
+    public static final Creator<Profile> CREATOR = new Creator<Profile>() {
+        @Override
+        public Profile createFromParcel(Parcel in) {
+            return new Profile(in);
+        }
+
+        @Override
+        public Profile[] newArray(int size) {
+            return new Profile[size];
+        }
+    };
+
+    public String getGuestUUID() {
+        return guestUUID;
+    }
+
+    public void setGuestUUID(String guestUUID) {
+        this.guestUUID = guestUUID;
+    }
+
     @SerializedName("salutation")
     @Expose
     private String salutation;
@@ -69,6 +102,12 @@ public class Profile implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(guestUUID);
+        dest.writeString(salutation);
+        dest.writeString(firstname);
+        dest.writeString(lastname);
+        dest.writeString(photo);
+        dest.writeString(token);
     }
 
     public String getToken() {
