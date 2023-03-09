@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -308,8 +309,9 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                 GeneralPojo generalPojo = (GeneralPojo) response.body();
                 if (generalPojo.getStatus()) {
 
+                    /*GlobalClass.edit.putBoolean("registrationComplete",false);
                     GlobalClass.edit.putBoolean("hasIvitationCode", false);
-                    GlobalClass.edit.apply();
+                    GlobalClass.edit.apply();*/
                    // MobileKeysApi.getInstance().getMobileKeys().unregisterEndpoint(this);
                     Intent intent = new Intent(this, UseAuthenticationActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -325,6 +327,8 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                     //  getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new DoorUnlockFragment()).addToBackStack(null).commit();
 
                     GlobalClass.edit.putBoolean("isRegestrationComplete", true).apply();
+                    edit.commit();
+                    GlobalClass.user_registered = true;
                     GlobalClass.edit.putBoolean("isSyncComplete", false).apply();
                     try {
                         if (!GlobalClass.mManager.isStarted()) {
@@ -404,12 +408,22 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     }
 
     private void mAssabloyDoorUnlockApi(GeneralPojo generalPojo) {
-        if (!sharedPreferences.getBoolean("hasIvitationCode", false)) {
-            GlobalClass.edit.putString("reservation_key", generalPojo.getData().getReservation_key());
-            getInvitationCode(GlobalClass.mUser_token, generalPojo.getData());
-        } else if (!sharedPreferences.getString("reservation_key", "").equalsIgnoreCase(generalPojo.getData().getReservation_key())) {
-            GlobalClass.edit.putString("reservation_key", generalPojo.getData().getReservation_key());
-            mobilekeyapi(GlobalClass.mUser_token, generalPojo.getData());
+        if (sharedPreferences.getBoolean("isRegestrationComplete",false)){
+            Log.d("isRegestrationComplete","yes");
+        }else{
+            Log.d("isRegestrationComplete","no");
+        }
+        if (!(GlobalClass.user_registered && sharedPreferences.getBoolean("isRegestrationComplete",false))) {
+            Log.d("new_user","yes");
+            if (!sharedPreferences.getBoolean("hasIvitationCode", false)) {
+                GlobalClass.edit.putString("reservation_key", generalPojo.getData().getReservation_key());
+                getInvitationCode(GlobalClass.mUser_token, generalPojo.getData());
+            } else if (!sharedPreferences.getString("reservation_key", "").equalsIgnoreCase(generalPojo.getData().getReservation_key())) {
+                GlobalClass.edit.putString("reservation_key", generalPojo.getData().getReservation_key());
+                mobilekeyapi(GlobalClass.mUser_token, generalPojo.getData());
+            }
+        }else{
+            mobilekeyapi(GlobalClass.mUser_token,generalPojo.getData());
         }
     }
 
@@ -452,13 +466,18 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     }
 
     private void mAssabloyDoorUnlock(String user_token, Data data) {
-        if (!sharedPreferences.getBoolean("hasIvitationCode", false)) {
+        if (GlobalClass.key_generated){
+            Log.d("key_generated","yes");
+        }else{
+            Log.d("key_generated","no");
+        }
+        if (!GlobalClass.key_generated) {
             GlobalClass.edit.putString("reservation_key", data.getReservation_key());
             getInvitationCode(user_token, data);
         } else if (!sharedPreferences.getString("reservation_key", "").equalsIgnoreCase(data.getReservation_key())) {
             GlobalClass.edit.putString("reservation_key", data.getReservation_key());
             mobilekeyapi(user_token, data);
-        } else {
+         }else {
 
 
                 Fragment fragment = new DoorUnlockActivity();
@@ -782,6 +801,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
         try {
             new Handler().postDelayed(() -> {
                 if (mMobileKeysApiFacade.isEndpointSetUpComplete()) {
+                    edit.putBoolean("registrationComplete",true);
                     mMobileKeysApiFacade.getMobileKeys().endpointUpdate(this);
                     edit.putBoolean("hasInvitationCode", true);
                     edit.apply();
@@ -820,6 +840,12 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                             if (doorUnlock.getStatus()) {
 
                                 dismissDialog();
+
+                                GlobalClass.key_generated = true;
+                                GlobalClass.user_registered = true;
+                                GlobalClass.edit.putBoolean("isRegestrationComplete",true);
+                                GlobalClass.edit.apply();
+                                GlobalClass.edit.commit();
 
 
                                 if (mMobileKeysApiFacade.isEndpointSetUpComplete()) {
@@ -919,9 +945,10 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
     private void mDormakabaDoorUnlock(String user_token, Data data) {
 
-        if (!sharedPreferences.getBoolean("isRegestrationComplete", false)) {
+        if (!sharedPreferences.getBoolean("isRegestrationComplete", false) && !GlobalClass.user_registered ) {
             try {
 
+                Log.d("new_user","yes");
                 if (!GlobalClass.mManager.isRegisteredToBackend()) {
                     GlobalClass.edit.putString("reservation_key", data.getReservation_key());
                     gettoken(data);
@@ -937,7 +964,6 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
             // mobilekeyapi(MY_ROOMS.get(v).getRoom().getRoomNo());
             GlobalClass.edit.putString("reservation_key", data.getReservation_key());
             edit.apply();
-
             getkeyfiles(data);
         } else {
             try {

@@ -1,6 +1,7 @@
 package com.taj.doorunlock.activity.unlockactivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.ProgressDialog;
@@ -86,6 +87,7 @@ public class DoorUnlockActivity extends Fragment
 
 
 
+    @SuppressLint("MissingPermission")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_door_unlock, container, false);
@@ -190,8 +192,10 @@ public class DoorUnlockActivity extends Fragment
     /**
      * Start BLE scanning or request permission
      */
+    @SuppressLint("MissingPermission")
     private void startScanning() {
 
+        Log.d("bluetooth scanning","start");
         if (!mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.enable();
             startReading();

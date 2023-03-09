@@ -327,6 +327,9 @@ public class CreateMpinFragment extends Fragment implements ApiListener {
                 GeneralPojo generalPojo = (GeneralPojo) response.body();
                 if (generalPojo.getStatus()) {
                     putSharedPreference(generalPojo.getData().getToken());
+                    /*GlobalClass.edit.putBoolean("registrationComplete",false);
+                    GlobalClass.edit.putBoolean("hasIvitationCode", false);
+                    GlobalClass.edit.apply();*/
                     Fragment fragment=new LoginMpinFragment();
 
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();

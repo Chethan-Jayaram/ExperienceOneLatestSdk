@@ -46,11 +46,14 @@ import java.util.Set;
 @SuppressLint("SimpleDateFormat")
 public class GlobalClass {
 
+    public static boolean user_registered = false;
+    public static boolean key_generated = false;
     public static AlertDialog mLocationPermission;
     public static final String android_id = Settings.Secure.getString(Taj.getAppContext().getContentResolver(),
             Settings.Secure.ANDROID_ID);
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
+    private boolean isRegistrationComplete  = false;
     public static final String mSufix = "20434c";
     public static final String mPrefix = "494820";
 
