@@ -408,11 +408,6 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     }
 
     private void mAssabloyDoorUnlockApi(GeneralPojo generalPojo) {
-        if (sharedPreferences.getBoolean("isRegestrationComplete",false)){
-            Log.d("isRegestrationComplete","yes");
-        }else{
-            Log.d("isRegestrationComplete","no");
-        }
         if (!(GlobalClass.user_registered && sharedPreferences.getBoolean("isRegestrationComplete",false))) {
             Log.d("new_user","yes");
             if (!sharedPreferences.getBoolean("hasIvitationCode", false)) {
@@ -466,12 +461,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     }
 
     private void mAssabloyDoorUnlock(String user_token, Data data) {
-        if (GlobalClass.key_generated){
-            Log.d("key_generated","yes");
-        }else{
-            Log.d("key_generated","no");
-        }
-        if (!GlobalClass.key_generated) {
+        if (!sharedPreferences.getBoolean("key_generated",false)) {
             GlobalClass.edit.putString("reservation_key", data.getReservation_key());
             getInvitationCode(user_token, data);
         } else if (!sharedPreferences.getString("reservation_key", "").equalsIgnoreCase(data.getReservation_key())) {
@@ -491,7 +481,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                         .add(R.id.fragment_container, fragment, "LOGIN_TAG")
                         .addToBackStack(null)
                         .commit();
-                mFragment_container.setVisibility(View.VISIBLE);
+                 mFragment_container.setVisibility(View.VISIBLE);
                 mLyt_home.setVisibility(View.GONE);
 
         }
@@ -842,6 +832,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                                 dismissDialog();
 
                                 GlobalClass.key_generated = true;
+                                edit.putBoolean("key_generated",true);
                                 GlobalClass.user_registered = true;
                                 GlobalClass.edit.putBoolean("isRegestrationComplete",true);
                                 GlobalClass.edit.apply();
@@ -948,7 +939,6 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
         if (!sharedPreferences.getBoolean("isRegestrationComplete", false) && !GlobalClass.user_registered ) {
             try {
 
-                Log.d("new_user","yes");
                 if (!GlobalClass.mManager.isRegisteredToBackend()) {
                     GlobalClass.edit.putString("reservation_key", data.getReservation_key());
                     gettoken(data);
