@@ -53,6 +53,7 @@ public class ClientServiceGenerator {
             .readTimeout(60, TimeUnit.SECONDS).build();
 
 
+
     private static Retrofit builder =
             new Retrofit.Builder()
                     .baseUrl(ROOT_URL)
