@@ -24,8 +24,7 @@ import com.legic.mobile.sdk.api.exception.SdkException;
 import com.legic.mobile.sdk.api.types.RfInterface;
 import com.taj.doorunlock.R;
 import com.taj.doorunlock.unlock.Taj;
-import com.taj.doorunlock.utils.doormakabautils.PermissionManager;
-import com.taj.doorunlock.utils.doormakabautils.PermissionManagerCallback;
+
 
 /**
  * Base Activity that implements all common activity functions.
