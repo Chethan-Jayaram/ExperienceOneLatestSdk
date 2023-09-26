@@ -10,7 +10,6 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,14 +23,17 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.legic.mobile.sdk.api.exception.LegicMobileSdkException;
+import com.legic.mobile.sdk.api.exception.SdkException;
+import com.legic.mobile.sdk.api.listener.BackendEventListener;
+import com.legic.mobile.sdk.api.types.AddressingMode;
 import com.legic.mobile.sdk.api.types.LcMessageMode;
-import com.legic.mobile.sdk.api.types.LegicMobileSdkStatus;
-import com.legic.mobile.sdk.api.types.LegicNeonFile;
-import com.legic.mobile.sdk.api.types.LegicNeonFileDefaultMode;
-import com.legic.mobile.sdk.api.types.LegicNeonFileState;
+
+import com.legic.mobile.sdk.api.types.NeonFile;
+import com.legic.mobile.sdk.api.types.NeonFileDefaultMode;
+import com.legic.mobile.sdk.api.types.NeonFileState;
 import com.legic.mobile.sdk.api.types.RfInterface;
 
+import com.legic.mobile.sdk.api.types.SdkStatus;
 import com.taj.doorunlock.R;
 import com.taj.doorunlock.helper.GlobalClass;
 import com.taj.doorunlock.helper.ProgressBarAnimation;
@@ -42,6 +44,7 @@ import java.util.List;
 
 import static com.taj.doorunlock.helper.GlobalClass.sharedPreferences;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
@@ -51,10 +54,10 @@ public class DoormakabaUnlockActivity extends BaseActivity {
     public static final String EXTRA_PUSH = "PushReceived";
 
     private BluetoothAdapter mBluetoothAdapter;
-     private TextView txt_room_sucess,txt_room_fail,txt_room_wait;
-     private LinearLayout lyt_sucess,lyt_progress,lyt_fail;
-     private RelativeLayout lyt_bottom_circular;
-     private ImageView iv_status,iv_bg;
+    private TextView txt_room_sucess, txt_room_fail, txt_room_wait;
+    private LinearLayout lyt_sucess, lyt_progress, lyt_fail;
+    private RelativeLayout lyt_bottom_circular;
+    private ImageView iv_status, iv_bg;
     private Handler mainHandler;
     private Handler handler;
     private Handler mChangeScreenHandler;
@@ -63,22 +66,23 @@ public class DoormakabaUnlockActivity extends BaseActivity {
     private ProgressBar mTimer_Progressbar;
     private ProgressBarAnimation anim;
     private String roomNumber;
-    //-----------------------------------------------------------------------------------------------------------------| 
+
+    //-----------------------------------------------------------------------------------------------------------------|
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_doormakaba_unlock);
 
-        lyt_sucess=  findViewById(R.id.lyt_sucess);
-        lyt_progress=  findViewById(R.id.lyt_progress);
-        lyt_fail=  findViewById(R.id.lyt_fail);
+        lyt_sucess = findViewById(R.id.lyt_sucess);
+        lyt_progress = findViewById(R.id.lyt_progress);
+        lyt_fail = findViewById(R.id.lyt_fail);
 
    /*     txt_room_sucess=  findViewById(R.id.txt_room_sucess);
         txt_room_fail=  findViewById(R.id.txt_room_fail);
         txt_room_wait=  findViewById(R.id.txt_room_wait);*/
 
-        mTimer_Progressbar=  findViewById(R.id.timer_progressbar);
+        mTimer_Progressbar = findViewById(R.id.timer_progressbar);
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
@@ -86,6 +90,16 @@ public class DoormakabaUnlockActivity extends BaseActivity {
         try {
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (!mBluetoothAdapter.isEnabled()) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 mBluetoothAdapter.enable();
             }
 
@@ -96,7 +110,7 @@ public class DoormakabaUnlockActivity extends BaseActivity {
            }
 */
 
-initSdk();
+            //initSdk();
             getPermissions();
            /* if (!mManager.isRegisteredToBackend()) {
                 redirectToStep1();
@@ -111,7 +125,7 @@ initSdk();
                 mManager.handlePushMessage(intent);
             }
 
-        } catch (LegicMobileSdkException e) {
+        } catch (SdkException e) {
             log(e.getLocalizedMessage());
         }
     }
@@ -133,8 +147,8 @@ initSdk();
             dialog.show();
 
             try {
-                activateFile(mManager.getAllFiles());
-            } catch (LegicMobileSdkException e) {
+                activateFile(mManager.getAllNeonFiles());
+            } catch (SdkException e) {
                 e.printStackTrace();
             }
         }
@@ -162,19 +176,19 @@ initSdk();
 
 
     //-----------------------------------------------------------------------------------------------------------------| 
-    public void activateFile(List<LegicNeonFile> allFiles) {
+    public void activateFile(List<NeonFile> allFiles) {
         try {
 
             for (int i = 0; i < allFiles.size(); i++) {
 
-                 LegicNeonFile f = allFiles.get(i);
+                 NeonFile f = allFiles.get(i);
 
                 try {
-                    Log.d("file state", String.valueOf(f.getFileState()));
-                    if(f.getFileState()== LegicNeonFileState.DEPLOYED) {
-                        mManager.activateFile(f);
+                    Log.d(" ", String.valueOf(f.getFileState()));
+                    if(f.getFileState()== NeonFileState.DEPLOYED) {
+                        mManager.setNeonFileActive(f,true);
                         // Toast.makeText(this,f.getDisplayName(),Toast.LENGTH_LONG).show();
-                        mManager.setDefault(f, LegicNeonFileDefaultMode.LC_PROJECT_DEFAULT, true);
+                        mManager.setNeonFileDefaultActive(f, NeonFileDefaultMode.LC_PROJECT_DEFAULT, true);
 
 
                         mainHandler = new Handler(getMainLooper());
@@ -193,7 +207,7 @@ initSdk();
                         };
                         mainHandler.post(myRunnable);
                     }
-                } catch (LegicMobileSdkException e) {
+                } catch (SdkException e) {
 
                 Handler    handler = new Handler(getMainLooper());
                     // This is your code
@@ -221,16 +235,16 @@ initSdk();
     public void deactivateAllFiles() {
 
             try {
-                List<LegicNeonFile> files = mManager.getAllFiles();
+                List<NeonFile> files = mManager.getAllNeonFiles();
 
-                for (LegicNeonFile f : files) {
+                for (NeonFile f : files) {
                     try {
-                        mManager.deactivateFile(f);
-                    } catch (LegicMobileSdkException e) {
+                        mManager.setNeonFileActive(f,false);
+                    } catch (SdkException e) {
                         log(e.getLocalizedMessage());
                     }
                 }
-            } catch (LegicMobileSdkException e) {
+            } catch (SdkException e) {
                 GlobalClass.ShowAlet(this, "Alert!!","key deactivation failed");
 
                 log(e.getLocalizedMessage());
@@ -238,7 +252,7 @@ initSdk();
     }
 
     //-----------------------------------------------------------------------------------------------------------------|
-    @Override
+    /*@Override
     public void readerLcMessageEvent(byte[] data, LcMessageMode lcMessageMode, RfInterface rfInterface) {
         super.readerLcMessageEvent(data, lcMessageMode, rfInterface);
         try {
@@ -268,13 +282,13 @@ initSdk();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 
 
-    @Override
-    public void backendSynchronizeDoneEvent(LegicMobileSdkStatus status) {
+    /*@Override
+    public void backendSynchronizeDoneEvent(SdkStatus status) {
         if (status.isSuccess()) {
             try {
                 sharedPreferences.edit().putBoolean("isSyncComplete",true).commit();
@@ -283,8 +297,8 @@ initSdk();
                 Runnable myRunnable = () -> {
                     dialog.setMessage("please wait while we activate your keys..");
                     try {
-                        activateFile(mManager.getAllFiles());
-                    } catch (LegicMobileSdkException e) {
+                        activateFile(mManager.getAllNeonFiles());
+                    } catch (SdkException e) {
                         e.printStackTrace();
                     }
                 };
@@ -303,7 +317,7 @@ initSdk();
             };
             mChangeScreenHandler.post(myRunnable);
         }
-    }
+    }*/
     @Override
     public void onPause() {
         super.onPause();
@@ -356,7 +370,6 @@ initSdk();
 
         return permissionGranted;
     }
-
 
 }
 

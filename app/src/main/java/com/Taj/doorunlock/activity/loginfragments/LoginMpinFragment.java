@@ -335,6 +335,8 @@ public class LoginMpinFragment extends Fragment implements ApiListener, GlobalCl
                         GlobalClass.edit.putBoolean("isRegestrationComplete",false);
                         GlobalClass.edit.apply();
                         GlobalClass.edit.commit();
+                        edit.clear();
+                        edit.apply();
                     }
 
                     GlobalClass.mUser_token=generalPojo.getData().getProfile().getToken();

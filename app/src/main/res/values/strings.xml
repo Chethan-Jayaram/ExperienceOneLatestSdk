@@ -165,4 +165,11 @@
     <string name="m_pin_login">M-PIN LOGIN</string>
     <string name="location_permission_msg">IHCL I-ZEST Mobile Door Key collects location data in background to identify nearby door lock via Bluetooth(BLE), only while the door unlock feature is being used.
     <br/> <br/> The location data is solemnly used to unlock the door and not to support any ads.</string>
+
+
+    <string name="ble_status_msg">BLE Status: %s</string>
+    <string name="ble_central_status_msg">BLE Central Status: %s</string>
+    <string name="hce_status_msg">HCE Status: %s</string>
+    <string name="do_not_ask_again_warning">\n\nIf you select don\'t ask again and change your mind later, please activate the permission in the app settings.</string>
+
 </resources>

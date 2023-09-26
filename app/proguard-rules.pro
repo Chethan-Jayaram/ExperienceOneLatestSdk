@@ -48,7 +48,7 @@
 # Prevent R8 from leaving Data object members always null
 
 # LEGIC mobile SDK specific ProGuard configuration
--include libs/LEGIC-Mobile-SDK-for-Android-V2.4.4.0/LEGIC-Mobile-SDK-Android-proguard.pro
+-include libs/LEGIC-Mobile-SDK-for-Android-V3.0.5.0/LEGIC-Mobile-SDK-Android-proguard.pro
 # NFC-HCE Service Interface
 -keep public class com.legic.mobile.sdk.services.nfc.hce.NfcHceHandler
 -keep public class com.legic.mobile.sdk.services.nfc.hce.NfcHceExchange
