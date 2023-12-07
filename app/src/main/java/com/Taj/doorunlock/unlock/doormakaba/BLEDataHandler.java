@@ -9,8 +9,6 @@ import android.content.Context;
 
 /**
  * This class is used to parse an IDC Message returned from the BLE PLugin
- *
- * @author
  */
 public class BLEDataHandler
 {
@@ -29,7 +27,7 @@ public class BLEDataHandler
     private String batteryVoltage;
     private String messageString;
     private String interpretedMessageString;
-   // private SaflokLockError saflokLockError;
+    private SaflokLockError saflokLockError;
 
     public BLEDataHandler(byte[] data)
     {
@@ -42,8 +40,7 @@ public class BLEDataHandler
         int totalLength = data.length;
         messageString = "";
 
-        do
-        {
+        do {
             messageString = messageString.concat(String.format("%02x ", data[offset]));
 
             switch (data[offset++])
@@ -107,7 +104,7 @@ public class BLEDataHandler
                         saflokLockName = "Lock Name: ";
                         saflokLockName += String.format("%c%c%c%c%c\n", (char)data[offset+4], (char)data[offset + 5], (char)data[offset + 6], (char)data[offset + 7], (char)data[offset + 8]);
 
-                    }else if(systemType == 1){
+                    } else if(systemType == 1){
                         ilcoLockType = data[offset];
 
                         ilcoDoorIdNmbre = "Door Id Nmbre: 0x";
@@ -123,7 +120,7 @@ public class BLEDataHandler
                         ilcoLockId = ilcoLockId.concat(String.format("%02X", data[offset+7]));
                         ilcoLockId = ilcoLockId.concat(String.format("%02X", data[offset+8]));
                         ilcoDoorIdNmbre += "\n";
-                    }else{
+                    } else{
                         // Unknown system
                     }
 
@@ -248,111 +245,66 @@ public class BLEDataHandler
     }
     /**
      * @return the lock model
-     * TODO Change this to enums.
      */
-    public String getLockModel()
+    public String getLockModelName(int systemType, int lockModel)
     {
         if (systemType == 0){
             // Saflok
             if((lockModel == 0)||(lockModel == 1)||(lockModel == 4)||(lockModel == 7)||(lockModel == 8)||(lockModel == 9)||(lockModel == 12)||(lockModel == 15)){
                 return "Lock Model MT2\n";
-            }
-
-            if((lockModel == 2)||(lockModel == 10)||(lockModel == 11)){
+            } else if((lockModel == 2)||(lockModel == 10)||(lockModel == 11)){
                 return "Lock Model MCC\n";
-            }
-
-            if((lockModel == 3)||(lockModel == 5)||(lockModel == 6)||(lockModel == 13)||(lockModel == 14)){
+            } else if((lockModel == 3)||(lockModel == 5)||(lockModel == 6)||(lockModel == 13)||(lockModel == 14)){
                 return "Lock Model RCU/ECU\n";
-            }
-
-            if(((lockModel >=16) && (lockModel <= 31))){
+            } else if(((lockModel >=16) && (lockModel <= 31))){
                 return "Lock Model RT\n";
-            }
-
-            if((lockModel == 32)||(lockModel == 33)||(lockModel == 36)|| ((lockModel >=38) && (lockModel <= 47))){
+            } else if((lockModel == 32)||(lockModel == 33)||(lockModel == 36)|| ((lockModel >=38) && (lockModel <= 47))){
                 return "Lock Model MT4\n";
-            }
-
-            if((lockModel == 34)){
+            } else if((lockModel == 34)){
                 return "MCC4\n";
-            }
-
-            if((lockModel == 35)||(lockModel == 37)){
+            } else if((lockModel == 35)||(lockModel == 37)){
                 return "RCU4/ECU4\n";
-            }
-
-            if(((lockModel >=48) && (lockModel <= 63))){
+            } else if(((lockModel >=48) && (lockModel <= 63))){
                 return "Confidant\n";
-            }
-
-            if(((lockModel >=64) && (lockModel <= 78))){
+            } else if(((lockModel >=64) && (lockModel <= 78))){
                 return "Secure Wall Reader\n";
-            }
-
-            if((lockModel == 79)){
+            } else if((lockModel == 79)){
                 return "Keyscan Reader\n";
-            }
-
-            if((lockModel == 96)||(lockModel == 97)){
+            } else if((lockModel == 96)||(lockModel == 97)){
                 return "Bambino\n";
             }
 
             return "Unknown Lock Model\n";
-        }
-        else if (systemType == 1){
+        } else if (systemType == 1){
             // Ilco
             if(lockModel == 0){
                 return "Unknown Lock Model\n";
-            }
-
-            if(lockModel == 1){
+            } else if(lockModel == 1){
                 return "Lock Model 760\n";
-            }
-
-            if(lockModel == 2){
+            } else if(lockModel == 2) {
                 return "Lock Model 710-II/730/720-II/71M\n";
-            }
-
-            if(lockModel == 3){
+            } else if(lockModel == 3){
                 return "Lock Model RAC\n";
-            }
-
-            if(lockModel == 4){
+            } else if(lockModel == 4){
                 return "Lock Model SOL710\n";
-            }
-
-            if(lockModel == 5){
+            } else if(lockModel == 5){
                 return "Lock Model 700-II\n";
-            }
-
-            if(lockModel == 6){
+            } else if(lockModel == 6){
                 return "Lock Model 790\n";
-            }
-
-            if(lockModel == 7){
+            } else if(lockModel == 7){
                 return "Lock Model 790M\n";
-            }
-
-            if(lockModel == 8){
+            } else if(lockModel == 8){
                 return "Lock Model Confidant\n";
-            }
-
-            if(lockModel == 9){
+            } else if(lockModel == 9){
                 return "Lock Model Q90\n";
-            }
-
-            if(lockModel == 10){
+            } else if(lockModel == 10){
                 return "Lock Model 790 Plus\n";
-            }
-
-            if(lockModel == 11){
+            } else if(lockModel == 11){
                 return "Lock Model Confidant Plus\n";
             }
 
             return "Unknown Lock Model\n";
-        }
-        else{
+        } else{
             // Unknown System
             return "Unknown Lock Model\n";
         }
@@ -376,8 +328,8 @@ public class BLEDataHandler
             interpretedMessageString = interpretedMessageString.concat(String.format("Access is not granted\nError code: %d\n", errorCode));
 
             // Only Saflok locks have detailed error descriptions at this point) add Ilco if exists
-          //  saflokLockError = SaflokLockError.fromCode(errorCode);
-           // interpretedMessageString += "Error description: " + context.getString(saflokLockError.getDescription()) + "\n";
+            saflokLockError = SaflokLockError.fromCode(errorCode);
+            interpretedMessageString += "Error description: " + context.getString(saflokLockError.getDescription()) + "\n";
         }
 
         interpretedMessageString += ((flags & 0x01) == 1) ? "First Access\n" : "Not First Access\n";
@@ -387,7 +339,7 @@ public class BLEDataHandler
         interpretedMessageString += batteryStatus + "\n";
         interpretedMessageString += "Battery Voltage: " + batteryVoltage + "mV\n";
         interpretedMessageString += (systemType == 1) ? "Ilco lock system\n" : "Saflok lock system\n";
-        interpretedMessageString += getLockModel();
+        interpretedMessageString += getLockModelName(systemType, lockModel);
         interpretedMessageString += getLockIdentificationInfo();
 
         return interpretedMessageString;

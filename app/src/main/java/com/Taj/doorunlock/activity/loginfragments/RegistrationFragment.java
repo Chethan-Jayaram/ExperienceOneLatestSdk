@@ -116,6 +116,7 @@ public class RegistrationFragment extends Fragment implements ApiListener {
         map.put("mobile", String.valueOf(no));
         map.put("country_code", "+"+reg_country_code_picker.getSelectedCountryCode());
         map.put("device_id", GlobalClass.mPrefix+GlobalClass.android_id +GlobalClass.mSufix);
+
         Call<GeneralPojo> register = api.userRegistration(map);
         APIResponse.postCallRetrofit(register,"regUser", mCtx, this);
     }

@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.L;
 import com.assaabloy.mobilekeys.api.EndpointSetupConfiguration;
 import com.assaabloy.mobilekeys.api.MobileKeys;
 import com.assaabloy.mobilekeys.api.MobileKeysCallback;
@@ -72,6 +73,7 @@ import com.taj.doorunlock.services.ApiListener;
 import com.taj.doorunlock.unlock.ByteArrayHelper;
 import com.taj.doorunlock.unlock.MobileKeysApiFacade;
 import com.taj.doorunlock.unlock.MobileKeysApiFactory;
+import com.taj.doorunlock.unlock.Taj;
 import com.taj.doorunlock.unlock.doormakaba.BaseActivity;
 import com.taj.doorunlock.unlock.doormakaba.Settings;
 import com.taj.doorunlock.unlock.doormakaba.Utils;
@@ -98,7 +100,7 @@ import org.jetbrains.annotations.Nullable;
 public class BookingDetailsListActivity extends BaseActivity implements ApiListener, MobileKeysApiFacade,
         ReaderConnectionListener,
         MobileKeysCallback,
-        HceConnectionListener, SwipeRefreshLayout.OnRefreshListener, BackendEventListener {
+        HceConnectionListener, SwipeRefreshLayout.OnRefreshListener,BackendEventListener {
 
 
     private Context mContext;
@@ -196,7 +198,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
 
 
-            if(!sharedPreferences.getBoolean("requestedRuntimePermission", false)){
+            if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
                 getBooking(GlobalClass.mUser_token);
             }
 
@@ -212,20 +214,20 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
             onCreated();
             readCallBack();
 
-            mSdkQuickstartApp.setActivity(this);
-            mSdkQuickstartApp.setBackendEventListener(this);
+            //mSdkQuickstartApp.setBackendEventListener(this);
+
 
 
             Intent intent = getIntent();
             if (intent.getStringExtra("fName") != null) {
-                GlobalClass.mFirstName = intent.getStringExtra("fName");
+                // GlobalClass.mFirstName = intent.getStringExtra("fName");
+
+                mManager= Utils.getSdkManager(getApplicationContext());
             }
-            GlobalClass.mManager = Utils.getSdkManager(getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     private void performLogut(String mUser_token) {
         Map<String, String> map = new HashMap<>();
         map.put("token", mUser_token);
@@ -251,7 +253,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     }
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "LongLogTag"})
     @Override
     public <ResponseType> void success(Response<ResponseType> response, String apiCallName) {
         try {
@@ -269,6 +271,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                         nestedScroll.setVisibility(View.VISIBLE);
                         data=generalPojo.getData();
                         setadapter(GlobalClass.mUser_token, generalPojo.getData(), 1);
+                        Log.d("fffname",GlobalClass.mFirstName);
                         tv_user_name.setText("Hello " + GlobalClass.mFirstName + "!");
                         Glide.with(this)
                                 .load(generalPojo.getData().getLocationBanner().getSrc())
@@ -281,9 +284,11 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                                 mAssabloyDoorUnlockApi(generalPojo);
                             } else if (data.getLockType().equals("dormakaba") && !sharedPreferences.getBoolean("isRegestrationComplete",false)) {
                                 Log.d("Step1","isRegestrationComplete");
+                                mManager.registerForBackendEvents(this);
                                 mDormakabaDoorUnlockApi(generalPojo);
                             }
                         }else{
+                            Log.d("LocactionAcccess","Requested");
                             if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
                                 GlobalClass.edit.putBoolean("requestedRuntimePermission", true);
                                 GlobalClass.edit.apply();
@@ -310,7 +315,8 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                     tv_InactiveBooking_message.setVisibility(View.VISIBLE);
                     ShowAlet(mContext, "Alert", generalPojo.getMessage());
                 }
-            } else if (apiCallName.equalsIgnoreCase("logout")) {
+            }
+            else if (apiCallName.equalsIgnoreCase("logout")) {
                 GeneralPojo generalPojo = (GeneralPojo) response.body();
                 if (generalPojo.getStatus()) {
 
@@ -324,9 +330,11 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                     startActivity(intent);
                     finish();
                 }
-            }  else if (apiCallName.equalsIgnoreCase("keys")) {
+            }
+            else if (apiCallName.equalsIgnoreCase("keys")) {
                 dialog.dismiss();
                 GeneralPojo generation = (GeneralPojo) response.body();
+                Log.d("Keyssss",generation.toString());
                 if (generation.getStatus()) {
                     dialog.dismiss();
                     //  getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new DoorUnlockFragment()).addToBackStack(null).commit();
@@ -335,16 +343,15 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                     edit.commit();
                     GlobalClass.user_registered = true;
                     GlobalClass.edit.putBoolean("isSyncComplete", false).apply();
-                    try {
-                        if (!GlobalClass.mManager.isStarted()) {
-                            GlobalClass.mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
+                    /*try {
+                        if (!mManager.isStarted()) {
+                            mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
                                     Settings.serverUrl);
                         }
                     } catch (SdkException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                     Intent intent = new Intent(mContext, DoormakabaUnlockActivity.class);
-                    intent.putExtra("room_no","1006");
                     startActivity(intent);
 
 
@@ -353,32 +360,40 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
                     GlobalClass.ShowAlet(mContext, "Alert!!",generation.getMessage());
 
                 }
-            } else if (apiCallName.equalsIgnoreCase("getToken")) {
-                Log.d("Step4","getTokenSuccess");
-
+            }
+            else if (apiCallName.equalsIgnoreCase("getToken")) {
                 LegicToken legicToken = (LegicToken) response.body();
-                Log.d("","");
                 if (response.isSuccessful() && legicToken.getData().getPrepareCustomRegistrationResponse().getStatus()
                         .getDescription().equalsIgnoreCase("OK")) {
 
+                    initSdk();
+                    updateInterfaceStatus();
+                    Log.d("setLcProjectAddressingModeActive","truee");
+
+
                     GlobalClass.mLegicToken = legicToken.getData().getPrepareCustomRegistrationResponse().getToken();
                     // get push token (if available)
-                    String token = Utils.getPushToken();
+                    //String token = Utils.getPushToken();
+                    String token = legicToken.getData().getPrepareCustomRegistrationResponse().getToken();
                     List<RfInterface> interfaces = new ArrayList<>();
                     try {
-                        boolean ble = GlobalClass.mManager.isRfInterfaceHardwareSupported(RfInterface.BLE_PERIPHERAL);
+                        boolean ble =mManager.isRfInterfaceHardwareSupported(Settings.USE_HW_INTERFACE);
+                        Log.d("BLECheck", String.valueOf(ble));
                         if (ble) {
-                            interfaces.add(RfInterface.BLE_PERIPHERAL);
+                            interfaces.add(Settings.USE_HW_INTERFACE);
                         }
                     } catch (SdkException e) {
                         dialog.dismiss();
                         e.getLocalizedMessage();
                     }
-                    GlobalClass.mManager.initiateRegistrationWithBackend(
-                            "73512478-" + GlobalClass.mPrefix + GlobalClass.android_id + GlobalClass.mSufix,
+
+                    Log.d("initiateRegistrationWithBackend","yes");
+                    Log.d("token",token);
+                    mManager.initiateRegistrationWithBackend(
+                            "73526491-" + GlobalClass.mPrefix + GlobalClass.android_id + GlobalClass.mSufix,
                             Settings.lcConfirmationMethod,
                             token,
-                            PushType.GCM);
+                            PushType.FCM);
                 } else {
                     dismissDialog();
                     GlobalClass.ShowAlet(mContext, "Alert!!", legicToken.getData().getPrepareCustomRegistrationResponse().getStatus().getDescription());
@@ -388,24 +403,6 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
             dismissDialog();
             e.printStackTrace();
         }
-    }
-
-    private void RequestPermissonfromSettings() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setMessage("Allow location permission to unlock the door")
-                .setCancelable(false)
-                .setPositiveButton("Yes", (dialog, id) ->
-                        {
-                            dialog.dismiss();
-
-                        }
-
-                )
-                .setNegativeButton("No", (dialog, id) -> {
-                    dialog.dismiss();
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
     }
 
 
@@ -505,11 +502,12 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     //on create initialize all sdk keys
     private void onCreated() {
         try {
-            MobileKeysApiFacade mobileKeysApiFacade = this;
+            //MobileKeysApiFacade mobileKeysApiFacade = this;
             mMobileKeysApiFactory = (MobileKeysApiFactory) getApplication();
             mMobileKeys = mMobileKeysApiFactory.getMobileKeys();
             mReaderConnectionController = mMobileKeysApiFactory.getReaderConnectionController();
             mScanConfiguration = mMobileKeysApiFactory.getScanConfiguration();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -816,6 +814,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     //api call to get mobilekeys
     private void mobilekeyapi(String user_token, Data data) {
         try {
+            Log.d("mobile keys", "true");
             dismissDialog();
             mDialog = new ProgressDialog(mContext);
             mDialog.setMessage("please wait, while we are creating your mobile key");
@@ -837,6 +836,8 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
                                 dismissDialog();
 
+                                Log.d("keys genner",response.toString());
+
                                 edit.putBoolean("key_generated",true);
                                 GlobalClass.user_registered = true;
                                 GlobalClass.edit.putBoolean("isRegestrationComplete",true);
@@ -845,6 +846,7 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
 
                                 if (mMobileKeysApiFacade.isEndpointSetUpComplete()) {
+                                    Log.d("isEndpointSetUpComplete","yes");
                                     mMobileKeysApiFacade.onEndpointSetUpComplete();
                                 }
 
@@ -919,6 +921,14 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     @Override
     public void onResume() {
         super.onResume();
+        try {
+            initSdk();
+            updateInterfaceStatus();
+        } catch (SdkException e) {
+            throw new RuntimeException(e);
+        }
+        getBooking(GlobalClass.mUser_token);
+
         /*try {
             if (!GlobalClass.mManager.isStarted()) {
 
@@ -932,40 +942,40 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
             e.printStackTrace();
         }*/
 
-        registerListeners();
-
-        if(sharedPreferences.getBoolean("requestedRuntimePermission", false)){
+        /*if(sharedPreferences.getBoolean("requestedRuntimePermission", false)){
             getBooking(GlobalClass.mUser_token);
-        }
+        }*/
     }
 
-    @Override
+    /*@Override
     public void backendSynchronizeDoneEvent(SdkStatus status) {
 
-    }
+    }*/
 
+    @SuppressLint("LongLogTag")
     private void mDormakabaDoorUnlock(String user_token, Data data) {
 
-        if (!sharedPreferences.getBoolean("isRegestrationComplete", false) && !GlobalClass.user_registered ) {
-            try {
+        Log.d("isRegestrationComplete", String.valueOf(sharedPreferences.getBoolean("isRegestrationComplete", false)));
+        Log.d("GlobalClass.user_registered", String.valueOf(GlobalClass.user_registered));
 
-                if (!GlobalClass.mManager.isStarted()) {
-                    GlobalClass.mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
+        if (!sharedPreferences.getBoolean("isRegestrationComplete", false) ) {
+            try {
+                if (!mManager.isStarted()) {
+
+                    mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
                             Settings.serverUrl);
                 }
-                if (!GlobalClass.mManager.isRegisteredToBackend()) {
-                    Log.d("Step2","isRegisteredToBackend");
+                if (!mManager.isRegisteredToBackend()) {
                     GlobalClass.edit.putString("reservation_key", data.getReservation_key());
                     gettoken(data);
-                } else {
-                    Log.d("Step","getKeyFiles");
-                    getkeyfiles(data);
+                } else {getkeyfiles(data);
                 }
             } catch (SdkException e) {
                 e.printStackTrace();
             }
         } else if
         (!sharedPreferences.getString("reservation_key", "").equalsIgnoreCase(data.getReservation_key())) {
+            Log.d("GetKeyfiles","yes");
             // multiple room api call here
             // mobilekeyapi(MY_ROOMS.get(v).getRoom().getRoomNo());
             GlobalClass.edit.putString("reservation_key", data.getReservation_key());
@@ -974,13 +984,14 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
         } else {
             try {
 
-                if (!GlobalClass.mManager.isStarted()) {
-                    GlobalClass.mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
+                if (mManager.isStarted()) {
+                    mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
                             Settings.serverUrl);
                 }
             } catch (SdkException e) {
                 e.printStackTrace();
             }
+            updateInterfaceStatus();
             Intent intent = new Intent(mContext, DoormakabaUnlockActivity.class);
             intent.putExtra("room_no", data.getRooms());
             startActivity(intent);
@@ -1030,46 +1041,18 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
 
     //-----------------------------------------------------------------------------------------------------------------|
-    public void registerListeners() {
 
-        // Log.d("mManager", String.valueOf(GlobalClass.mManager));
-
-        if (GlobalClass.mManager == null) {
-            return;
-        }
-        // GlobalClass.mManager.registerForRegistrationEvents(this);
-
-    }
 
     //-----------------------------------------------------------------------------------------------------------------|
     public void unregisterListeners() {
-        if (GlobalClass.mManager == null) {
+        /*if (GlobalClass.mManager == null) {
             return;
         }
-        GlobalClass.mManager.unregisterAnyEvents(this);
+        GlobalClass.mManager.unregisterAnyEvents(this);*/
     }
 
 
     //-----------------------------------------------------------------------------------------------------------------|
-    public void initSdk() throws SdkException {
-
-        GlobalClass.mManager = Utils.getSdkManager(mContext.getApplicationContext());
-
-        registerListeners();
-
-        if (!GlobalClass.mManager.isStarted()) {
-            GlobalClass.mManager.start(Settings.mobileAppId, Settings.mobileAppTechUser, Settings.mobileAppTechPassword,
-                    Settings.serverUrl);
-        }
-
-        GlobalClass.mManager.setLcProjectAddressingModeActive(true);
-
-        if (GlobalClass.mManager.isRegisteredToBackend()) {
-            if (GlobalClass.mManager.isRfInterfaceHardwareSupported(RfInterface.BLE_PERIPHERAL) && !GlobalClass.mManager.isRfInterfaceActive(RfInterface.BLE_PERIPHERAL)) {
-                GlobalClass.mManager.isRfInterfaceActive(RfInterface.BLE_PERIPHERAL);
-            }
-        }
-    }
 
    /* @Override
     public void backendRegistrationStartDoneEvent(SdkStatus sdkStatus) {
@@ -1117,12 +1100,59 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
         }
     }
 
+    @Override
+    public void backendRegistrationInitializedEvent(SdkStatus sdkStatus) {
+        Log.d("backendReginit",sdkStatus.toString());Log.d("sdkStatus",sdkStatus.toString());
+        if (sdkStatus.isSuccess()) {
+
+            //initSdk();
+            Log.d("registerWithBackend","Yes");
+            Log.d("mLegicToken", GlobalClass.mLegicToken);
+            mManager.registerWithBackendRegistrationCode(GlobalClass.mLegicToken);
+
+        }
+    }
 
     @Override
+    public void backendRegistrationFinishedEvent(SdkStatus sdkStatus) {
+        Log.d("backendRegfinish",sdkStatus.toString());
+
+        if (sdkStatus.isSuccess()) {
+            mainHandler = new Handler(mContext.getMainLooper());
+            // This is your code
+            Runnable myRunnable = () -> {
+                dialog.dismiss();
+                getkeyfiles(data);
+            };
+            mainHandler.post(myRunnable);
+
+        }
+    }
+
+    @Override
+    public void backendUnregisteredEvent(SdkStatus sdkStatus) {
+        Log.d("backendunnreg",sdkStatus.toString());
+
+    }
+
+    @Override
+    public void backendSynchronizeStartEvent() {
+        Log.d("backendSyn","started");
+
+    }
+
+    @Override
+    public void backendSynchronizeDoneEvent(SdkStatus sdkStatus) {
+        Log.d("backendSynDone","Done");
+
+    }
+
+
+    /*@Override
     public void backendRegistrationInitializedEvent(SdkStatus sdkStatus) {
         if (sdkStatus.isSuccess()) {
             try {
-                dialog.setMessage("please wait while we initilize your device...");
+                dialog.setMessage("please wait while we initialize your device...");
 
                 initSdk();
                 Log.d("registerWithBackend","Yes");
@@ -1134,9 +1164,9 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
 
         }
 
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void backendRegistrationFinishedEvent(SdkStatus sdkStatus) {
         if (sdkStatus.isSuccess()) {
             mainHandler = new Handler(mContext.getMainLooper());
@@ -1147,9 +1177,9 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
             };
             mainHandler.post(myRunnable);
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void backendUnregisteredEvent(SdkStatus sdkStatus) {
 
     }
@@ -1157,5 +1187,5 @@ public class BookingDetailsListActivity extends BaseActivity implements ApiListe
     @Override
     public void backendSynchronizeStartEvent() {
 
-    }
+    }*/
 }

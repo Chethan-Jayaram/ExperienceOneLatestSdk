@@ -54,28 +54,31 @@ public class Data {
     public void setMessage(String message) {
         this.message = message;
     }
-    @SerializedName("requestId")
-    @Expose
-    private String requestId;
-    @SerializedName("prepareCustomRegistrationResponse")
-    @Expose
-    private PrepareCustomRegistrationResponse prepareCustomRegistrationResponse;
 
-    public String getRequestId() {
-        return requestId;
-    }
+        @SerializedName("requestId")
+        @Expose
+        private String requestId;
+        @SerializedName("prepareCustomRegistrationResponse")
+        @Expose
+        private PrepareCustomRegistrationResponse prepareCustomRegistrationResponse;
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
+        public String getRequestId() {
+            return requestId;
+        }
 
-    public PrepareCustomRegistrationResponse getPrepareCustomRegistrationResponse() {
-        return prepareCustomRegistrationResponse;
-    }
+        public void setRequestId(String requestId) {
+            this.requestId = requestId;
+        }
 
-    public void setPrepareCustomRegistrationResponse(PrepareCustomRegistrationResponse prepareCustomRegistrationResponse) {
-        this.prepareCustomRegistrationResponse = prepareCustomRegistrationResponse;
-    }
+        public PrepareCustomRegistrationResponse getPrepareCustomRegistrationResponse() {
+            return prepareCustomRegistrationResponse;
+        }
+
+        public void setPrepareCustomRegistrationResponse(PrepareCustomRegistrationResponse prepareCustomRegistrationResponse) {
+            this.prepareCustomRegistrationResponse = prepareCustomRegistrationResponse;
+        }
+
+
 
 
 }

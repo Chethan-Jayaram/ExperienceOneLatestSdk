@@ -73,6 +73,7 @@ public class GlobalClass {
 
     //doormakba
     //check in check out dates
+
     public static Date mUserCheckInDate;
     public static Date mUserCheckOutDate;
     public static LegicMobileSdkManager mManager;

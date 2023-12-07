@@ -341,11 +341,13 @@ public class LoginMpinFragment extends Fragment implements ApiListener, GlobalCl
 
                     GlobalClass.mUser_token=generalPojo.getData().getProfile().getToken();
                     generalPojo.getData().getLocation_key();
+                    Log.d("ffname",generalPojo.getData().getProfile().getFirstname());
                     Intent intent = new Intent();
                     intent.setClassName(mContext, "com.taj.doorunlock.activity.BookingDetailsListActivity");
                     intent.putExtra("fName",generalPojo.getData().getProfile().getFirstname());
                     intent.putExtra("locktype", generalPojo.getData().getLockType());
                     intent.putExtra("lockey", generalPojo.getData().getLocation_key());
+                    //GlobalClass.mFirstName = generalPojo.getData().getProfile().getFirstname();
 
                     startActivity(intent);
                     getActivity().finish();

@@ -57,7 +57,7 @@ public class ClientServiceGenerator {
     private static Retrofit builder =
             new Retrofit.Builder()
                     .baseUrl(ROOT_URL)
-                    .addConverterFactory(new NullOnEmptyConverterFactory())
+                    //.addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(new ToStringConverterFactory())
                     .client(httpClient).build();
